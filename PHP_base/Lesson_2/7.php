@@ -2,47 +2,31 @@
 header("Content-type: text/html; charset=utf-8");
 
 /**
- * Функция правильно склоняет слово 'час' в зависимости от текущего времени.
- * @return string возвращет строку с результатом.
+ * Функция выбирает правильное склонение слова из массива отталкиваясь от числового значения.
+ * @param array $arr массив со словами.
+ * @param int $num передаваемое число.
+ * @return string возвращает строку с результатом.
  */
-function hoursFormat() {
-    $hours = date(G);
-    $subHours = (int)substr($hours, -1);
+function timeFormat($arr, $num) {
+    //Получаем последгюю цифру.
+    $numLast = (int)substr($num, -1);
+    //Получаем предпоследнюю цифру.
+    $numPreLast = (int)substr($num, -2, 1);
 
-    if ($subHours == 1) {
-        $left = $hours . ' час';
-    } else if (($subHours >= 2) && ($subHours <= 4)) {
-        $left = $hours . ' часа';
+    //Проверяем значения.
+    if (($numLast == 1) && ($numPreLast != 1)) {
+        $result = $num . ' ' . $arr[0];
+    } else if (($numLast >= 2) && ($numLast <= 4) && ($numPreLast != 1)) {
+        $result = $num . ' ' . $arr[1];
     } else {
-        $left = $hours . ' часов';
+        $result = $num . ' ' .  $arr[2];
     }
-    return $left;
+    return $result;
 }
 
-/**
- * Функция правильно склоняет слово 'минута' в зависимости от текущего времени.
- * @return string возвращет строку с результатом.
- */
-function minutesFormat() {
-    $minutes = date(i);
-    $subMinutes = (int)substr($minutes, -1);
+$arrHours = ['час', 'часа', 'часов'];
+$arrMinutes = ['минута', 'минуты', 'минут'];
+$hoursNow = date(H);
+$minutesNow = date(i);
 
-    if ($subMinutes == 1) {
-        $right = $minutes . ' минута';
-    } else if (($subMinutes >= 2) && ($subMinutes <= 4)) {
-        $right = $minutes . ' минуты';
-    } else {
-        $right = $minutes . ' минут';
-    }
-    return $right;
-}
-
-/**
- * Функция получает результат двух функций и склеивает полученные значения в одну строку.
- * @return string возвращет строку с результатом.
- */
-function timeFormat() {
-    return hoursFormat() . ' : ' . minutesFormat();
-}
-
-echo timeFormat();
+echo timeFormat($arrHours, $hoursNow) . ' : ' . timeFormat($arrMinutes, $minutesNow);

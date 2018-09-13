@@ -55,7 +55,7 @@ echo 'Деление  = ' . divide(1, 2) . '<br>';
  * @param int $a первое число.
  * @param int $b второе число.
  * @param string $operator математический оператор.
- * @return float|int|string результат вычисления либо сообщение об ошибке.
+ * @return float|int возвращает результат вычисления либо выводит сообщение об ошибке.
  */
 function mathMethods(int $a, int $b, string $operator) {
     switch ($operator) {

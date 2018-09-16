@@ -1,0 +1,11 @@
+{
+  "result": "1",
+  "basket": [
+    {
+      "title": "Монитор",
+      "id_product": 123,
+      "price": 2340
+    }
+  ],
+  "amount": 768
+}

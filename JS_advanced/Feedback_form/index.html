@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- jQuery-ui CSS -->
+    <link rel = "stylesheet" href = "css/all.css">
+    <link rel = "stylesheet" href = "css/jquery-ui.min.css">
+    <link rel = "stylesheet" href = "css/base.css">
+    <style>
+        .form-row {
+            width: 776px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .list {
+            list-style-type: none;
+            margin-bottom: 0;
+        }
+        #textSpan {
+            font-style: italic;
+            color: #00498f;
+        }
+        #timeDelay {
+            font-weight: bold;
+        }
+    </style>
+    <title>Feedback form</title>
+</head>
+
+<body>
+<div class = "container">
+    <h2>Feedback form</h2>
+    <form action = "" id = "myForm">
+        <div class="form-row">
+            <div class="form-group col-md-11">
+                <label for="inputName" >Name</label>
+                <input type="text" class="form-control" id="inputName" placeholder="Enter name">
+                <div class="invalid-feedback">
+                    The name must consist of letters only.
+                </div>
+            </div>
+            <div class="form-group col-md-11">
+                <label for="inputPhone">Phone number</label>
+                <input type="text" class="form-control" id="inputPhone" placeholder="Enter phone">
+                <div class="invalid-feedback">
+                    The phone should look like: +7(000)000-0000
+                </div>
+            </div>
+            <div class="form-group col-md-11">
+                <label for="inputEmail">Email address</label>
+                <input type="text" class="form-control" id="inputEmail" aria-describedby="emailHelp"
+                       placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <div class="invalid-feedback">
+                    The email should look like:</br>mymail@mail.ru</br>my.mail@mail.ru</br>my-mail@mail.ru
+                </div>
+            </div>
+            <div class="form-group col-md-11">
+                <label for="selectCity">City</label>
+                <input type = "text" class="form-control" id = "selectCity" list = "town_data">
+                <datalist id = "town_data"></datalist>
+                <div class="invalid-feedback">
+                    The field city is required.
+                </div>
+            </div>
+            <div class="form-group col-md-11">
+                <label for="additionalTextInform">Additional information</label>
+                <textarea class="form-control" id = "additionalTextInform"></textarea>
+            </div>
+            <div class="form-group col-md-11">
+                <label for="selectDate">Date of birth</label>
+                <input type = "text" class="form-control" id = "selectDate">
+                <div class="invalid-feedback">
+                    The field date is required.
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div id = "dialog" title = "Pay attention"></div>
+</div>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src = "js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<!-- jQuery-ui.js -->
+<script src = "js/jquery-ui.min.js"></script>
+<script src = "js/form.js"></script>
+<script src = "js/InputValidation.js"></script>
+<script src = "js/SelectValidation.js"></script>
+</body>
+
+</html>
+

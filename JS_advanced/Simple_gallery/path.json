@@ -1,0 +1,17 @@
+[
+  {
+    "min": "./img/min1.jpg",
+    "max": "./img/max1.jpg",
+    "alt": "Картинка_1"
+  },
+  {
+    "min": "./img/min2.jpg",
+    "max": "./img/max2.jpg",
+    "alt": "Картинка_2"
+  },
+  {
+    "min": "./img/min3.jpg",
+    "max": "./img/max3.jpg",
+    "alt": "Картинка_3"
+  }
+]

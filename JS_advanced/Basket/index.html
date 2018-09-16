@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basket</title>
+    <link rel = "stylesheet" href = "css/all.css">
+    <link rel = "stylesheet" href = "css/jquery-ui.min.css">
+    <link rel = "stylesheet" href = "css/theme.css">
+
+    <script src = "js/jquery.min.js"></script>
+    <script src = "js/jquery-ui.min.js"></script>
+    <script src = "js/main.js"></script>
+    <script src = "js/Good.js"></script>
+    <script src = "js/Basket.js"></script>
+    <style>
+        .good {
+            border: 1px solid #222222;
+            margin: 10px;
+            padding: 10px;
+            display: inline-block;
+            min-width: 300px;
+        }
+        .removeGood {
+            margin-left: 10px;
+        }
+        #basket_data {
+            display: flex;
+        }
+        #basket_data > p:last-child {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "basket_wrapper"></div>
+    <hr>
+    <div id = "goods"></div>
+</body>
+</html>

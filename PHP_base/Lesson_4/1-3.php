@@ -103,7 +103,6 @@ function newFileName($filename, $dir) {
     return $filename;
 }
 
-
 /**
  * Функция изменяет размер изображения.
  * @param string $src имя исходного файла.

@@ -6,15 +6,15 @@
  */
 function getConnection() {
     //Сохраняем в переменную массив данных для подключения к MySQL.
-    $config = include CONFIG_DIR . 'db.php';
+    $config = include CONFIG_DIR . 'bd.php';
     //Cоздаём статическую переменную для хранения текущего состояния.
     static $isConnection = NULL;
     //Проверяем было ли ранее установлено соединение.
     if (is_null($isConnection)) {
-    //Если нет, то подключаемся.
-    $conn = mysqli_connect($config['host'], $config['user'], $config['password'], $config['dbName']);
-    //Возвращаем объект с данными.
-    return $conn;
+        //Если нет, то подключаемся.
+        $conn = mysqli_connect($config['host'], $config['login'], $config['password'], $config['dbName']);
+        //Возвращаем объект с данными.
+        return $conn;
     }
 }
 
@@ -34,9 +34,19 @@ function execute($sql) {
  * @param $sql - Текст запроса.
  * @return array|null - Возвращает массив с данными результирующей таблицы.
  */
-function query($sql) {
+function queryAll($sql) {
     //Сохраняем данные в массив.
     return mysqli_fetch_all(execute($sql), MYSQLI_ASSOC);
+}
+
+/**
+ * Функция выбирает первую строку из результирующего набора и помещает её в массив.
+ * @param $sql - Текст запроса.
+ * @return array|null - Возвращает массив с данными результирующей таблицы.
+ */
+function queryOne($sql) {
+    //Сохраняем данные в массив.
+    return queryAll($sql)[0];
 }
 
 /**
@@ -48,13 +58,3 @@ function closeConnection() {
     return mysqli_close(getConnection());
 }
 
-/**
- * Функция экранирует специальные символы в строке для использования в SQL выражении,
- * используя текущий набор символов соединения.
- * @param string $str - Строка, которую необходимо экранировать.
- * @return string - Возвращает обработанную строку.
- */
-function shieldingStr($str) {
-    //Экранируем специальные символы.
-    return mysqli_real_escape_string(getConnection(), $str);
-}

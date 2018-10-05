@@ -14,6 +14,14 @@
         <div class="container">
             <div class="cart">
                 <a class="come_back" href="../public/index.php"><i class="fas fa-arrow-left"></i></a>
+
+                <!--Проверяем залогинен пользователь или нет-->
+                <?php echo (!$user_id = $_SESSION['users']) ?
+                    //Если нет, показываем ссылку на страницу авторизации.
+                    "<a class='enter' href='../public/login.php'>Войти</a>" :
+                    //Если да - приветствуем!
+                    "<div class='enter'>Привет, {$login}!</div>" ?>
+
                 <a href="cart.php"><img src="../public/img/main/cart.png" alt="cart"></a>
             </div>
         </div>
@@ -37,11 +45,9 @@
                         <input class="single_item__right__buy_price__buy_button" name="submit" type="submit" value="В корзину">
                     </form>
                 </div>
-
                 <div class="single_item__right__brand">
                     <span>Производитель:</span> <?= $product['brand'] ?>.
                 </div>
-
                 <div class="single_item__right__description">
                     <span>Описание:</span> <?= $product['description'] ?>
                 </div>

@@ -1,4 +1,5 @@
 <?php
+header("Content-type:text/html; charset=utf-8");
 
 //Подключаем скрипты.
 include __DIR__ . '/../config/main.php';
@@ -7,9 +8,17 @@ include ENGINE_DIR . 'bd.php';
 include ENGINE_DIR . 'render.php';
 include ENGINE_DIR . 'products.php';
 include ENGINE_DIR . 'cart.php';
+include ENGINE_DIR . 'redirect.php';
+
 
 //Стартуем новую сессию либо возобновляем существующую.
 session_start();
+
+//Проверяем, существует ли массив users в сессии.
+if(!$user_id = $_SESSION['users']) {
+    //Если нет - вызывем функцию для переадресации страницы.
+    redirect('login.php');
+}
 
 //Проверяем была ли нажата кнопка "Удалить".
 if ($_REQUEST['delete']) {
@@ -23,4 +32,4 @@ if ($_REQUEST['delete']) {
 $arrProd = getCartProd($_SESSION['cart']);
 
 //Вызываем функцию для отрисовки шаблона.
-render('cart', ['arrProd' => $arrProd]);
+render('cart', ['arrProd' => $arrProd, 'login' => $_SESSION['users']['login']]);

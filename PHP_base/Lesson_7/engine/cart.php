@@ -50,20 +50,16 @@ function getCartProd($arr = []) {
         foreach ($arr as $key => $value) {
             //Получаем значение id для продукта.
             $prod_id = $key;
-            //Получаем название продукта из функции, которая делает запрос в БД.
-            $prod_title = getProdNameById($prod_id)['title'];
-            //Получаем стоимость продукта из функции, которая делает запрос в БД.
-            $prod_price = getProdPriceById($prod_id)['price'];
-            //Получаем url изображения продукта из функции, которая делает запрос в БД.
-            $prod_url = getProdUrlById($prod_id)['url'];
+            //Получаем данные продукта из функции, которая делает запрос в БД.
+            $prod = getOneProductById($prod_id);
             //Получаем количество единиц товара, который добавили.
             $prod_quantity = $value['quantity'];
             //Считаем общую стоимость товара.
-            $totalPrice = (int)$prod_price  * $prod_quantity;
+            $totalPrice = (int)$prod['price']  * $prod_quantity;
             //Прибавляем её к общей стимости всех товаров.
             $totalProdCost += $totalPrice;
             //Добавляем данные в массив.
-            $arrProd[] = ['id' => $prod_id, 'url' => $prod_url, 'title' => $prod_title, 'price' => $prod_price,
+            $arrProd[] = ['id' => $prod_id, 'url' => $prod['url'], 'title' => $prod['title'], 'price' => $prod['price'],
                 'quantity' => $prod_quantity, 'cost' => $totalPrice];
         }
         //Добавляем в массив общую стоимость всех товаров.

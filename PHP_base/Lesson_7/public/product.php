@@ -1,4 +1,5 @@
 <?php
+header("Content-type:text/html; charset=utf-8");
 
 //Подключаем скрипты.
 include __DIR__ . '/../config/main.php';
@@ -24,5 +25,5 @@ if ($_REQUEST['submit']) {
 $id = $_GET['id'];
 //Формируем SQL-запрос для получения данных контретного товара из таблицы.
 $product = getOneProductById($id);
-//Отрисовываем шаблон.
-render('single_page', ['product' => $product]);
+//Отрисовываем шаблон, передавая необходимые параметры.
+render('single_page', ['product' => $product, 'login' => $_SESSION['users']['login']]);

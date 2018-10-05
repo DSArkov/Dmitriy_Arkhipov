@@ -32,10 +32,16 @@ header {
 .cart a img{
     height: 60px;
 }
+.enter {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+}
 
 /*Страница каталога*/
 .cart_catalogue {
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin-left: 45%;
 }
 .wrapper {
     display: flex;
@@ -190,4 +196,41 @@ header {
     padding: 10px;
     border-radius: 5px;
     font-size: 25px;
+}
+
+/*Страница авторизации*/
+.wrapper_login {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper_login form {
+    display: flex;
+    flex-flow: column;
+}
+.wrapper_login form input {
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #c1bebe;
+    padding: 3px;
+    outline: none;
+}
+.wrapper_login form input:last-child {
+    width: 70px;
+    margin-left: 34%;
+    background-color: #00b952;
+    border: none;
+    border-radius: 5px;
+    padding: 7px;
+    color: white;
+}
+.wrapper_login form input:last-child:hover {
+    background-color: #00cc57;
+    cursor: pointer;
+}
+.error_message {
+    height: 20px;
+    color: #d60000;
+    text-align: center;
+    margin-bottom: 10px;
 }

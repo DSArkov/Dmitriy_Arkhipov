@@ -1,4 +1,5 @@
 <?php
+header("Content-type:text/html; charset=utf-8");
 
 //Подключаем скрипты.
 include __DIR__ . '/../config/main.php';
@@ -23,5 +24,5 @@ if ($_REQUEST['submit']) {
 //Формируем запрос для получения всех данных таблицы из БД.
 $products = getAllProducts();
 
-//Вызываем функцию для отрисовки шаблона.
-render('catalogue', ['products' => $products]);
+//Вызываем функцию для отрисовки шаблона, передавая необходимые параметры.
+render('catalogue', ['products' => $products, 'login' => $_SESSION['users']['login']]);

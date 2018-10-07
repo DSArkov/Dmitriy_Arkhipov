@@ -254,3 +254,28 @@ header {
     text-align: center;
     margin-bottom: 10px;
 }
+
+/*Страница заказов*/
+.orders_wrapper {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    padding: 20px;
+}
+.order_item {
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.wrapper_titles {
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.wrapper_titles div:last-child {
+    color: #f3f3f3;
+}

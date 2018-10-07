@@ -8,6 +8,7 @@
     <title>Cart</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="../public/css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -29,16 +30,43 @@
 
     <div class="container">
         <h1>Заказы</h1>
+
         <div class="orders_wrapper">
+            <div class="wrapper_titles">
+                <div>Номер</div>
+                <div>Дата</div>
+                <div>Стоимость</div>
+                <div>Статус</div>
+                <div>Отменить_</div>
+            </div>
             <?php foreach ($arr_order as $order): ?>
             <div class="order_item">
-                <?= $order['id']; ?>
-                <?= $order['date']; ?>
-                <?= $order['total_cost']; ?>
-                <?= $order['status']; ?>
+                <div><?= $order['id']; ?></div>
+                <div><?php echo date('d.m.y', $order['date']); ?></div>
+                <div><?= $order['total_cost']; ?></div>
+                <div><?= $order['status']; ?></div>
+                <div><button data-id='<?= $order['id']; ?>' id="cancel_order">Отменить</button></div>
             </div>
             <?php endforeach; ?>
         </div>
     </div>
+
+    <script>
+        $(function() {
+          $('#cancel_order').on('click', function() {
+            let id_order = $(this).data('id');
+            $.ajax({
+              url: '../public/orders.php',
+              type: 'POST',
+              data: {
+                id: id_order
+              },
+              success: function(response) {
+                console.log(response);
+              }
+            })
+          })
+        })
+    </script>
 </body>
 </html>

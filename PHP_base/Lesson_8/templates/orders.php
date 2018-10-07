@@ -38,7 +38,6 @@
                 <div>Дата</div>
                 <div>Стоимость</div>
                 <div>Статус</div>
-                <div>Отменить_</div>
             </div>
 
             <?php foreach ($arr_order as $order): ?>
@@ -52,7 +51,7 @@
                 <div><button data-id='<?= $order['id']; ?>' class="cancel_order">Отменить</button></div>
                 <?php else: ?>
                 <div class="order_item_status"><?= $order['status']; ?></div>
-                <div class="cancel_order">Отменить</div>
+                <div><button disabled data-id='<?= $order['id']; ?>' class="cancel_order">Отменить</button></div>
                 <?php endif; ?>
             </div>
             <?php endforeach; ?>
@@ -61,18 +60,29 @@
     </div>
 
     <script>
+      //Дожидаемся полной загрузки DOM
       $(function() {
+        //Устанавливаем обработчик события на кнопку "Отменить".
         $('.cancel_order').on('click', function() {
+          //Получаем id заказа из data-атрибута.
           let id_order = $(this).data('id');
+          //Осуществляем запрос к серверу без перезугрузки страницы.
           $.ajax({
+            //URL скрипта, которому будет отправлен запрос.
             url: '../public/orders.php',
+            //Метод передачи запроса.
             type: 'POST',
+            //Передаваемы данные.
             data: {
+              //id заказа.
               id_order: id_order
             },
+            //В случае удачно выполненного запроса.
             success: () => {
-              $(this).parent('div').find('.order_item_status').html('Отменен');
-              $(this).parent('div').find('button').remove();
+              //Меняем статус заказа в текущей строке на "Отменен".
+              $(this).parent('div').parent('div').attr('color', 'red').find('.order_item_status').html('Отменен');
+              //Делаем кнопку "Отменить" не активной.
+              $(this).parent('div').find('button').attr('disabled', '');
             }
           })
         });

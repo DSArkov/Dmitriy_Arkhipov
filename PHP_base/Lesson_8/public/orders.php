@@ -10,9 +10,12 @@ require_once ENGINE_DIR . 'autoload.php';
 //Стартуем новую сессию либо возобновляем существующую.
 session_start();
 
+//Проверяем, пришли ли нам данные методом "POST".
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //Если да, то сохраняем в переменную id заказа.
     $id_order = $_POST['id_order'];
-    deleteOrder($id_order);
+    //Вызываем функцию для изменения статуса.
+    changeStatus($id_order);
 }
 
 //Проверяем была ли нажата кнопка "Оформить заказ".

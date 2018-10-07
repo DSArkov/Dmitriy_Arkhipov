@@ -24,7 +24,7 @@ function getConnection() {
  * @return bool|mysqli_result - В случае успешного выполнения запросов SELECT, SHOW, DESCRIBE
  * или EXPLAIN mysqli_query() вернет объект mysqli_result. Иначе FALSE.
  */
-function execute($sql) {
+function query($sql) {
     //Выполняем запрос к БД и возвращаем объект результатов.
     return mysqli_query(getConnection(), $sql);
 }
@@ -36,7 +36,7 @@ function execute($sql) {
  */
 function queryAll($sql) {
     //Сохраняем данные в массив и возвращаем результат.
-    return mysqli_fetch_all(execute($sql), MYSQLI_ASSOC);
+    return mysqli_fetch_all(query($sql), MYSQLI_ASSOC);
 }
 
 /**
@@ -56,14 +56,4 @@ function queryOne($sql) {
 function closeConnection() {
     //Закрываем соединение.
     return mysqli_close(getConnection());
-}
-/**
- * Функция выбирает первую строку из результирующего набора и помещает её в массив.
- * @param $sql - Текст запроса.
- * @return bool|mysqli_result - В случае успешного выполнения запросов SELECT, SHOW, DESCRIBE
- * или EXPLAIN mysqli_query() вернет объект mysqli_result. Иначе FALSE.
- */
-function query($sql) {
-    //Сохраняем данные в массив и возвращаем результат.
-    return mysqli_query(getConnection(), $sql);
 }

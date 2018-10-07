@@ -10,6 +10,11 @@ require_once ENGINE_DIR . 'autoload.php';
 //Стартуем новую сессию либо возобновляем существующую.
 session_start();
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id_order = $_POST['id_order'];
+    deleteOrder($id_order);
+}
+
 //Проверяем была ли нажата кнопка "Оформить заказ".
 if ($_REQUEST['add_order']) {
     //Если да, то вызываем функцию для добавления информации о заказе в БД.
@@ -19,10 +24,5 @@ if ($_REQUEST['add_order']) {
 //Получаем информацию о заказах из MySQL.
 $arr_orders = getOrder();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_order = $_POST['id'];
-    deleteOrder($id_order);
-}
-
 //Вызываем функцию для отрисовки шаблона, передавая необходимые параметры.
-render('orders', ['arr_order' => $arr_orders]);
+render('orders', ['arr_order' => $arr_orders, 'login' => $_SESSION['users']['login']]);

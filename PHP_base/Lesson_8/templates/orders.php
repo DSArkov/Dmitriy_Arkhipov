@@ -32,6 +32,7 @@
         <h1>Заказы</h1>
 
         <div class="orders_wrapper">
+
             <div class="wrapper_titles">
                 <div>Номер</div>
                 <div>Дата</div>
@@ -39,34 +40,43 @@
                 <div>Статус</div>
                 <div>Отменить_</div>
             </div>
+
             <?php foreach ($arr_order as $order): ?>
             <div class="order_item">
                 <div><?= $order['id']; ?></div>
                 <div><?php echo date('d.m.y', $order['date']); ?></div>
                 <div><?= $order['total_cost']; ?></div>
-                <div><?= $order['status']; ?></div>
-                <div><button data-id='<?= $order['id']; ?>' id="cancel_order">Отменить</button></div>
+
+                <?php if ($order['status'] == 'Новый'): ?>
+                <div class="order_item_status"><?= $order['status']; ?></div>
+                <div><button data-id='<?= $order['id']; ?>' class="cancel_order">Отменить</button></div>
+                <?php else: ?>
+                <div class="order_item_status"><?= $order['status']; ?></div>
+                <div class="cancel_order">Отменить</div>
+                <?php endif; ?>
             </div>
             <?php endforeach; ?>
+
         </div>
     </div>
 
     <script>
-        $(function() {
-          $('#cancel_order').on('click', function() {
-            let id_order = $(this).data('id');
-            $.ajax({
-              url: '../public/orders.php',
-              type: 'POST',
-              data: {
-                id: id_order
-              },
-              success: function(response) {
-                console.log(response);
-              }
-            })
+      $(function() {
+        $('.cancel_order').on('click', function() {
+          let id_order = $(this).data('id');
+          $.ajax({
+            url: '../public/orders.php',
+            type: 'POST',
+            data: {
+              id_order: id_order
+            },
+            success: () => {
+              $(this).parent('div').find('.order_item_status').html('Отменен');
+              $(this).parent('div').find('button').remove();
+            }
           })
-        })
+        });
+      });
     </script>
 </body>
 </html>

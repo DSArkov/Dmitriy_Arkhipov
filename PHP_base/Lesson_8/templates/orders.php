@@ -38,11 +38,12 @@
                 <div>Дата</div>
                 <div>Стоимость</div>
                 <div>Статус</div>
+                <div></div>
             </div>
 
             <?php foreach ($arr_order as $order): ?>
             <div class="order_item">
-                <div><?= $order['id']; ?></div>
+                <div>Заказ <?= $order['id']; ?></div>
                 <div><?php echo date('d.m.y', $order['date']); ?></div>
                 <div><?= $order['total_cost']; ?></div>
 
@@ -80,7 +81,7 @@
             //В случае удачно выполненного запроса.
             success: () => {
               //Меняем статус заказа в текущей строке на "Отменен".
-              $(this).parent('div').parent('div').attr('color', 'red').find('.order_item_status').html('Отменен');
+              $(this).parent('div').parent('div').find('.order_item_status').html('Отменен');
               //Делаем кнопку "Отменить" не активной.
               $(this).parent('div').find('button').attr('disabled', '');
             }

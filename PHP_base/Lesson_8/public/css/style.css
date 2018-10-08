@@ -46,6 +46,7 @@ header {
 .exit:hover {
     color: #c42a4d;
 }
+
 /*Страница каталога*/
 .cart_catalogue {
     justify-content: space-between;
@@ -217,6 +218,23 @@ header {
     background-color: #00cc57;
     cursor: pointer;
 }
+.empty_cart_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.empty_cart_wrapper img{
+    height: 135px;
+    vertical-align: center;
+}
+.empty_cart_wrapper p {
+    font-size: 30px;
+    text-align: center;
+}
+.empty_cart_wrapper p>span{
+    font-size: 20px;
+}
 
 /*Страница авторизации*/
 .wrapper_login {
@@ -259,7 +277,6 @@ header {
     background-color: #f3f3f3;
     border-radius: 5px;
     padding: 20px;
-    min-height: 400px;
 }
 .order_item {
     background-color: white;
@@ -269,10 +286,43 @@ header {
     display: flex;
     justify-content: space-between;
 }
+.order_item div {
+    width: 180px;
+    text-align: center;
+}
+.order_item div:last-child {
+    width: 180px;
+    text-align: end;
+}
 .wrapper_titles {
     margin: 10px;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     font-weight: bold;
+}
+.wrapper_titles div {
+    width: 180px;
+    text-align: center;
+}
+.cancel_order {
+    background-color: #c1bebe;
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
+}
+.cancel_order:hover {
+    background-color: #d1cece;
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
+}
+.cancel_order:disabled {
+    background-color: #e1dede;
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
 }

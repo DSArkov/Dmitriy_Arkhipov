@@ -46,6 +46,14 @@ header {
 .exit:hover {
     color: #c42a4d;
 }
+.account {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 14px;
+}
+.account:hover {
+    color: white;
+}
 
 /*Страница каталога*/
 .cart_catalogue {
@@ -318,6 +326,7 @@ header {
     border-radius: 5px;
     padding: 3px;
     color: white;
+    cursor: pointer;
 }
 .cancel_order:disabled {
     background-color: #e1dede;
@@ -325,4 +334,5 @@ header {
     border-radius: 5px;
     padding: 3px;
     color: white;
+    cursor: auto;
 }

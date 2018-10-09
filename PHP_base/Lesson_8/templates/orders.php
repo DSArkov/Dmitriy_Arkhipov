@@ -31,6 +31,7 @@
     <div class="container">
         <h1>Заказы</h1>
 
+        <?php if ($arr_order): ?>
         <div class="orders_wrapper">
 
             <div class="wrapper_titles">
@@ -58,6 +59,13 @@
             <?php endforeach; ?>
 
         </div>
+        <?php else: ?>
+        <div class="empty_cart_wrapper">
+            <p class="empty_cart">Пусто.<br>
+                <span>Надо что-то менять...</span>
+            </p>
+        </div>
+        <?php endif; ?>
     </div>
 
     <script>

@@ -19,7 +19,8 @@
                         //Если нет, показываем ссылку на страницу авторизации.
                         "<a class='enter' href='../public/login.php'>Войти</a>" :
                     //Если да - приветствуем!
-                    "<div class='enter'>Привет, {$login}!<br><a class='exit' href='../public/exit.php'>Выйти</a></div>" ?>
+                    "<div class='enter'>Привет, {$login}!<br><a class='account' href='../public/orders.php'>Заказы</a> | 
+                                                            <a class='exit' href='../public/exit.php'>Выйти</a></div>" ?>
 
                 <a href="cart.php"><img src="../public/img/main/cart.png" alt="cart"></a>
             </div>

@@ -10,7 +10,7 @@ class Product {
      * @param string $description - Описание.
      * @param int $price - Цена.
      */
-    function __construct($id = null, $title = null, $description = null, $price = null) {
+    public function __construct($id = null, $title = null, $description = null, $price = null) {
         $this -> id = $id;
         $this -> title = $title;
         $this -> description = $description;
@@ -20,7 +20,7 @@ class Product {
     /**
      * Функция выводит на экран данные о продукте.
      */
-    function display() {
+    public function display() {
         echo $this -> prepareTitle() . $this -> prepareDescription() . $this -> preparePrice();
     }
 
@@ -28,7 +28,7 @@ class Product {
      * Функция подготавливает название для вывода на экран.
      * @return string - Возвращает строку с данными.
      */
-    function prepareTitle() {
+    private function prepareTitle() {
         return "Название: {$this -> title}<br>";
     }
 
@@ -36,7 +36,7 @@ class Product {
      * Функция подготавливает описание для вывода на экран.
      * @return string - Возвращает строку с данными.
      */
-    function prepareDescription() {
+    private function prepareDescription() {
         return "Описание: {$this -> description}<br>";
     }
 
@@ -44,7 +44,7 @@ class Product {
      * Функция подготавливает цену для вывода на экран.
      * @return string - Возвращает строку с данными.
      */
-    function preparePrice() {
+    private function preparePrice() {
         return "Стоимость: {$this -> price}<br>";
     }
 }
@@ -65,7 +65,7 @@ class Clothes extends Product {
      * @param int $price - Цена.
      * @param string $size - Размер.
      */
-    function __construct($id = null, $title = null, $description = null, $price = null, $size)
+    public function __construct($id = null, $title = null, $description = null, $price = null, $size)
     {
         //Наследуем родительский конструктор.
         parent::__construct($id, $title, $description, $price);
@@ -76,7 +76,7 @@ class Clothes extends Product {
     /**
      * Функция выводит на экран данные о продукте.
      */
-    function display() {
+    public function display() {
         //Наследуем родительский метод.
         parent::display();
         //Переопределяем его.
@@ -87,7 +87,7 @@ class Clothes extends Product {
      * Функция подготавливает размер для вывода на экран.
      * @return string - Возвращает строку с данными.
      */
-    function prepareSize() {
+    private function prepareSize() {
         return "Размер: {$this -> size}<br>";
     }
 }

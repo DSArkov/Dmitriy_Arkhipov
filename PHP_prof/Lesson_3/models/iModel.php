@@ -24,4 +24,6 @@ interface iModel
      * @return string - Название таблицы.
      */
     public function getTableName();
+
+    public function getClassName();
 }

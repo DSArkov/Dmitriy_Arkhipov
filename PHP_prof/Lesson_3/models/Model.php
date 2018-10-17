@@ -41,9 +41,10 @@ use app\services\Db as Db;
     public function getAll() {
         //Получаем название таблицы из функции.
         $tableName = $this -> getTableName();
+        $className = $this -> getClassName();
         //Сохраняем SQL-запрос в переменную.
         $sql = "SELECT * FROM {$tableName}";
         //Обращемся в БД и возвращаем результат.
-        return $this -> db -> queryAll($sql);
+        return $this -> db -> queryAll($sql, $className);
     }
 }

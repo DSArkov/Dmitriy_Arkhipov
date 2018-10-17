@@ -14,26 +14,6 @@ class Cart extends Model
     public $count;
     public $productPrice;
     public $totalPrice;
-    /**
-     * Конструктор класса. Выполняется в тот момент, когда мы создаем новый экземпляр.
-     * @param iDb $db - Объект для работы с БД.
-     * @param int $productId - id продукта.
-     * @param string $productTitle - Название товара.
-     * @param int $count - Его количество.
-     * @param int $productPrice - Стоимость.
-     * @param string $totalPrice - Общая цена.
-     */
-    public function __construct($db, $productId, $productTitle, $count, $productPrice, $totalPrice)
-    {
-        //Используем родительский конструктор.
-        parent:: __construct($db);
-        //Присваиваем значения переменным.
-        $this -> productId = $productId;
-        $this -> productTitle = $productTitle;
-        $this -> count = $count;
-        $this -> productPrice = $productPrice;
-        $this -> totalPrice = $totalPrice;
-    }
 
     /**
      * Функция возвращает название таблицы БД, к которой будем обращаться.
@@ -41,5 +21,9 @@ class Cart extends Model
      */
     public function getTableName() {
         return 'cart';
+    }
+
+    public function getClassName() {
+        return __CLASS__;
     }
 }

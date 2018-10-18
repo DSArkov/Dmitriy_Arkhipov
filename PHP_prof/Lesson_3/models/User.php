@@ -2,8 +2,6 @@
 
 //Регистрируем класс в пространстве имен "app\models".
 namespace app\models;
-//Задаём псевдоним для "app\services\iDb".
-use app\services\iDb as iDb;
 
 //Создаем класс "User", который наследуется от "Model".
 class User extends Model
@@ -19,9 +17,5 @@ class User extends Model
      */
     public function getTableName() {
         return 'users';
-    }
-
-    public function getClassName() {
-        return __CLASS__;
     }
 }

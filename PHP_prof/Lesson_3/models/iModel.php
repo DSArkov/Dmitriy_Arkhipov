@@ -7,28 +7,36 @@ namespace app\models;
 interface iModel
 {
     /**
-     * Функция возвращает название таблицы БД, к которой будем обращаться.
+     * Метод возвращает название таблицы БД, к которой будем обращаться.
      * @return string - Название таблицы.
      */
     public function getTableName();
 
-    public function getClassName();
     /**
-     * Функция получает информацию о конкретной строке из БД.
+     * Метод получает информацию о конкретной строке из БД.
      * @param string $id - идентификатор строки.
-     * @return array - Массив с данными из таблицы.
+     * @return object - Результат выполнения запроса.
      */
     public function getOne($id);
 
     /**
-     * Функция получает информацию о всех строках из БД.
-     * @return array - Массив с данными из таблицы.
+     * Метод получает информацию о всех строках из БД.
+     * @return object - Результат выполнения запроса.
      */
     public function getAll();
 
-    public function create();
+    /**
+     * Метод добавляет новую строку в таблицу БД.
+     */
+    public function insert();
 
+    /**
+     * Метод изменяет данные в таблице БД.
+     */
     public function update();
 
+    /**
+     * Метод удаляет строку из таблицы БД.
+     */
     public function delete();
 }

@@ -16,7 +16,7 @@ class Product extends Model
     public $className = __CLASS__;
 
     /**
-     * Функция возвращает название таблицы БД, к которой будем обращаться.
+     * Метод возвращает название таблицы БД, к которой будем обращаться.
      * @return string - Название таблицы.
      */
     public function getTableName() {
@@ -24,24 +24,26 @@ class Product extends Model
     }
 
     /**
-     * Функция возвращает имя текущаего класса.
-     * @return string -Имя класса.
+     * Метод добавляет новую строку в таблицу БД.
      */
-    public function getClassName() {
-        return __CLASS__;
-    }
-
-    public function create() {
+    public function insert() {
+        //Сохраняем SQL-запрос в переменную.
         $sql = "INSERT INTO {$this -> className} (title, description, brand, price, url) values
               (:title, :description, :brand, :price, :url)";
+        //Делаем запрос в БД, передавая необходимые параметры.
         $this -> db -> execute($sql, [':title' => $this -> title, ':description' => $this -> description,
                 ':brand' => $this -> brand, ':price' => $this -> price, ':url' => $this -> url]);
     }
 
+    /**
+     * Метод удаляет строку из таблицы БД.
+     */
     public function update() {
+        //Сохраняем SQL-запрос в переменную.
         $sql = "UPDATE {$this -> className} SET title = :title, description = :description, brand = :brand,
               price = :price, url = :url WHERE id = :id";
-        $this -> db -> execute($sql, $sql, [':title' => $this -> title, ':description' => $this -> description,
+        //Делаем запрос в БД, передавая необходимые параметры.
+        $this -> db -> execute($sql, [':title' => $this -> title, ':description' => $this -> description,
             ':brand' => $this -> brand, ':price' => $this -> price, ':url' => $this -> url]);
     }
 }

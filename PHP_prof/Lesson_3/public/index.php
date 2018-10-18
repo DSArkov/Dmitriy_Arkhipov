@@ -15,4 +15,11 @@ spl_autoload_register([new Autoloader(), 'loadClass']);
 //Создаём экземпляр класса "Product".
 $product = new Product();
 //Получаем все значения из таблицы "catalogue".
-var_dump($product -> getAll());
+$product = $product -> getOne(1);
+
+$product -> title = 'Чайник';
+$product -> description = 'Очень крутой чайник';
+$product -> brand = 'Лялякомпани';
+
+$product -> update();
+

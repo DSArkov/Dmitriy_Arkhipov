@@ -32,7 +32,7 @@ use app\services\Db as Db;
         //Сохраняем SQL-запрос в переменную.
         $sql = "SELECT * FROM {$tableName} WHERE id = :id";
         //Обращемся в БД и возвращаем результат.
-        return $this -> db -> queryOne($sql, [':id' => $id]);
+        return $this -> db -> queryOne($sql, $this -> className, [':id' => $id]);
     }
 
      /**
@@ -52,10 +52,8 @@ use app\services\Db as Db;
       * Метод удаляет строку из таблицы БД.
       */
     public function delete() {
-        //Получаем название таблицы из метода.
-        $tableName = $this -> getTableName();
         //Сохраняем SQL-запрос в переменную.
-        $sql = "DELETE FROM {$tableName} WHERE id = :id";
+        $sql = "DELETE FROM {$this -> getTableName()} WHERE id = :id";
         //Делаем запрос в БД.
         $this -> db -> execute($sql, [':id' => $this -> id]);
     }

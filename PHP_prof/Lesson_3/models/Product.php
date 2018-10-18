@@ -28,7 +28,7 @@ class Product extends Model
      */
     public function insert() {
         //Сохраняем SQL-запрос в переменную.
-        $sql = "INSERT INTO {$this -> className} (title, description, brand, price, url) values
+        $sql = "INSERT INTO {$this -> getTableName()} (title, description, brand, price, url) values
               (:title, :description, :brand, :price, :url)";
         //Делаем запрос в БД, передавая необходимые параметры.
         $this -> db -> execute($sql, [':title' => $this -> title, ':description' => $this -> description,
@@ -40,10 +40,10 @@ class Product extends Model
      */
     public function update() {
         //Сохраняем SQL-запрос в переменную.
-        $sql = "UPDATE {$this -> className} SET title = :title, description = :description, brand = :brand,
-              price = :price, url = :url WHERE id = :id";
+        $sql = "UPDATE {$this -> getTableName()} SET (title = :title, description = :description, brand = :brand,
+              price = :price, url = :url) WHERE id = :id";
         //Делаем запрос в БД, передавая необходимые параметры.
         $this -> db -> execute($sql, [':title' => $this -> title, ':description' => $this -> description,
-            ':brand' => $this -> brand, ':price' => $this -> price, ':url' => $this -> url]);
+            ':brand' => $this -> brand, ':price' => $this -> price, ':url' => $this -> url, ':id' => $this -> id]);
     }
 }

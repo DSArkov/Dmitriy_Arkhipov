@@ -112,7 +112,7 @@ class Db
      * @param string $sql - Текст запроса.
      * @param $params - Параметры.
      */
-    private function execute(string $sql, array $params = []) {
+    public function execute(string $sql, array $params = []) {
         //Вызываем метод "query", который выполняет запрос в БД.
         $this -> query($sql, $params);
     }

@@ -54,7 +54,7 @@ class Db
                 $this -> config['password']
             );
         //Устанавливаем объекту PDO атрибут "Режим выборки данных по умолчанию" со значением "Ассоциативный массив".
-        $this -> conn -> setAttribute(\PDO::FETCH_CLASS, \PDO::FETCH_ASSOC);
+        $this -> conn -> setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
     }
     //Возвращаем соединение.
     return $this -> conn;
@@ -64,7 +64,7 @@ class Db
      * Универсальный метод, который выполняет SQL-запросы.
      * @param string $sql - Текст запроса.
      * @param array $params - Параметры.
-     * @return boolean - Результат.
+     * @return string - Возвращает результат выполнения запроса.
      */
     public function query(string $sql, array $params = []) {
         //Создаём объект PDO, который содержит в себе подготовленный запрос, защищенный от SQL инъекций.
@@ -74,37 +74,65 @@ class Db
         //1-й способ) Проверяем тип и привязываем параметр "id".
         //$pdoStatement -> bindParam(':id', $id, \PDO::PARAM_INT);
 
-        //2-й способ) Выполняем запрос(INSERT, UPDATE, DELETE), передавая параметры.
-        //В данном случае привязка произойдёт автоматически. Пр.массива $param: [':id' => 1].
+        //2-й способ) Выполняем запрос передавая параметры. В данном случае привязка произойдёт автоматически.
+        //Пр.массива $param: [':id' => 1].
         $pdoStatement -> execute($params);
-        //Возвращает TRUE в случае успешного завершения или FALSE в случае возникновения ошибки.
+        //Возвращаем результат выполнения запроса.
         return $pdoStatement;
     }
 
     /**
      * Метод выбирает первую строку из результирующего набора.
      * @param string $sql - Текст запроса.
-     * @param string $class - Имя текущего класса.
      * @param array $params - Параметры.
-     * @return object - Возвращает необходимую строку из таблицы, присваивая значения столбцов
-     * результирующего набора именованным свойствам текущего класса.
+     * @return array - Возвращает данные необходимой строки из таблицы.
      */
-    public function queryOne(string $sql, $class, array $params = []) {
+    public function queryOne(string $sql, array $params = []) {
         //Вызываем метод, который выполняет запрос и возвращаем результат.
-        return $this -> query($sql, $params) -> fetchAll(\PDO::FETCH_CLASS, $class)[0];
+        return $this -> queryAll($sql, $params)[0];
+    }
+
+    /**
+     * Метод выбирает первую строку из результирующего набора.
+     * @param string $sql - Текст запроса.
+     * @param array $params - Параметры.
+     * @param string $className - Имя текущего класса.
+     * @return object - Возвращает результат в виде объекта запрошенного класса.
+     */
+    public function queryObject(string $sql, array $params = [], string $className) {
+        //Вызываем функцию, которая делает запрос в БД.
+        $smtp = $this -> query($sql, $params);
+        //Устанавливаем режим выборки "Создать и вернуть бъект запрошенного класса".
+        $smtp -> setFetchMode(\PDO::FETCH_CLASS, $className);
+        //Извлекаем и возвращаем строку из результирующего набора в виде объекта.
+        return $smtp -> fetch();
     }
 
     /**
      * Метод выбирает все строки из результирующего набора.
      * @param string $sql - Текст запроса.
-     * @param string $class - Имя текущего класса.
      * @param array $params - Параметры.
-     * @return object - Возвращает все строки из таблицы, присваивая значения столбцов
-     * результирующего набора именованным свойствам текущего класса.
+     * @return array - Возвращает массив, содержащий все строки результирующего набора.
      */
-    public function queryAll(string $sql, $class, array $params = []) : array {
+    public function queryAll(string $sql, array $params = []) : array {
         //Вызываем метод, который выполняет запрос и возвращаем результат.
-        return $this -> query($sql, $params) -> fetchAll(\PDO::FETCH_CLASS, $class);
+        return $this -> query($sql, $params) -> fetchAll();
+    }
+
+    /**
+     * Метод выбирает все строки из результирующего набора.
+     * @param string $sql - Текст запроса.
+     * @param string $className - Имя текущего класса.
+     * @param array $params - Параметры.
+     * @return array - Возвращает мессив объектов запрошенного класса.
+     */
+    public function queryAllObjects(string $sql, string $className, array $params = []) {
+        //Вызываем функцию, которая делает запрос в БД.
+        $smtp = $this -> query($sql, $params);
+        //Устанавливаем режим выборки "Создать и вернуть бъект запрошенного класса".
+        $smtp -> setFetchMode(\PDO::FETCH_CLASS, $className);
+        //Извлекаем и возвращаем строку из результирующего набора в виде массива объектов.
+        return $smtp -> fetchAll();
     }
 
     /**
@@ -115,5 +143,14 @@ class Db
     public function execute(string $sql, array $params = []) {
         //Вызываем метод "query", который выполняет запрос в БД.
         $this -> query($sql, $params);
+    }
+
+    /**
+     * Метод возвращает ID последней вставленной строки или значение последовательности.
+     * @return string - ID последней вставленной строки в БД.
+     */
+    public function lastInsertId() {
+        //Устанавливаем соединение с БД и возвращаем последний добавленный "id".
+        return $this -> getConnection() -> lastInsertId();
     }
 }

@@ -12,13 +12,12 @@ class Order extends Model
     public $date;
     public $status;
     public $total_cost;
-    public $className = __CLASS__;
 
     /**
      * Функция возвращает название таблицы БД, к которой будем обращаться.
      * @return string - Название таблицы.
      */
-    public function getTableName() {
+    public static function getTableName() {
         return 'orders';
     }
 

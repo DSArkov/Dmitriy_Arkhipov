@@ -6,7 +6,7 @@ include ROOT_DIR . 'services/Autoloader.php';
 
 //Задаём псевдоним для "app\services\Db".
 use app\services\Autoloader as Autoloader;
-//Задаём псевдоним для "app\services\Db".
+//Задаём псевдоним для "app\models\Product".
 use app\models\Product as Product;
 
 //Регистрируем автозагрузчик объекта "Autoloader", метод "loadClass".

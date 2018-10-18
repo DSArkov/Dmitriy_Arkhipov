@@ -9,7 +9,7 @@ use app\services\Db as Db;
  abstract class Model implements iModel
 {
     //Создаем переменную, в которой будет находиться экземпляр класса "Db".
-    private $db;
+    public $db;
 
     /**
      * Конструктор класса. Выполняется в тот момент, когда мы создаём новый экземпляр.
@@ -31,7 +31,7 @@ use app\services\Db as Db;
         //Сохраняем SQL-запрос в переменную.
         $sql = "SELECT * FROM {$tableName} WHERE id = :id";
         //Обращемся в БД и возвращаем результат.
-        return $this -> db -> queryOne($sql, ['id' => $id]);
+        return $this -> db -> queryOne($sql, [':id' => $id]);
     }
 
      /**
@@ -46,5 +46,11 @@ use app\services\Db as Db;
         $sql = "SELECT * FROM {$tableName}";
         //Обращемся в БД и возвращаем результат.
         return $this -> db -> queryAll($sql, $className);
+    }
+
+    public function delete() {
+        $tableName = $this -> getTableName();
+        $sql = "DELETE FROM {$tableName} WHERE id = :id";
+        $this -> db -> execute($sql, [':id' => $this -> id]);
     }
 }

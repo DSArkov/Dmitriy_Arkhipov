@@ -21,4 +21,14 @@ class Order extends Model
     public function getTableName() {
         return 'orders';
     }
+
+    /**
+     * Метод добавляет новую строку в таблицу БД.
+     */
+    public function insert() {}
+
+    /**
+     * Метод удаляет строку из таблицы БД.
+     */
+    public function update() {}
 }

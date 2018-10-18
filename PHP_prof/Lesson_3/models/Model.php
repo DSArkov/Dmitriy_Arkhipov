@@ -2,6 +2,7 @@
 
 //Регистрируем класс в пространстве имен "app\models".
 namespace app\models;
+
 //Назначаем псеводоним для "app\services\Db".
 use app\services\Db as Db;
 

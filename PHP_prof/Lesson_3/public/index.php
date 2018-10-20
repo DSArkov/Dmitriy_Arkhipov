@@ -15,6 +15,7 @@ spl_autoload_register([new Autoloader(), 'loadClass']);
 //Создаём экземпляр класса "Product".
 //$product = new Product();
 
-$product = Product::getObject(1);
-var_dump($product);
+//$product = Product::getObject(1);
+
+//var_dump($product);
 

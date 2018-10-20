@@ -18,14 +18,4 @@ class User extends Model
     public static function getTableName() {
         return 'users';
     }
-
-    /**
-     * Метод добавляет новую строку в таблицу БД.
-     */
-    public function insert() {}
-
-    /**
-     * Метод удаляет строку из таблицы БД.
-     */
-    public function update() {}
 }

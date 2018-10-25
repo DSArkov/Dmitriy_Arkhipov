@@ -11,14 +11,17 @@ use app\models\Product as Product;
 class ProductController extends Controller
 {
     /**
-     * Экшн отвечает за вывод каталога на экран.
+     * Метод отображает страницу каталога.
      */
     public function actionIndex() {
-        echo "catalogue";
+        //Получаем продукты из базы данных.
+        $model = Product::getAllObjects();
+        //Выводим их на экран.
+        echo $this -> render('catalogue', ['model' => $model]);
     }
 
     /**
-     * Экшн отвечает за вывод карточки товара на экран.
+     * Метод выводит карточку товара на экран.
      */
     public function actionCard() {
         //В случае, если мы не хотим отображать layout ->
@@ -26,7 +29,7 @@ class ProductController extends Controller
 
         //Получаем id запрашиваемого продукта.
         $id = $_GET['id'];
-        //Получаем его из базы данных.
+        //Получаем данные о продукте из базы данных.
         $model = Product::getObject($id);
         //Выводим на экран.
         echo $this -> render('card', ['model' => $model]);

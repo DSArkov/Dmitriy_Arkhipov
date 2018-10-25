@@ -8,6 +8,7 @@ class User extends DataModel
 {
     //Объявляем переменные.
     public $id;
+    public $name;
     public $login;
     public $password;
 

@@ -1,15 +1,16 @@
 <?php
 
 //Подключаем скрипты.
-include $_SERVER['DOCUMENT_ROOT'] . '/../config/main.php';
-include ROOT_DIR . 'services/Autoloader.php';
+//include $_SERVER['DOCUMENT_ROOT'] . '/../config/main.php'; - используем автолоадер композера.
+include $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 //Задаём псевдонимы для классов.
-use app\services\Autoloader as Autoloader;
+//use app\services\Autoloader as Autoloader; - используем автолоадер композера.
 use \app\services\renderers\TemplateRenderer as TemplateRenderer;
+use \app\services\renderers\TwigRenderer as TwigRenderer;
 
-//Регистрируем автозагрузчик объекта "Autoloader", метод "loadClass".
-spl_autoload_register([new Autoloader(), 'loadClass']);
+//Регистрируем автозагрузчик объекта "Autoloader", метод "loadClass". - используем автолоадер композера.
+//spl_autoload_register([new Autoloader(), 'loadClass']);
 
 //Получаем имя контроллера из GET-запроса и задаём контроллер по умолчанию.
 $controllerName = $_GET['c'] ? : DEFAULT_CONTROLLER;
@@ -22,7 +23,7 @@ $controllerClass = CONTROLLERS_NAMESPACE . '\\' . ucfirst($controllerName) . 'Co
 //Если таковой существует -
 if (class_exists($controllerClass)) {
     //создаём новый объект от этого класса.
-    $controller = new $controllerClass(new TemplateRenderer());
+    $controller = new $controllerClass(new TwigRenderer()); //TwigRenderer если исп. шаблонизатор
     //Запускаем его.
     $controller -> run($actionName);
 }

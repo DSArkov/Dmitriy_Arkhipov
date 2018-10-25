@@ -60,9 +60,9 @@ abstract class Controller
     public function render($template, $params) {
         //Если мы используем шалон.
         if ($this -> useLayout) {
-            //Отображаем шалон на экране.
+            //Получаем шаблон.
             $content = $this -> renderTemplate($template, $params);
-            //Вставляем в него необходимые параметры.
+            //Вставляем в него необходимые параметры и выводим на экран.
             return $this -> renderTemplate("layouts/{$this -> layout}", ['content' => $content]);
         }
         //Отображаем шаблон сам по себе.

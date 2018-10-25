@@ -3,9 +3,9 @@
 namespace app\services\renderers;
 
 /**
- * Метод передаёт данные в шаблон, который выводит на экран.
+ * Метод передаёт данные в шаблон, который выводится на экран.
  * @param string $template - Имя шаблона.
- * @param array $params - Переменные, которые должны подставляться.
+ * @param array $params - Переменные, которые подставляются.
  * @return false|string - Возвращает данные, сохраненные в буфере.
  */
 class TemplateRenderer implements IRenderer

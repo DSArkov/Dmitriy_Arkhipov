@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `catalogue` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы little_shop.catalogue: ~9 rows (приблизительно)
+-- Дамп данных таблицы little_shop.catalogue: ~10 rows (приблизительно)
 /*!40000 ALTER TABLE `catalogue` DISABLE KEYS */;
 INSERT IGNORE INTO `catalogue` (`id`, `title`, `description`, `brand`, `price`, `url`) VALUES
 	(1, 'Термокружка Mi Fiu', 'Изящная кружка, которую невозможно опрокинуть.', 'Xiaomi', 2100.00, 'cup.jpg'),
@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
 -- Дамп структуры для таблица little_shop.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
   `login` varchar(32) NOT NULL,
   `password` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -84,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Дамп данных таблицы little_shop.users: ~2 rows (приблизительно)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT IGNORE INTO `users` (`id`, `login`, `password`) VALUES
-	(1, 'admin', 'admin'),
-	(2, 'user', 'user');
+INSERT IGNORE INTO `users` (`id`, `name`, `login`, `password`) VALUES
+	(1, 'admin_name', 'admin', 'admin'),
+	(2, 'user_name', 'user', 'user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

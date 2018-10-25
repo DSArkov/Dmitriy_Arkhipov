@@ -18,8 +18,8 @@ abstract class Controller
     private $defaultAction = 'index';
     //Переменная содержит в себе название шаблона.
     private $layout = 'main';
-    //Переменная хранит значение, используется шаблон или нет.
-    private $useLayout = true;
+    //Указываем используется layout или нет.
+    protected $useLayout = true;
     //Переменная для хранения экземпляра класса, который зависит от интерфейса IRenderer.
     private $renderer = null;
 
@@ -52,13 +52,13 @@ abstract class Controller
     }
 
     /**
-     * Метод проверяет, используется шалон или нет, после чего отображает данные на экране.
-     * @param string $template - Имя шалона.
+     * Метод проверяет, используется шаблон или нет, после чего отображает данные на экране.
+     * @param string $template - Имя шаблона.
      * @param array $params - Массив с переменными для подстановки в шаблон.
      * @return false|string - Возвращает шаблон с текущми параметрами.
      */
     public function render($template, $params) {
-        //Если мы используем шалон.
+        //Если мы используем шаблон.
         if ($this -> useLayout) {
             //Получаем шаблон.
             $content = $this -> renderTemplate($template, $params);

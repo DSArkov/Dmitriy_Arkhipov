@@ -22,8 +22,11 @@ $controllerClass = CONTROLLERS_NAMESPACE . '\\' . ucfirst($controllerName) . 'Co
 
 //Если таковой существует -
 if (class_exists($controllerClass)) {
+
     //создаём новый объект от этого класса.
-    $controller = new $controllerClass(new TwigRenderer()); //TwigRenderer если исп. шаблонизатор
+    //$controller = new $controllerClass(new TemplateRenderer()); //Если не используем шаблон-р.
+    $controller = new $controllerClass(new TwigRenderer());//Для шаблонизатора Twig.
+
     //Запускаем его.
     $controller -> run($actionName);
 }

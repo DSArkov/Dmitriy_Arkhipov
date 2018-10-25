@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function actionCard() {
         //В случае, если мы не хотим отображать layout ->
-        //$this -> useLayout = false;
+        $this -> useLayout = false; //--------Если используем шаблонизатор Twig-обязательно.--------
 
         //Получаем id запрашиваемого продукта.
         $id = $_GET['id'];

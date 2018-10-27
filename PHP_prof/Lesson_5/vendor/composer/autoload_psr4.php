@@ -6,10 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'app\\traits\\' => array($baseDir . '/traits'),
-    'app\\services\\' => array($baseDir . '/services'),
-    'app\\models\\' => array($baseDir . '/models'),
-    'app\\controllers\\' => array($baseDir . '/controllers'),
+    'app\\' => array($baseDir . '/'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),

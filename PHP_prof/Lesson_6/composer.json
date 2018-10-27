@@ -6,9 +6,6 @@
             "email": "dmitriy.s.arkhipov@mail.ru"
         }
     ],
-    "require": {
-        "twig/twig": "^2.0"
-    },
     "autoload": {
         "psr-4": {
             "app\\": "./"

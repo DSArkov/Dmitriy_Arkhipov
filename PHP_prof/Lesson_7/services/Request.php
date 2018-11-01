@@ -12,6 +12,7 @@ class Request
     private $controllerName;
     private $actionName;
     private $params;
+    private $requestMethod;
 
     /**
      * Конструктор класса. Выполняется в тот момент, когда мы создаём новый экземпляр.
@@ -19,9 +20,9 @@ class Request
     public function __construct()
     {
         $this -> requestString = $_SERVER['REQUEST_URI'];
+        $this -> requestMethod = $_SERVER['REQUEST_METHOD'];
         $this -> parseRequest();
     }
-
 
     /**
      * Метод разпарсивает запрос и получает необходимые данные.
@@ -88,5 +89,32 @@ class Request
             return $this -> params['post'][$name];
         }
         return null;
+    }
+
+    /**
+     * Возвращает метод, с помощью которого был выполнен запрос.
+     * @return string - Возвращает название метода.
+     */
+    public function getRequestMethod()
+    {
+        return $this -> requestMethod;
+    }
+
+    /**
+     * Возвращает true, если запрос был выполнен с помощью метода "GET".
+     * @return bool - Возвращает true или false в зависимости от результата.
+     */
+    public function isGet()
+    {
+        return $this -> requestMethod == "GET";
+    }
+
+    /**
+     * Возвращает true, если запрос был выполнен с помощью метода "POST".
+     * @return bool - Возвращает true или false в зависимости от результата.
+     */
+    public function isPost()
+    {
+        return $this -> requestMethod == "POST";
     }
 }

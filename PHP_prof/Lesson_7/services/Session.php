@@ -6,6 +6,7 @@ namespace app\services;
 //Используем класс:
 use app\traits\TSingleton;
 
+
 //Класс для работы с сессией.
 class Session
 {

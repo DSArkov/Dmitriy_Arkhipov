@@ -3,8 +3,8 @@
 //Регистрируем класс в пространстве имен "app\controllers".
 namespace app\controllers;
 
-//Используем классы.
-//use app\models\Product as Product;
+//Используем классы:
+use app\base\App;
 use app\models\repositories\ProductRepository;
 use app\services\Request;
 
@@ -29,10 +29,8 @@ class ProductController extends Controller
         //В случае, если мы не хотим отображать layout ->
         //$this -> useLayout = false;
 
-        //Cоздаём объект класса "Request" и сохраняем его в переменную.
-        $request = new Request();
         //Получаем id запрашиваемого продукта.
-        $id = ($request) -> get('id');
+        $id = App::call() -> request -> get('id');
         //Получаем данные о продукте из базы данных.
         //(new ProductRepository())-внешние скобки позволяют выз. экз-р класса на лету(без сохр. в переменную).
         $model = (new ProductRepository()) -> getObject($id); //Product::getObject($id);

@@ -3,29 +3,35 @@
 //Регистрируем класс в пространстве имен "app\services".
 namespace app\services;
 
-//Используем класс:
-use app\traits\TSingleton;
-
 
 //Класс для работы с базой данных.
 class Db
 {
-    //Подмешиваем трейт "Singleton".
-    use TSingleton;
-
     //Создаём переменную для хранения настроек подключения к БД.
-    private $config = [
-        'driver' => 'mysql',
-        'host' => 'localhost',
-        'login' => 'root',
-        'password' => 'root',
-        'database' => 'little_shop',
-        'charset' => 'utf8',
-        'port' => 3307
-    ];
-
+    private $config = [];
     //Создаём переменную для хранения текущего состояния соединения с БД.
     protected $conn = null;
+
+    /**
+     * Конструктор класса. Выполняется в тот момент, когда мы создаём новый экземпляр.
+     * @param string $driver - Драйвер БД.
+     * @param string $host - Хост.
+     * @param string $login - Логин.
+     * @param string $password - Пароль.
+     * @param string $database - Название базы данных.
+     * @param string $charset - Кодировка.
+     * @param int $port - Порт.
+     */
+    public function __construct($driver, $host, $login, $password, $database, $charset, $port)
+    {
+        $this -> config['driver'] = $driver;
+        $this -> config['host'] = $host;
+        $this -> config['login'] = $login;
+        $this -> config['password'] = $password;
+        $this -> config['database'] = $database;
+        $this -> config['charset'] = $charset;
+        $this -> config['port'] = $port;
+    }
 
     /**
      * Метод подготавливает данные для последующего соединения с БД.

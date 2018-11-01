@@ -3,6 +3,7 @@
 //Регистрируем класс в пространстве имен "app\traits".
 namespace app\traits;
 
+
 //Реализуем трейт для повторного использования кода(паттерн "Одиночка").
 trait TSingleton
 {
@@ -20,7 +21,7 @@ trait TSingleton
      * Метод проверяет наличие экземпляра класса и в случае отсутствия такогово - создаёт.
      * @return object - Возвращает текущий объект.
      */
-    public static function getInstance() {;
+    public static function getInstance() {
         //Проверяем пустое ли статическое свойство $instance.
         if (is_null(static::$instance)) {
             //Создаём новый экземпляр текущего класса.

@@ -1,10 +1,30 @@
 <?php
 
-//Создаём константу для хранения пути к корневой директории.
-define("ROOT_DIR", $_SERVER['DOCUMENT_ROOT'] . "/../");
-//Создаём константу для хранения пути к директории с шаблонами.
-define("TEMPLATES_DIR", ROOT_DIR . "views/");
-//Создаём константу для хранения имени контроллера по умолчанию.
-define("DEFAULT_CONTROLLER", "product");
-//Создаём константу для хранения названия пространства имен контроллеров.
-define("CONTROLLERS_NAMESPACE", "app\\controllers");
+//Создаём массив с настройками приложения.
+return [
+    'rootDir' => __DIR__ . '/../',
+    'templatesDir' => __DIR__ . '/../views/',
+    'defaultController' => 'product',
+    'controllerNamespace' => 'app\\controllers',
+    'components' => [
+        'db' => [
+            'class' => app\services\Db::class,
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'login' => 'root',
+            'password' => '',
+            'database' => 'little_shop',
+            'charset' => 'utf8',
+            'port' => 3306
+        ],
+        'request' => [
+            'class' => \app\services\Request::class
+        ],
+        'renderer' => [
+            'class' => \app\services\renderers\TemplateRenderer::class
+        ],
+        'session' => [
+            'class' => \app\services\Session::class
+        ]
+    ]
+];

@@ -3,7 +3,7 @@
 //Регистрируем класс в пространстве имен "app\models\repositories".
 namespace app\models\repositories;
 
-//Используем класс "Product".
+//Используем класс:
 use app\models\Product;
 
 

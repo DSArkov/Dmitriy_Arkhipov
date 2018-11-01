@@ -3,10 +3,10 @@
 //Регистрируем класс в пространстве имен "app\models\repositories".
 namespace app\models\repositories;
 
-//Назначаем псеводоним для "app\services\Db".
-use app\services\Db as Db;
-//Назначаем псевдоним для app\models\DataEntity.
-use app\models\DataEntity as DataEntity;
+//Используем классы:
+use app\base\App;
+use app\models\DataEntity;
+
 
 //Создаём класс репозиторий, основная задача которого сохранять и отдавать объекты.
 abstract class Repository implements IRepository
@@ -28,7 +28,7 @@ abstract class Repository implements IRepository
      * @return object - И возвращает его.
      */
     private static function getDb() {
-        return Db::getInstance();
+        return App::call() -> db;
     }
 
     /**

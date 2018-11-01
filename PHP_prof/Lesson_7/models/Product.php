@@ -3,6 +3,7 @@
 //Регистрируем класс в пространстве имен "app\models".
 namespace app\models;
 
+
 //Создаем класс "Product", который наследуется от "DataEntity". Занимается получением данных из БД.
 class Product extends DataEntity
 {

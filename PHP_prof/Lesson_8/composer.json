@@ -1,0 +1,17 @@
+{
+    "name": "dmitriy/lesson_5",
+    "authors": [
+        {
+            "name": "DSArkov",
+            "email": "dmitriy.s.arkhipov@mail.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        },
+        "files": [
+            "config/main.php"
+        ]
+    }
+}

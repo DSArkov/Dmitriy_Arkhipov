@@ -14,7 +14,8 @@ class ProductRepository extends Repository
      * Метод возвращает название таблицы БД, к которой будем обращаться.
      * @return string - Название таблицы.
      */
-    public function getTableName() {
+    public function getTableName()
+    {
         return 'catalogue';
     }
 
@@ -22,7 +23,8 @@ class ProductRepository extends Repository
      * Метод возвращает имя класса "Product".
      * @return string - Имя класса.
      */
-    public function getEntityClass() {
+    public function getEntityClass()
+    {
         return Product::class;
     }
 }

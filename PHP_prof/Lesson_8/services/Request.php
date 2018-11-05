@@ -25,15 +25,7 @@ class Request
     {
         $this -> requestString = $_SERVER['REQUEST_URI'];
         $this -> requestMethod = $_SERVER['REQUEST_METHOD'];
-        //Отслеживаем исключение.
-        //try {
-            $this -> parseRequest();
-//        //Ловим исключние.
-//        } catch (\Exception $e) {
-//            //Создаём экземпляр класса "RequestErrController" и выводим ошибку "404" на экран.
-//            (new RequestErrController(new TemplateRenderer())) -> actionError();
-//        }
-
+        $this -> parseRequest();
     }
 
     /**
@@ -52,8 +44,6 @@ class Request
             $this -> params['get'] = $_GET;
             //Получаем параметры, если они были переданы POST методом.
             $this -> params['post'] = $_POST;
-//        } else {
-//            //throw new \Exception('Неправильный запрос!');
         }
     }
 

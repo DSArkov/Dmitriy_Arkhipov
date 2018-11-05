@@ -46,6 +46,8 @@ abstract class Controller
         if (method_exists($this, $method)) {
             //вызываем его.
             $this -> $method();
+        } else {
+            throw new \Exception('Нет такого экшена.');
         }
     }
 

@@ -23,7 +23,8 @@ class App
      * Метод вызывает статический метод "getInstance()" трейта "TSingleton".
      * @return object - Возвращает текущий объект.
      */
-    public static function call() {
+    public static function call()
+    {
         return static::getInstance();
     }
 
@@ -31,33 +32,41 @@ class App
      * Метод запускает приложение.
      * @param array $config - Конфигурация.
      */
-    public function run($config) {
+    public function run($config)
+    {
         //Сохраняем конфигурацию в свойство "$config".
-        $this -> config = $config;
+        $this->config = $config;
         //Создаём и сохраняем экземпляр хранилища.
-        $this -> components = new Storage();
+        $this->components = new Storage();
         //Запускаем метод для определения необходимого контроллера.
-        $this -> runController();
+        $this->runController();
     }
 
     /**
      * Метод определяет какой контроллер запускать.
      */
-    private function runController() {
+    private function runController()
+    {
         //Получаем имя контроллера.
-        $controllerName = $this -> request -> getControllerName() ?: $this -> config['defaultController'];
+        $controllerName = $this->request->getControllerName() ?: $this->config['defaultController'];
         //Получаем имя экшена.
-        $actionName = $this -> request -> getActionName();
+        $actionName = $this->request->getActionName();
 
         //Формируем название класса контроллера.
-        $controllerClass = $this -> config['controllerNamespace'] . '\\' . ucfirst($controllerName) . 'Controller';
+        $controllerClass = $this->config['controllerNamespace'] . '\\' . ucfirst($controllerName) . 'Controller';
 
-        //Если такой класс существует -
-        if (class_exists($controllerClass)) {
-            //создаём новый объект от этого класса.
-            $controller = new $controllerClass(new TemplateRenderer());
-            //Запускаем его.
-            $controller->run($actionName);
+        try {
+            //Если такой класс существует -
+            if (class_exists($controllerClass)) {
+                //создаём новый объект от этого класса.
+                $controller = new $controllerClass(new TemplateRenderer());
+                //Запускаем его.
+                $controller->run($actionName);
+            } else {
+                throw new \Exception('Нет такого контроллера.');
+            }
+        } catch (\Exception $e) {
+            header('Location: /RequestErr');
         }
     }
 
@@ -66,21 +75,23 @@ class App
      * @param string $key - Ключ, по которому будет осуществлен поиск.
      * @return object - Возвращаем созданный объект.
      */
-    public function createComponent($key) {
+    public function createComponent($key)
+    {
         //Проверяем, есть ли текущий компонент в хранилище.
-        if (isset($this -> config['components'][$key])) {
+        if (isset($this->config['components'][$key])) {
             //Если да, сохраняем параметры в переменную.
-            $params = $this -> config['components'][$key];
+            $params = $this->config['components'][$key];
             //Получаем класс.
             $class = $params['class'];
             //Если такой класс существует.
+
             if (class_exists($class)) {
                 //Удаляем 'class' из массива параметров, т.к. в конструкторе он не нужен.
                 unset($params['class']);
                 //Создаём объект класса "Reflection", который позволяет создать объект необходимого класса.
                 $reflection = new \ReflectionClass($class);
                 //И передать параметры в конструктор. После возвращаем его.
-                return $reflection -> newInstanceArgs($params);
+                return $reflection->newInstanceArgs($params);
             }
         }
     }
@@ -92,7 +103,7 @@ class App
      */
     public function __get($name) {
         //Обращаемся к хранилищу для получения компонента.
-        return $this -> components -> get($name);
+        return $this->components->get($name);
     }
 
 }

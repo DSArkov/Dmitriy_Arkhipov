@@ -57,7 +57,7 @@ header {
 
 /*Страница каталога*/
 .cart_catalogue {
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-left: 45%;
 }
 .wrapper {

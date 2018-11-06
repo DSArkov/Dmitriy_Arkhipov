@@ -23,14 +23,20 @@ class Cart extends DataEntity
         $session = App::call()->session;
         //Проверяем наличие продукта в массиве $_SESSION.
         if (isset($session->get('cart')[$id])) {
+            //TODO: Доделать добавление через класс Session.
             //Если есть, то увеличиваем количество на 1.
-            $qty = $session->get('cart')[$id]['quantity'] + 1;
+            //$qty = $session->get('cart')[$id]['quantity'] + 1;
             //И меняем значение в сессии.
-            $session->set('cart', [$id => ['quantity' => $qty]]);
+            //$session->set('cart', [$id => ['quantity' => $qty]]);
+            //var_dump($_SESSION['cart']);
+            $_SESSION['cart'][$id]['quantity'] += $quantity;
         } else {
-
-//            //Если нет - добавляем и присваеваем количество равное единице.
-//            $session->set('cart', [$id => ['quantity' => $quantity]]);
+            //TODO: Доделать добавление через класс Session.
+            //Если нет - добавляем и присваеваем количество равное единице.
+            //$session->set('cart', [$id => ['quantity' => $quantity]]);
+            $_SESSION['cart'][$id]['quantity'] = $quantity;
+            //$_SESSION['cart'] = [];
+            //var_dump($_SESSION['cart']);
         }
     }
 
@@ -42,17 +48,19 @@ class Cart extends DataEntity
      */
     function deleteFromCart($id, $quantity = 1)
     {
+        //Стартуем новую сессию либо возобновляем существующую.
         $session = App::call()->session;
         //Если количество товара равно 1.
-        if (($session->get('cart'))[$id]['quantity'] == 1) {
+        if (($session->get('cart'))[$id]['quantity'] === 1) {
             //Удаляем данный продукт из массива.
-            //TODO: Реализовать метод в Session.
-            unset($_SESSION['cart'][$id]);
+            $session->delete('cart', $id);
         } else {
             //Иначе уменьшаем количество на 1.
             //$_SESSION['cart'][$id]['quantity'] -= $quantity;
-            $qty = ($session->get('cart'))[$id]['quantity'] - $quantity;
-            App::call()->session->set('cart', [$id => ['quantity' => $qty]]);
+            //$qty = ($session->get('cart'))[$id]['quantity'] - $quantity;
+            //var_dump($qty);
+            //$session->set('cart', [$id => ['quantity' => $qty]]);
+            $_SESSION['cart'][$id]['quantity'] -= $quantity;
         }
     }
 

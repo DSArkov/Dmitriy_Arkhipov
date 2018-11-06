@@ -4,11 +4,12 @@
 namespace app\models\repositories;
 
 //Используем класс "User".
+use app\base\App;
 use app\models\User;
 
 
 //Класс-хранилище для пользователей.
-class UserRepository
+class LoginRepository
 {
     /**
      * Метод возвращает название таблицы БД, к которой будем обращаться.
@@ -24,5 +25,17 @@ class UserRepository
      */
     public function getEntityClass() {
         return User::class;
+    }
+
+    /**
+     * Функция делает запрос в БД для получения данных о пользователе.
+     * @param string $login - Логин пользователя.
+     * @param string $password - Пароль пользователя.
+     * @return array|null - Возвращает массив с данными.
+     */
+    function getUserByLoginPass($login, $password) {
+        $table = static::getTableName();
+        //Возвращаем результат выполнения запроса.
+        return App::call()->db->queryOne("SELECT * FROM {$table} WHERE login = '{$login}' AND password = '{$password}'");
     }
 }

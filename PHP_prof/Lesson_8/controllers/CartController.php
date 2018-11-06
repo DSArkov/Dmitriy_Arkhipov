@@ -16,11 +16,11 @@ class CartController extends Controller
      */
     public function actionIndex()
     {
-//        //Проверяем, существует ли массив users в сессии.
-//        if (!$user_id = $_SESSION['users']) {
-//            //Если нет - вызывем функцию для переадресации страницы.
-//            redirect('login.php');
-//        }
+       //Проверяем, существует ли массив users в сессии.
+       if (!$user_id = $_SESSION['users']) {
+           //Если нет - вызывем функцию для переадресации страницы.
+           header('Location: /product');
+       }
         $request = App::call()->request;
 
         //Проверяем была ли нажата кнопка "Удалить".

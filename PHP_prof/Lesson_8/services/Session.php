@@ -3,7 +3,8 @@
 //Регистрируем класс в пространстве имен "app\services".
 namespace app\services;
 
-//Класс для работы с сессией.
+
+//Класс определяет методы для работы с сессией.
 class Session
 {
     /**
@@ -18,7 +19,7 @@ class Session
     /**
      * Метод получает значение из глобального массива $_SESSION.
      * @param string $key - Ключ.
-     * @return mixed - Возвращает значение по ключу.
+     * @return mixed - Возвращает значение лежащее по ключу.
      */
     public function get($key) {
         return $_SESSION[$key];
@@ -31,5 +32,14 @@ class Session
      */
     public function set($key, $value) {
         $_SESSION[$key] = $value;
+    }
+
+    /**
+     * Метод удаляет значение из глобального массива $_SESSION.
+     * @param string $key - Ключ.
+     * @param mixed $value - Значение.
+     */
+    public function delete($key, $value) {
+        unset($_SESSION[$key][$value]);
     }
 }

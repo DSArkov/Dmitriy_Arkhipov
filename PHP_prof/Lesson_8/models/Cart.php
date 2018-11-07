@@ -1,18 +1,18 @@
 <?php
 
-//Регистрируем класс в пространстве имен "app\models".
+//Регистрируем класс в пространстве имен.
 namespace app\models;
-
 
 //Используем классы:
 use app\base\App;
 use app\models\repositories\ProductRepository;
 
+
 //Класс "Cart" определяет методы для работы с корзиной.
 class Cart extends DataEntity
 {
     /**
-     * Функция проверяет наличие продукта с определенным id в массиве $_SESSION. Если
+     * Метод проверяет наличие продукта с определенным id в массиве $_SESSION. Если
      * таковой отсутствует - добавляет его и считает количество.
      * @param string $id - id продукта.
      * @param int $quantity - Количество единиц товара(по умолчанию = 1).
@@ -21,6 +21,7 @@ class Cart extends DataEntity
     {
         //Стартуем новую сессию либо возобновляем существующую.
         $session = App::call()->session;
+
         //Проверяем наличие продукта в массиве $_SESSION.
         if (isset($session->get('cart')[$id])) {
             //TODO: Доделать добавление через класс Session.
@@ -35,13 +36,11 @@ class Cart extends DataEntity
             //Если нет - добавляем и присваеваем количество равное единице.
             //$session->set('cart', [$id => ['quantity' => $quantity]]);
             $_SESSION['cart'][$id]['quantity'] = $quantity;
-            //$_SESSION['cart'] = [];
-            //var_dump($_SESSION['cart']);
         }
     }
 
     /**
-     * Функция уменьшает количество товара в корзине, либо удаляет товар полностью,
+     * Метод уменьшает количество товара в корзине, либо удаляет товар полностью,
      * если он в единичном экземпляре.
      * @param string $id - id продукта.
      * @param int $quantity - Количество единиц товара(по умолчанию = 1).
@@ -50,11 +49,13 @@ class Cart extends DataEntity
     {
         //Стартуем новую сессию либо возобновляем существующую.
         $session = App::call()->session;
+
         //Если количество товара равно 1.
         if (($session->get('cart'))[$id]['quantity'] === 1) {
             //Удаляем данный продукт из массива.
             $session->delete('cart', $id);
         } else {
+            //TODO: Сессия.
             //Иначе уменьшаем количество на 1.
             //$_SESSION['cart'][$id]['quantity'] -= $quantity;
             //$qty = ($session->get('cart'))[$id]['quantity'] - $quantity;
@@ -65,7 +66,7 @@ class Cart extends DataEntity
     }
 
     /**
-     * Функция формирует массив с данными о товарах, которые были добавлены в корзину.
+     * Метод формирует массив с данными о товарах, которые были добавлены в корзину.
      * @param array $arr - Массив добавленных товаров.
      * @return array - Сформированный массив с необходимой информацией.
      */
@@ -75,6 +76,7 @@ class Cart extends DataEntity
         $arrProd = [];
         //Инициализируем перенную для хранения общей стоимости товаров.
         $totalProdCost = 0;
+
         //Проверяем передали ли мы существующий массив.
         if (isset($arr)) {
             //Если да, то перебираем его.
@@ -82,7 +84,7 @@ class Cart extends DataEntity
                 //Получаем значение id для продукта.
                 $prod_id = $key;
                 //Получаем данные продукта из функции, которая делает запрос в БД.
-                $prod = (new ProductRepository) -> getOne($prod_id);
+                $prod = (new ProductRepository)->getOne($prod_id);
                 //Получаем количество единиц товара, который добавили.
                 $prod_quantity = $value['quantity'];
                 //Считаем общую стоимость товара.
@@ -102,8 +104,8 @@ class Cart extends DataEntity
             //Добавляем в массив общую стоимость всех товаров.
             $arrProd[] = ['total' => $totalProdCost];
         }
+
         //Возвращаем массив с данными о товарах.
         return $arrProd;
     }
-
 }

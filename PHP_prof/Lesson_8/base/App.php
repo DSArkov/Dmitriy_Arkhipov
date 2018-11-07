@@ -5,6 +5,7 @@ namespace app\base;
 
 //Используем классы:
 use app\services\renderers\TemplateRenderer;
+use app\controllers\RequestErrController;
 use app\traits\TSingleton;
 
 
@@ -16,8 +17,9 @@ class App
 
     //Свойство, в котором хранится конфигурация.
     public $config;
-    //Создаём приватное свойство для хранения экземпляра класса "Storage".
+    //Приватное свойство для хранения экземпляра класса "Storage".
     private $components;
+
 
     /**
      * Метод вызывает статический метод "getInstance()" трейта "TSingleton".
@@ -30,7 +32,7 @@ class App
 
     /**
      * Метод запускает приложение.
-     * @param array $config - Конфигурация.
+     * @param string $config - Конфигурация.
      */
     public function run($config)
     {
@@ -55,25 +57,30 @@ class App
         //Формируем название класса контроллера.
         $controllerClass = $this->config['controllerNamespace'] . '\\' . ucfirst($controllerName) . 'Controller';
 
+        //Оборачиваем блок, для перехвара исключения.
         try {
             //Если такой класс существует -
             if (class_exists($controllerClass)) {
-                //создаём новый объект от этого класса.
+                //создаём новый экземпляр.
                 $controller = new $controllerClass(new TemplateRenderer());
-                //Запускаем его.
+                //Запускаем метод "run".
                 $controller->run($actionName);
             } else {
+                //Иначе выбрасываем исключение.
                 throw new \Exception('Нет такого контроллера.');
             }
+        //Ловим его.
         } catch (\Exception $e) {
-            header('Location: /RequestErr');
+            //Создаём новый экземпляр класса "RequestErrController" и отрисовываем шаблон ошибки.
+            (new RequestErrController(new TemplateRenderer()))->actionIndex();
         }
     }
 
     /**
      * Метод позволяет создать экземпляр необходимого класса с параметрами, находящимися в хранилище.
-     * @param string $key - Ключ, по которому будет осуществлен поиск.
-     * @return object - Возвращаем созданный объект.
+     * @param string $key - Название компонента.
+     * @return object
+     * @throws \ReflectionException - Класс, сообщающий информацию о классе.
      */
     public function createComponent($key)
     {
@@ -90,7 +97,7 @@ class App
                 unset($params['class']);
                 //Создаём объект класса "Reflection", который позволяет создать объект необходимого класса.
                 $reflection = new \ReflectionClass($class);
-                //И передать параметры в конструктор. После возвращаем его.
+                //Передаём параметры в конструктор. После возвращаем его.
                 return $reflection->newInstanceArgs($params);
             }
         }
@@ -101,9 +108,9 @@ class App
      * @param string $name - Имя компонента.
      * @return mixed - Возвращает компонент.
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         //Обращаемся к хранилищу для получения компонента.
         return $this->components->get($name);
     }
-
 }

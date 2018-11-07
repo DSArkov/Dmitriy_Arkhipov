@@ -1,10 +1,13 @@
 <?php
 
+//Регистрируем класс в пространстве имён.
 namespace app\services\renderers;
 
+//Используем класс:
 use app\base\App;
 
 
+//Класс для подготовки шаблона.
 class TemplateRenderer implements IRenderer
     {
     /**

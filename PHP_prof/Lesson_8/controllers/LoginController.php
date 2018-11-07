@@ -1,33 +1,29 @@
 <?php
 
-//Регистрируем класс в пространстве имен "app\controllers".
+//Регистрируем класс в пространстве имен.
 namespace app\controllers;
 
 //Используем классы:
 use app\base\App;
 use app\models\repositories\LoginRepository;
-use app\models\User;
 
 
-//Задача контроллера - принятие решения.
-//Контроллер "User" наследуется от абстрактного класса "Controller".
+//Контроллер для работы с аутентификацией.
 class LoginController extends Controller
 {
     /**
      * Метод выводит информацию о пользователе на экран.
      */
-    public function actionIndex() {
-//        //В случае, если мы не хотим отображать layout ->
-//        //$this -> useLayout = false;
-//
-//        //Получаем id запрашиваемого продукта.
-//        $id = App::call() -> request -> get('id');
-//        //Получаем объект пользователя.
-//        $model = User::getObject($id);
-
+    public function actionIndex()
+    {
+        //Запускаем сессию или используем существующую.
+        $session = App::call()->session;
+        //Создаём экземпляр класса "Request", либо используем существующий.
         $request = App::call()->request;
+
         //Создаем переменную для хранения сообщения об ошибке.
         $message = '';
+
         //Проверяем пришли ли нам данные методом POST.
         if ($request->isPost()) {
             //Получаем login из запроса.
@@ -37,22 +33,20 @@ class LoginController extends Controller
             //Проверяем совпадает ли пара логин/пароль с теми, что есть в базе.
             if ($user = (new LoginRepository())->getUserByLoginPass($login, $password)) {
                 //Очищаем массив на случай, если в нем уже содержаться какие-то данные.
-                //TODO: session methods
+                //TODO: Сессия.
                 $_SESSION = [];
                 //Записываем id в сессию.
                 $_SESSION['users']['id'] = $user['id'];
-                //И логин для отображения приветствия.
+                //Записываем логин для отображения приветствия.
                 $_SESSION['users']['login'] = $login;
-                //Обновляем страницу.
+                //Переходим на главную страницу.
                 header('Location: /product');
             }
-
             //Если данные не совпали - выводим сообщение.
             $message = 'Неправильная пара логин/пароль';
         }
-        $_SESSION = [];
 
-        //Отрисовываем шаблон передавая параметры функции render.
-        echo $this->render('login', ['message' => $message]);
+        //Отрисовываем шаблон передавая параметры методу render.
+        echo $this->render('login', ['message' => $message, 'login' => $_SESSION['users']['login']]);
     }
 }

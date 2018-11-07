@@ -1,13 +1,13 @@
 <?php
 
-//Регистрируем класс в пространстве имен "app\models\repositories".
+//Регистрируем класс в пространстве имен.
 namespace app\models\repositories;
 
 //Используем класс:
 use app\models\Product;
 
 
-//Класс-хранилище для продуктов.
+//Класс-хранилище для товаров.
 class ProductRepository extends Repository
 {
     /**

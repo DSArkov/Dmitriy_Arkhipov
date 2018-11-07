@@ -1,9 +1,9 @@
 <?php
 
-//Регистрируем класс в пространстве имен "app\models\repositories".
+//Регистрируем класс в пространстве имён.
 namespace app\models\repositories;
 
-//Используем класс "User".
+//Используем классы:
 use app\base\App;
 use app\models\User;
 
@@ -28,12 +28,13 @@ class LoginRepository
     }
 
     /**
-     * Функция делает запрос в БД для получения данных о пользователе.
+     * Метод делает запрос в БД для получения данных о пользователе.
      * @param string $login - Логин пользователя.
      * @param string $password - Пароль пользователя.
      * @return array|null - Возвращает массив с данными.
      */
     function getUserByLoginPass($login, $password) {
+        //Получаем название таблицы БД.
         $table = static::getTableName();
         //Возвращаем результат выполнения запроса.
         return App::call()->db->queryOne("SELECT * FROM {$table} WHERE login = '{$login}' AND password = '{$password}'");

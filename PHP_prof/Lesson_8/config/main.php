@@ -12,10 +12,10 @@ return [
             'driver' => 'mysql',
             'host' => 'localhost',
             'login' => 'root',
-            'password' => 'root',
+            'password' => '',
             'database' => 'little_shop',
             'charset' => 'utf8',
-            'port' => 3307
+            'port' => 3306
         ],
         'request' => [
             'class' => \app\services\Request::class

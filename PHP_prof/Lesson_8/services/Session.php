@@ -1,6 +1,6 @@
 <?php
 
-//Регистрируем класс в пространстве имен "app\services".
+//Регистрируем класс в пространстве имен.
 namespace app\services;
 
 
@@ -19,9 +19,10 @@ class Session
     /**
      * Метод получает значение из глобального массива $_SESSION.
      * @param string $key - Ключ.
-     * @return mixed - Возвращает значение лежащее по ключу.
+     * @return mixed - Возвращает значение по ключу.
      */
-    public function get($key) {
+    public function get($key)
+    {
         return $_SESSION[$key];
     }
 
@@ -30,16 +31,16 @@ class Session
      * @param string $key - Ключ.
      * @param mixed $value - Значение.
      */
-    public function set($key, $value) {
+    public function set($key, $value)
+    {
         $_SESSION[$key] = $value;
     }
 
     /**
-     * Метод удаляет значение из глобального массива $_SESSION.
-     * @param string $key - Ключ.
-     * @param mixed $value - Значение.
+     * Метод очищает текущую сессию.
      */
-    public function delete($key, $value) {
-        unset($_SESSION[$key][$value]);
+    public function delete()
+    {
+        session_destroy();
     }
 }

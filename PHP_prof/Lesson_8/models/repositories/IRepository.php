@@ -1,10 +1,11 @@
 <?php
 
-//Регистрируем класс в пространстве имен "app\models\repositories".
+//Регистрируем класс в пространстве имён.
 namespace app\models\repositories;
 
-//Назначаем псевдоним для app\models\DataEntity.
-use app\models\DataEntity as DataEntity;
+//Используем класс:
+use app\models\DataEntity;
+
 
 //Создаем интерфейс, который указывает, какие методы должены реализовать зависимые классы.
 interface IRepository

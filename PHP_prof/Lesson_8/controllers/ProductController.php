@@ -8,8 +8,8 @@ use app\base\App;
 use app\models\Cart;
 use app\models\repositories\ProductRepository;
 
-//Задача контроллера - принятие решения.
-//Контроллер "Product" наследуется от абстрактного класса "Controller".
+
+//Контроллер товаров.
 class ProductController extends Controller
 {
     /**
@@ -17,20 +17,24 @@ class ProductController extends Controller
      */
     public function actionIndex()
     {
+        //Запускаем сессию или используем существующую.
+        $session = App::call()->session;
+        //Создаём экземпляр класса "Request", либо используем существующий.
         $request = App::call()->request;
 
         //Проверяем была ли нажата кнопка "В корзину".
         if ($request->post('submit')) {
             //Получаем id продукта с помощью POST запроса.
             $id = $request->post('id');
-            //Добавляем его в суперглобальный массив $_SESSION и присваиваем количество.
+            //Вызываем метод для добавления товара в корзину.
             (new Cart())->addToCart($id);
         }
 
         //Получаем продукты из базы данных.
         $model = (new ProductRepository())->getAllObjects();
         //Выводим их на экран.
-        echo $this->render('catalogue', ['model' => $model]);
+        //TODO: Сесссия.
+        echo $this->render('catalogue', ['model' => $model, 'login' => $_SESSION['users']['login']]);
     }
 
     /**
@@ -38,14 +42,16 @@ class ProductController extends Controller
      */
     public function actionCard()
     {
-        //$session = App::call()->session;
+        //Запускаем сессию или используем существующую.
+        $session = App::call()->session;
+        //Создаём экземпляр класса "Request", либо используем существующий.
         $request = App::call()->request;
 
         //Проверяем была ли нажата кнопка "В корзину".
         if ($request->post('submit')) {
             //Получаем id продукта с помощью POST запроса.
             $id = $request->post('id');
-            //Добавляем его в суперглобальный массив $_SESSION и присваиваем количество.
+            //Вызываем метод для добавления товара в корзину.
             (new Cart())->addToCart($id);
         }
 
@@ -53,8 +59,9 @@ class ProductController extends Controller
         $id = $request->get('id');
         //Получаем данные о продукте из базы данных.
         //(new ProductRepository())-внешние скобки позволяют выз. экз-р класса на лету(без сохр. в переменную).
-        $model = (new ProductRepository())->getObject($id); //Product::getObject($id);
+        $model = (new ProductRepository())->getObject($id);
         //Выводим на экран.
-        echo $this->render('card', ['model' => $model]);
+        //TODO: Сессия.
+        echo $this->render('card', ['model' => $model, 'login' => $_SESSION['users']['login']]);
     }
 }

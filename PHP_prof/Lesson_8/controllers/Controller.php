@@ -1,11 +1,10 @@
 <?php
 
-//Регистрируем класс в пространстве имен "app\controllers".
+//Регистрируем класс в пространстве имен.
 namespace app\controllers;
 
 //Используем классы:
 use app\services\renderers\IRenderer;
-use app\services\renderers\TemplateRenderer;
 
 
 //Контроллер - родитель.
@@ -22,31 +21,34 @@ abstract class Controller
     //Переменная для хранения экземпляра класса, который зависит от интерфейса IRenderer.
     protected $renderer = null;
 
+
     /**
      * Конструктор класса. Выполняется в тот момент, когда мы создаём новый экземпляр.
-     * @param object $renderer - Устанавливаем прямую зависимость от интерфейса IRenderer.
+     * @param IRenderer $renderer - Устанавливаем прямую зависимость от интерфейса IRenderer.
      */
     public function __construct(IRenderer $renderer)
     {
-        $this -> renderer = $renderer;
+        $this->renderer = $renderer;
     }
 
-
     /**
-     * Метод запускает полученный экшн и если ничего не пришло - использует экшн по умолчанию.
-     * @param string $action - Вызванный экшн.
+     * Метод запускает полученный метод и если ничего не пришло - использует метод по умолчанию.
+     * @param string $action - Название метода.
+     * @throws \Exception - Исключение.
      */
-    public function run($action = null) {
-        //Сохраняем текущий экшн в свойстве. Если он не пришел - вызываем экшн по умолчанию.
-        $this -> action = $action ?: $this -> defaultAction;
-        //Формируем его имя и сохраняем в переменную.
-        $method = "action" . ucfirst($this -> action);
+    public function run($action = null)
+    {
+        //Сохраняем текущий метод в свойстве. Ничего не передали - вызываем метод по умолчанию.
+        $this->action = $action ?: $this->defaultAction;
+        //Формируем имя метода и сохраняем в переменную.
+        $method = "action" . ucfirst($this->action);
 
-        //Если такой метод существует -
+        //Проверям, существует ли такой метод.
         if (method_exists($this, $method)) {
-            //вызываем его.
-            $this -> $method();
+            //Если да, вызываем его.
+            $this->$method();
         } else {
+            //Иначе выбрасываем исключение.
             throw new \Exception('Нет такого экшена.');
         }
     }
@@ -57,16 +59,17 @@ abstract class Controller
      * @param array $params - Массив с переменными для подстановки в шаблон.
      * @return false|string - Возвращает шаблон с текущми параметрами.
      */
-    public function render($template, $params) {
+    public function render($template, $params)
+    {
         //Если мы используем шаблон.
-        if ($this -> useLayout) {
-            //Получаем шаблон.
-            $content = $this -> renderTemplate($template, $params);
-            //Вставляем в него необходимые параметры и выводим на экран.
-            return $this -> renderTemplate("layouts/{$this -> layout}", ['content' => $content]);
+        if ($this->useLayout) {
+            //Получаем его.
+            $content = $this->renderTemplate($template, $params);
+            //Передаём необходимые параметры и выводим на экран.
+            return $this->renderTemplate("layouts/{$this -> layout}", ['content' => $content]);
         }
         //Отображаем шаблон сам по себе.
-        return $this -> renderTemplate($template, $params);
+        return $this->renderTemplate($template, $params);
     }
 
     /**
@@ -75,7 +78,8 @@ abstract class Controller
      * @param array $params - Переменные, которые должны подставляться.
      * @return false|string - Возвращает данные, сохраненные в буфере и выводит их на экран.
      */
-    public function renderTemplate($template, $params) {
-        return $this -> renderer -> render($template, $params);
+    public function renderTemplate($template, $params)
+    {
+        return $this->renderer->render($template, $params);
     }
 }

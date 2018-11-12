@@ -53,7 +53,7 @@ class Cart extends DataEntity
         //Если количество товара равно 1.
         if (($session->get('cart'))[$id]['quantity'] === 1) {
             //Удаляем данный продукт из массива.
-            $session->delete('cart', $id);
+            unset($_SESSION['cart'][$id]);
         } else {
             //TODO: Сессия.
             //Иначе уменьшаем количество на 1.

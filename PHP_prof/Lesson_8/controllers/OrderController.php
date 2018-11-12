@@ -13,10 +13,16 @@ class OrderController extends Controller
 {
     public function actionIndex()
     {
-        //Запускаем сессию или используем существующую.
-        $session = App::call()->session;
         //Создаём экземпляр класса "Request", либо используем существующий.
         $request = App::call()->request;
+        //Запускаем сессию или используем существующую.
+        $session = App::call()->session;
+
+        //Проверяем, есть ли в ней массив "users".
+        if (!$user_id = ($session->get('users'))) {
+            //Если нет - делаем переадресацию на страницу каталога.
+            header('Location: /product');
+        }
 
         //Проверяем, пришли ли нам данные методом "POST".
         if ($request->isPost()) {

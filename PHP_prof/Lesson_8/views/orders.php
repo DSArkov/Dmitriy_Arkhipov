@@ -50,7 +50,7 @@
         </div>
     <?php else: ?>
         <div class="empty_cart_wrapper">
-            <p class="empty_cart">Пусто.<br>
+            <p class="empty_cart">Здесь пусто:(<br>
                 <span>Надо что-то менять...</span>
             </p>
         </div>

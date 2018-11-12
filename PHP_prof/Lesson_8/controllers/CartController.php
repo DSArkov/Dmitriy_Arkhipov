@@ -20,9 +20,8 @@ class CartController extends Controller
         //Стартуем сессию либо возобнавляем существующую.
         $session = App::call()->session;
 
-        //TODO: Сессия.
         //Проверяем, есть ли в ней массив "users".
-        if (!$user_id = $_SESSION['users']) {
+        if (!$user_id = ($session->get('users'))) {
             //Если нет - делаем переадресацию на страницу каталога.
             header('Location: /product');
         }

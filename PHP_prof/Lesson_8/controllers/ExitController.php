@@ -7,7 +7,7 @@ namespace app\controllers;
 use app\base\App;
 
 
-////Контроллер для разлогинивания пользователя.
+//Контроллер для разлогинивания пользователя.
 class ExitController extends Controller
 {
     /**

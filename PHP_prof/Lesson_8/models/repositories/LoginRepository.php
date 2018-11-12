@@ -15,7 +15,8 @@ class LoginRepository
      * Метод возвращает название таблицы БД, к которой будем обращаться.
      * @return string - Название таблицы.
      */
-    public function getTableName() {
+    public function getTableName()
+    {
         return 'users';
     }
 
@@ -23,7 +24,8 @@ class LoginRepository
      * Метод возвращает имя класса "User".
      * @return string - Имя класса.
      */
-    public function getEntityClass() {
+    public function getEntityClass()
+    {
         return User::class;
     }
 
@@ -33,7 +35,8 @@ class LoginRepository
      * @param string $password - Пароль пользователя.
      * @return array|null - Возвращает массив с данными.
      */
-    function getUserByLoginPass($login, $password) {
+    function getUserByLoginPass($login, $password)
+    {
         //Получаем название таблицы БД.
         $table = static::getTableName();
         //Возвращаем результат выполнения запроса.

@@ -69,7 +69,7 @@ class App
                 //Иначе выбрасываем исключение.
                 throw new \Exception('Нет такого контроллера.');
             }
-        //Ловим его.
+            //Ловим его.
         } catch (\Exception $e) {
             //Создаём новый экземпляр класса "RequestErrController" и отрисовываем шаблон ошибки.
             (new RequestErrController(new TemplateRenderer()))->actionIndex();

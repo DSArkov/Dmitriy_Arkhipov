@@ -15,8 +15,9 @@ class Storage
      * @param string $key - Ключ.
      * @param mixed $object - Компонент, который необходимо добавить.
      */
-    public function set($key, $object) {
-        $this -> items[$key] = $object;
+    public function set($key, $object)
+    {
+        $this->items[$key] = $object;
     }
 
     /**
@@ -24,13 +25,14 @@ class Storage
      * @param string $key - Ключ, по которому осуществляется поиск.
      * @return mixed - Возвращает компонент.
      */
-    public function get($key) {
+    public function get($key)
+    {
         //Проверяем наличие компонента в хранилище.
-        if (!isset($this -> items[$key])) {
+        if (!isset($this->items[$key])) {
             //Если такового нет - создаём его.
-            $this -> items[$key] = App::call() -> createComponent($key);
+            $this->items[$key] = App::call()->createComponent($key);
         }
         //Возвращаем компонент.
-        return $this -> items[$key];
+        return $this->items[$key];
     }
 }

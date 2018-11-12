@@ -52,11 +52,12 @@ class OrderRepository extends Repository
      */
     function getOrder()
     {
+        //Стартуем новую сессию либо возобновляем существующую.
+        $session = App::call()->session;
         //Получаем имя таблицы БД.
         $table = static::getTableName();
         //Сохраняем запрос в переменную.
-        //TODO: {$_SESSION['users']['id']}.
-        $sql = "SELECT id, date, total_cost, status FROM {$table} WHERE id_user = '1'";
+        $sql = "SELECT id, date, total_cost, status FROM {$table} WHERE id_user = '{$session->get('users')['id']}'";
         //Возвращает массив с результатами.
         return $this->db->queryAll($sql);
     }
@@ -82,10 +83,9 @@ class OrderRepository extends Repository
             //Получаем название таблицы в БД.
             $table = static::getTableName();
 
-            //TODO: Заглушка id_user.
             //Делаем запрос на добавление заказа в таблицу "orders".
             $db->query("INSERT INTO {$table} (id_user, date, total_cost) 
-        VALUES ('1', '{$datetime}', '{$total_cost}')");
+        VALUES ('{$session->get('users')['id']}', '{$datetime}', '{$total_cost}')");
 
             //Получаем последний добавленный id.
             $lastInsertId = $db->queryOne("SELECT MAX(`id`) AS id FROM `orders`");
@@ -95,13 +95,12 @@ class OrderRepository extends Repository
                 //Если это не последний элемент массива(в последнем хранится общая стоимость).
                 if ($product < count($order_products) - 1) {
                     //Добавляем товары в таблицу "order_items".
-                    //TODO: сессия.
                     $db->query("INSERT INTO order_items (id_order, id_prod, item_price, quantity, login) 
-              VALUES ('{$lastInsertId['id']}', '{$value['id']}', '{$value['price']}', '{$value['quantity']}', '{$_SESSION['users']['login']}')");
+              VALUES ('{$lastInsertId['id']}', '{$value['id']}', '{$value['price']}', '{$value['quantity']}', '{{$session->get('users')['login']}}')");
                 }
             }
 
-            //TODO: сессия.
+            //TODO: Реализовать очистку массива корзины в Сессии.
             //Очищаем корзину.
             $_SESSION['cart'] = [];
             //Делаем редирект на текущую страницу.

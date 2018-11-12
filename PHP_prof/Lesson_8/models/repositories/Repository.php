@@ -21,15 +21,16 @@ abstract class Repository implements IRepository
     public function __construct()
     {
         //Сохраняем объект в переменную $db.
-        $this -> db = static::getDb();
+        $this->db = static::getDb();
     }
 
     /**
      * Метод получает объект базы данных.
      * @return object - И возвращает его.
      */
-    private static function getDb() {
-        return App::call() -> db;
+    private static function getDb()
+    {
+        return App::call()->db;
     }
 
     /**
@@ -37,26 +38,28 @@ abstract class Repository implements IRepository
      * @param string $id - идентификатор строки.
      * @return array - Результат выполнения запроса.
      */
-    public function getOne($id) {
+    public function getOne($id)
+    {
         //Получаем название таблицы в БД.
         $tableName = static::getTableName();
         //Сохраняем SQL-запрос в переменную.
         $sql = "SELECT * FROM {$tableName} WHERE id = :id";
         //Обращемся в БД и возвращаем результат.
-        return static::getDb() -> queryOne($sql, [':id' => $id]);
+        return static::getDb()->queryOne($sql, [':id' => $id]);
     }
 
     /**
      * Метод получает информацию о всех строках из БД.
      * @return array - Результат выполнения запроса.
      */
-    public function getAll() {
+    public function getAll()
+    {
         //Получаем название таблицы в БД.
         $tableName = static::getTableName();
         //Сохраняем SQL-запрос в переменную.
         $sql = "SELECT * FROM {$tableName}";
         //Обращемся в БД и возвращаем результат.
-        return static::getDb() -> queryAll($sql);
+        return static::getDb()->queryAll($sql);
     }
 
     /**
@@ -64,35 +67,38 @@ abstract class Repository implements IRepository
      * @param string $id - идентификатор строки.
      * @return array - Результат выполнения запроса.
      */
-    public function getObject($id) {
+    public function getObject($id)
+    {
         //Получаем название таблицы в БД.
         $tableName = static:: getTableName();
         //Сохраняем SQL-запрос в переменную.
         $sql = "SELECT * FROM {$tableName} WHERE id = :id";
         //Обращемся в БД и возвращаем результат.
-        return static::getDb() -> queryObject($sql, [':id' => $id], $this -> getEntityClass());
+        return static::getDb()->queryObject($sql, [':id' => $id], $this->getEntityClass());
     }
 
     /**
      * Метод получает информацию о всех строках из БД.
      * @return array - Возвращает их в виде массива объектов текущего класса.
      */
-    public function getAllObjects() {
+    public function getAllObjects()
+    {
         //Получаем название таблицы в БД.
         $tableName = static:: getTableName();
         //Сохраняем SQL-запрос в переменную.
         $sql = "SELECT * FROM {$tableName}";
         //Обращемся в БД и возвращаем результат в виде массива объектов.
-        return static::getDb() -> queryAllObjects($sql, $this -> getEntityClass());
+        return static::getDb()->queryAllObjects($sql, $this->getEntityClass());
     }
 
     /**
      * Метод добавляет новые данные в БД.
      * @param DataEntity $entity - Наследник класса DataEntity.
      */
-    public function insert(DataEntity $entity) {
+    public function insert(DataEntity $entity)
+    {
         //Получаем название таблицы в БД.
-        $tableName = $this -> getTableName();
+        $tableName = $this->getTableName();
         //Создаём переменную для хранения массива с именами столбцов.
         $columns = [];
         //Создаём переменную для хранения массива с параметрами.
@@ -121,18 +127,19 @@ abstract class Repository implements IRepository
         //Сохраняем SQL-запрос в переменную.
         $sql = "INSERT INTO {$tableName} ({$columns}) VALUES ({$placeholders})";
         //Выполняем запрос к БД.
-        $this -> db -> execute($sql, $params);
+        $this->db->execute($sql, $params);
         //Получаем последний добавленный в базу id и сохраняем его в одноименный параметр.
-        $this -> id = $this -> db -> lastInsertId();
+        $this->id = $this->db->lastInsertId();
     }
 
     /**
      * Метод обновляет данные текущего объекта в БД.
      * @param DataEntity $entity - Наследник класса DataEntity.
      */
-    public function update(DataEntity $entity) {
+    public function update(DataEntity $entity)
+    {
         //Получаем название таблицы в БД.
-        $tableName = $entity -> getTableName();
+        $tableName = $entity->getTableName();
         //Создаём переменную для хранения массива пар "key = :key".
         $columns = [];
         //Создаём переменную для хранения массива с параметрами.
@@ -155,7 +162,7 @@ abstract class Repository implements IRepository
         //Сохраняем запрос в переменную.
         $sql = "UPDATE {$tableName} SET {$template} WHERE id = {$entity -> id}";
         //Выполняем его.
-        $this -> db -> execute($sql, $params);
+        $this->db->execute($sql, $params);
     }
 
     /**
@@ -163,11 +170,12 @@ abstract class Repository implements IRepository
      * и "Insert", если нет.
      * @param DataEntity $entity - Наследник класса DataEntity.
      */
-    public function save(DataEntity $entity) {
-        if (!is_null($entity -> id)) {
-            $this -> update($entity);
+    public function save(DataEntity $entity)
+    {
+        if (!is_null($entity->id)) {
+            $this->update($entity);
         } else {
-            $this -> insert($entity);
+            $this->insert($entity);
         }
     }
 
@@ -175,12 +183,13 @@ abstract class Repository implements IRepository
      * Метод удаляет строку из таблицы БД.
      * @param DataEntity $entity - Наследник класса DataEntity.
      */
-    public function delete(DataEntity $entity) {
+    public function delete(DataEntity $entity)
+    {
         //Получаем название таблицы из метода.
-        $tableName = $this -> getTableName();
+        $tableName = $this->getTableName();
         //Сохраняем SQL-запрос в переменную.
         $sql = "DELETE FROM {$tableName} WHERE id = :id";
         //Делаем запрос в БД.
-        $this -> db -> execute($sql, [':id' => ($entity -> id)]);
+        $this->db->execute($sql, [':id' => ($entity->id)]);
     }
 }

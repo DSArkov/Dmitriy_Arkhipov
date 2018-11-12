@@ -41,9 +41,8 @@ class OrderController extends Controller
         //Получаем информацию о заказах из MySQL.
         $arr_orders = (new OrderRepository())->getOrder();
 
-        //TODO:Сессия.
         //Вызываем метод для отрисовки шаблона, передавая необходимые параметры.
-        echo $this->render('orders', ['arr_order' => $arr_orders, 'login' => $_SESSION['users']['login']]);
+        echo $this->render('orders', ['arr_order' => $arr_orders, 'login' => $session->get('users')['login']]);
     }
 
 }

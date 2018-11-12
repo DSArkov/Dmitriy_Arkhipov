@@ -10,7 +10,7 @@
                 "<a class='enter' href='/login'>Войти</a>" :
                 //Если да - приветствуем!
                 "<div class='enter'>Привет, {$login}!<br><a class='account' href='/order'>Заказы</a> | 
-                                                            <a class='exit' href='/exit'>Выйти</a></div>" ?>
+                                                            <a class='exit' href='/login/logout'>Выйти</a></div>" ?>
             <a href="/cart"><img src="/img/main/cart.png" alt="cart"></a>
         </div>
     </div>

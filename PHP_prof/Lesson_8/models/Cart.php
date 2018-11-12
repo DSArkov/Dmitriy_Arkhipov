@@ -24,18 +24,13 @@ class Cart extends DataEntity
 
         //Проверяем наличие продукта в массиве $_SESSION.
         if (isset($session->get('cart')[$id])) {
-            //TODO: Доделать добавление через класс Session.
             //Если есть, то увеличиваем количество на 1.
-            //$qty = $session->get('cart')[$id]['quantity'] + 1;
+            $qty = $session->get('cart')[$id]['quantity'] + 1;
             //И меняем значение в сессии.
-            //$session->set('cart', [$id => ['quantity' => $qty]]);
-            //var_dump($_SESSION['cart']);
-            $_SESSION['cart'][$id]['quantity'] += $quantity;
+            $session->set(['cart', $id, 'quantity'], $qty);
         } else {
-            //TODO: Доделать добавление через класс Session.
             //Если нет - добавляем и присваеваем количество равное единице.
-            //$session->set('cart', [$id => ['quantity' => $quantity]]);
-            $_SESSION['cart'][$id]['quantity'] = $quantity;
+            $session->set(['cart', $id, 'quantity'], $quantity);
         }
     }
 
@@ -51,17 +46,15 @@ class Cart extends DataEntity
         $session = App::call()->session;
 
         //Если количество товара равно 1.
-        if (($session->get('cart'))[$id]['quantity'] === 1) {
+        if ($session->get('cart')[$id]['quantity'] == 1) {
+            //TODO: Удаление элемента массива из Сессии.
             //Удаляем данный продукт из массива.
             unset($_SESSION['cart'][$id]);
         } else {
-            //TODO: Сессия.
-            //Иначе уменьшаем количество на 1.
-            //$_SESSION['cart'][$id]['quantity'] -= $quantity;
-            //$qty = ($session->get('cart'))[$id]['quantity'] - $quantity;
-            //var_dump($qty);
-            //$session->set('cart', [$id => ['quantity' => $qty]]);
-            $_SESSION['cart'][$id]['quantity'] -= $quantity;
+            //Иначе получаем количество минус 1.
+            $qty = ($session->get('cart'))[$id]['quantity'] - $quantity;
+            //И изменяем значение в сессиии.
+            $session->set(['cart', $id, 'quantity'], $qty);
         }
     }
 

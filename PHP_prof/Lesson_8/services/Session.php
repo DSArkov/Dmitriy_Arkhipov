@@ -27,13 +27,25 @@ class Session
     }
 
     /**
-     * Метод добавляет значение в глобальный массив $_SESSION.
-     * @param string $key - Ключ.
-     * @param mixed $value - Значение.
+     * Метод изменяет значение массива $_SESSION по заданному ключу.
+     * @param array $keys - Массив из последовательности ключей, например: ['cart', '2', 'quantity']
+     * @param mixed $value - Значение передаваемое в последний элемент ключей.
      */
-    public function set($key, $value)
+    function set($keys, $value)
     {
-        $_SESSION[$key] = $value;
+        //Инициализируем пустой массив.
+        $myArr = '';
+
+        //Формируем строку массива в виде '['a']['b']['c']'.
+        foreach ($keys as $item) {
+            $myArr .= "['" . $item . "']";
+        }
+
+        //Формируем полную строку кода в виде '$_SESSION['a']['b']['c'] = value;'.
+        $temp = '$_SESSION' . $myArr . ' = ' . "'" . $value . "'" . ';';
+
+        //Выполняем код PHP, содержащейся в строке.
+        eval($temp);
     }
 
     /**

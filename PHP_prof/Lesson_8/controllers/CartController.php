@@ -40,7 +40,6 @@ class CartController extends Controller
         //Получаем данные о товрах, находящихся в массиве "$_SESSION".
         $arrProd = (new Cart)->getCartProd($session->get('cart'));
         //Вызываем функцию для отрисовки шаблона.
-        //TODO: Сессия.
-        echo $this->render('cart', ['arrProd' => $arrProd, 'login' => $_SESSION['users']['login']]);
+        echo $this->render('cart', ['arrProd' => $arrProd, 'login' => $session->get('users')['login']]);
     }
 }

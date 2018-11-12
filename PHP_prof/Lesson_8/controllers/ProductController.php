@@ -33,8 +33,7 @@ class ProductController extends Controller
         //Получаем продукты из базы данных.
         $model = (new ProductRepository())->getAllObjects();
         //Выводим их на экран.
-        //TODO: Сесссия.
-        echo $this->render('catalogue', ['model' => $model, 'login' => $_SESSION['users']['login']]);
+        echo $this->render('catalogue', ['model' => $model, 'login' => $session->get('users')['login'], $session]);
     }
 
     /**
@@ -61,7 +60,6 @@ class ProductController extends Controller
         //(new ProductRepository())-внешние скобки позволяют выз. экз-р класса на лету(без сохр. в переменную).
         $model = (new ProductRepository())->getObject($id);
         //Выводим на экран.
-        //TODO: Сессия.
-        echo $this->render('card', ['model' => $model, 'login' => $_SESSION['users']['login']]);
+        echo $this->render('card', ['model' => $model, 'login' => $session->get('users')['login'], $session]);
     }
 }

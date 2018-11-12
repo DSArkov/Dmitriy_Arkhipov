@@ -4,6 +4,6 @@
 namespace app\models;
 
 
- abstract class DataEntity
+abstract class DataEntity
 {
 }

@@ -31,14 +31,32 @@ DELETE FROM `salaries` WHERE `id` = 3;
 
 
 #ЗАДАНИЕ 2. Транзакции.
+#1.
 SET AUTOCOMMIT = 0;
-SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 
 BEGIN;
-SELECT @a := `id` AS `id`, `depart`, `head` FROM `departments` WHERE `head` IS NULL
+SELECT @a := `id` AS `id` FROM `departments` WHERE `head` IS NULL
 GROUP BY `id` LIMIT 1;
-UPDATE `depart` SET `head` = 'Джони Айв' WHERE `head` = @a;
+UPDATE `departments` SET `head` = 'Джони Айв' WHERE `id` = @a;
 COMMIT;
+
+SET AUTOCOMMIT = 1;
+
+SELECT * FROM `departments`;
+
+#2.
+SET SQL_SAFE_UPDATES = 0;
+SET AUTOCOMMIT = 0;
+
+BEGIN;
+SELECT @b := MIN(`salary`) AS `min_salary` FROM `employees`;
+UPDATE `employees` SET `salary` = @b + 5000 WHERE `salary` = @b; 
+COMMIT;
+
+SET SQL_SAFE_UPDATES = 1;
+SET AUTOCOMMIT = 1;
+
+SELECT * FROM `employees` ORDER BY `salary`;
 
 
 #ЗАДАНИЕ 3. "EXPLAIN".

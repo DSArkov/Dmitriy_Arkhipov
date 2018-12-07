@@ -71,12 +71,12 @@ SELECT COUNT(*) AS `count`, `l`.`from_user` FROM `like` AS `l`
 GROUP BY `l`.`from_user`) AS `l2`
 ON `l2`.`from_user` = `u`.`id`;
 
-#Задача 2. В процессе...
-SELECT `l`.`from_user`, `l`.`to_user` FROM (SELECT `from_user`, `to_user` FROM `like` WHERE `to_user` <> 2) AS `l`
-WHERE (`to_user` = 4) OR (`to_user` = 5);
+#Задача 2.
+SELECT * FROM `like` AS `a`
+LEFT JOIN (SELECT * FROM `like` WHERE `like`.`to_user` = 2) AS `b`
+ON `a`.`from_user` = `b`.`from_user`
+WHERE ((`a`.`to_user` = 4) OR (`a`.`to_user` = 5) OR (`a`.`to_user` = 2)) 
+AND (`b`.`to_user` IS NULL);
 
-SELECT * FROM `like` WHERE (`to_user` = 4) OR (`to_user` = 5) OR (`to_user` <> 2);
-
-SELECT * FROM `like` WHERE `to_user` <> 2;
 
 

@@ -43,7 +43,7 @@ class Task extends Model
             [['dateCreate'], 'default', 'value' => date('d.m.Y')],
             //Поле "dateStart" и "dateEnd" по умолчанию "null".
             [['dateStart', 'dateEnd'], 'default', 'value' => null],
-            //Дата окончания "dateEnd" не должна быть меньше текущей.
+            //Дата окончания "dateEnd" не должна быть меньше "dateStart".
             [['dateEnd'], 'relevantDateValidator']
         ];
     }
@@ -55,9 +55,9 @@ class Task extends Model
      */
     public function relevantDateValidator($attribute, $params) {
         //Если указанная дата меньше текущей,
-        if ($this->$attribute < date('d.m.Y')) {
+        if ($this->$attribute < $this->dateStart) {
             //Записываем ошибку.
-            $this->addError($attribute, "Дата должна быть больше либо равна текущей.");
+            $this->addError($attribute, "Дата окончания не может быть меньше даты начала работы над задачей.");
         }
     }
 

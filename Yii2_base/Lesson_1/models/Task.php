@@ -44,7 +44,7 @@ class Task extends Model
             //Поле "dateStart" и "dateEnd" по умолчанию "null".
             [['dateStart', 'dateEnd'], 'default', 'value' => null],
             //Дата окончания "dateEnd" не должна быть меньше текущей.
-            [['dateStart', 'dateEnd'], 'relevantDateValidator']
+            [['dateEnd'], 'relevantDateValidator']
         ];
     }
 

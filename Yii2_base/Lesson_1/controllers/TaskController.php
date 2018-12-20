@@ -33,9 +33,9 @@ class TaskController extends Controller
             ]
         ]);
         //Валидируем данные.
-        //var_dump($task->validate());
+        var_dump($task->validate());
         //Смотрим наличие ошибок.
-        //var_dump($task->getErrors());
+        var_dump($task->getErrors());
         //Возвращаем метод, который рендерит шаблон с необходимыми параметрами.
         return $this->render('index', ['task' => $task]);
     }

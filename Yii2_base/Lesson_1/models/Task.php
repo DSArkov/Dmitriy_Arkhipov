@@ -3,7 +3,8 @@
 namespace app\models;
 
 
-//Импортируем класс.
+//Импортируем классы.
+use app\validators\StatusValidator;
 use yii\base\Model;
 
 //Модель "Task".
@@ -37,8 +38,8 @@ class Task extends Model
             [['description'], 'string', 'min' => '32', 'max' => 512,
                 'tooShort' => 'Минимальное количество символов - 32.',
                 'tooLong' => 'Максимальное количество символов - 512.'],
-            //Значение по умолчанию поля "status" - "Новая".
-            [['status'], 'default', 'value' => 'Новая'],
+            //Значение поля "status" должно быть равно одному из доступных.
+            [['status'], StatusValidator::class],
             //Значение по умолчанию поля "dateCreate" - текущая дата.
             [['dateCreate'], 'default', 'value' => date('d.m.Y')],
             //Поле "dateStart" и "dateEnd" по умолчанию "null".

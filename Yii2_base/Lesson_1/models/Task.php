@@ -54,9 +54,9 @@ class Task extends Model
      * @param $params - Параметры валидации.
      */
     public function relevantDateValidator($attribute, $params) {
-        //Если указанная дата меньше текущей,
+        //Если указанная дата меньше даты начала,
         if ($this->$attribute < $this->dateStart) {
-            //Записываем ошибку.
+            //записываем ошибку.
             $this->addError($attribute, "Дата окончания не может быть меньше даты начала работы над задачей.");
         }
     }

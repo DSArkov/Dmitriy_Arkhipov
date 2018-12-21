@@ -6,7 +6,7 @@ namespace app\validators;
 use yii\validators\Validator;
 
 
-//Класс-валидатор статуса задания.
+//Класс для валидации статуса задания.
 class StatusValidator extends Validator
 {
     /**
@@ -15,6 +15,7 @@ class StatusValidator extends Validator
      * @param $attribute - Имя валидируемого аттрибута.
      */
     public function validateStatus($model, $attribute) {
+        //Сохраняем в переменную массив с доступными статусами.
         $statusArr = ['Новая', 'Аналитика', 'В работе', 'Готова к тестированию', 'Закрыта'];
         //Если указанного статуса нет в массиве,
         if (!in_array($this->$attribute, $statusArr)) {

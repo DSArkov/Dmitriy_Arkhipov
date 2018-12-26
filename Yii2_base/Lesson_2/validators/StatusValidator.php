@@ -14,13 +14,13 @@ class StatusValidator extends Validator
      * @param $model - Класс модели, в которой будет происходить проверка.
      * @param $attribute - Имя валидируемого аттрибута.
      */
-    public function validateStatus($model, $attribute) {
+    public function validateAttribute($model, $attribute) {
         //Сохраняем в переменную массив с доступными статусами.
         $statusArr = ['Новая', 'Аналитика', 'В работе', 'Готова к тестированию', 'Закрыта'];
         //Если указанного статуса нет в массиве,
-        if (!in_array($this->$attribute, $statusArr)) {
+        if (!in_array($model->$attribute, $statusArr)) {
             //записываем ошибку.
-            $model->addError($attribute, 'Дата окончания не может быть меньше даты начала работы над задачей.');
+            $model->addError($attribute, 'Указан неверный статус.');
         }
     }
 }

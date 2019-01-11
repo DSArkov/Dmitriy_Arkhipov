@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $responsible */
 ?>
 
 <div class="tasks-form">

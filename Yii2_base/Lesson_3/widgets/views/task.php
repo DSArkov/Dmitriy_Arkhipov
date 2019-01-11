@@ -1,5 +1,18 @@
-<div style="border-bottom: 1px solid black">
-    <a href="index.php?r=task/task&id=<?= $model->id ?>"><h3><?= $model->title ?></h3></a>
-    <p>Дата создания: <?= $model->date ?></p>
-    <p>ID исполнителя: <?= $model->owner_id ?></p>
+<?php
+
+//Используем класс.
+use yii\helpers\Url;
+
+/** @var $model \app\models\tables\Tasks */
+?>
+
+<div class="task-container">
+    <a class="task-link" href="<?= Url::to(['task/task', 'id' => $model->id]) ?>">
+        <h4><?= $model->title ?></h4>
+        <div class="task-preview">
+            <div>Статус: <?= $model->status ?></div>
+            <div>Дата создания: <?= $model->date ?></div>
+            <div>Исполнитель: <?= $model->responsible->login ?></div>
+        </div>
+    </a>
 </div>

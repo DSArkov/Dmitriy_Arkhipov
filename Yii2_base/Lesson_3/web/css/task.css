@@ -1,0 +1,25 @@
+.preview-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.task-container {
+    margin: 10px;
+}
+
+.task-link {
+    display: block;
+    border: 1px solid #ccffcc;
+    border-radius: 5px;
+    width: 270px;
+    height: 140px;
+    box-sizing: border-box;
+    background-color: #ccffcc;
+    padding: 0 10px 0 10px;
+}
+
+.task-link:hover {
+    text-decoration: none;
+    background-color: #acdeac;
+}

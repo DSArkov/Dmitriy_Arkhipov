@@ -1,4 +1,5 @@
 <?php
+
 //Регистрируем класс в пространстве имён.
 namespace app\controllers;
 
@@ -8,12 +9,12 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use app\models\tables\Tasks;
 
-//Контроллер "Task".
+//Контроллер задач.
 class TaskController extends Controller
 {
     /**
      * Основной метод(по умолчанию), отображает список задач.
-     * @return string - возвращает строку с данными для вывода на экран.
+     * @return string - Возвращает строку с данными для вывода на экран.
      */
     public function actionIndex()
     {
@@ -30,8 +31,8 @@ class TaskController extends Controller
 
     /**
      * Метод отображает карточку задачи.
-     * @param integer $id - идентификатор задачи.
-     * @return string - возвращает строку с данными для вывода на экран.
+     * @param integer $id - Идентификатор задачи.
+     * @return string - Возвращает строку с данными для вывода на экран.
      */
     public function actionTask($id)
     {

@@ -70,9 +70,9 @@ class Users extends \yii\db\ActiveRecord
     }
 
     /**
-     * Статический метод для получения списка пользователей.
-     * @return array - Ассоциативный массив, где "id" - ключ, а "login" - значение.
-     */
+ * Статический метод для получения списка пользователей.
+ * @return array - Ассоциативный массив, где "id" - ключ, а "login" - значение.
+ */
     public static function getUsersList()
     {
         $users = static::find()

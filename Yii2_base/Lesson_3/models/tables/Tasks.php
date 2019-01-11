@@ -1,8 +1,8 @@
 <?php
 
+//Регистрируем класс в пространстве имён.
 namespace app\models\tables;
 
-use Yii;
 
 /**
  * This is the model class for table "tasks".
@@ -17,7 +17,7 @@ use Yii;
  * @property string $date_end
  * @property string $description
  *
- * @property string $user
+ * @property Users $responsible
  */
 class Tasks extends \yii\db\ActiveRecord
 {
@@ -66,7 +66,7 @@ class Tasks extends \yii\db\ActiveRecord
      * Метод устанавливает связь между двумя таблицами по определённым полям.
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getResponsible()
     {
         return $this->hasOne(Users::class, ['id' => 'responsible_id']);
     }

@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Users */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $role*/
+/* @var $role */
 ?>
 
 <div class="users-form">

@@ -12,7 +12,7 @@ use app\models\tables\Tasks;
 class TaskController extends Controller
 {
     /**
-     * Основной метод(по умолчанию).
+     * Основной метод(по умолчанию), отображает список задач.
      * @return string - возвращает строку с данными для вывода на экран.
      */
     public function actionIndex()
@@ -25,9 +25,7 @@ class TaskController extends Controller
             ]
         ]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider
-        ]);
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     /**
@@ -39,9 +37,7 @@ class TaskController extends Controller
     {
         $task = Tasks::findOne($id);
 
-        return $this->render('task', [
-            'task' => $task
-        ]);
+        return $this->render('task', ['task' => $task]);
 
 //        //Создаём новый экземпляр "Задачи".
 //        $task = new Task();

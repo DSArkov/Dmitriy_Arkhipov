@@ -4,6 +4,8 @@
 namespace app\models\tables;
 
 
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "users".
  *
@@ -65,5 +67,18 @@ class Users extends \yii\db\ActiveRecord
             ];
         }
         return parent::fields();
+    }
+
+    /**
+     * Статический метод для получения списка пользователей.
+     * @return array - Ассоциативный массив, где "id" - ключ, а "login" - значение.
+     */
+    public static function getUsersList()
+    {
+        $users = static::find()
+            ->select(['id', 'login'])
+            ->asArray()
+            ->all();
+        return ArrayHelper::map($users, 'id', 'login');
     }
 }

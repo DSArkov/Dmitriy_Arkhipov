@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\tables\Roles;
 use Yii;
 use app\models\tables\Users;
 use app\models\filters\UsersSearch;
@@ -70,11 +71,9 @@ class AdminUsersController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $role = yii\helpers\ArrayHelper::map(\app\models\tables\Roles::find()->all(), 'id', 'title');
-
         return $this->render('create', [
             'model' => $model,
-            'role' => $role
+            'role' => Roles::getRolesList()
         ]);
     }
 
@@ -89,15 +88,13 @@ class AdminUsersController extends Controller
     {
         $model = $this->findModel($id);
 
-        $role = yii\helpers\ArrayHelper::map(\app\models\tables\Roles::find()->all(), 'id', 'title');
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'role' => $role
+            'role' =>  Roles::getRolesList()
         ]);
     }
 

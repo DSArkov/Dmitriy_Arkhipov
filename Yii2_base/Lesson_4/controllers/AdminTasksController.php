@@ -73,7 +73,8 @@ class AdminTasksController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'responsible' => Users::getUsersList()
+            'responsible' => Users::getUsersList(),
+            'owner' => Users::getUsersList()
         ]);
     }
 
@@ -94,7 +95,8 @@ class AdminTasksController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'responsible' => Users::getUsersList()
+            'responsible' => Users::getUsersList(),
+            'owner' => Users::getUsersList()
         ]);
     }
 

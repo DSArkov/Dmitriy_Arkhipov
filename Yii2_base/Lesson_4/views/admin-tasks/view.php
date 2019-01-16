@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'owner_id',
             'responsible_id',
             'status',
-            'date',
+            'created_at',
             'date_start',
             'date_end',
             'description:ntext',

@@ -22,4 +22,5 @@
 .task-link:hover {
     text-decoration: none;
     background-color: #acdeac;
+    border: 1px solid #acdeac;
 }

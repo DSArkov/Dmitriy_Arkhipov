@@ -12,7 +12,7 @@ namespace app\models\tables;
  * @property int $owner_id
  * @property int $responsible_id
  * @property string $status
- * @property string $date
+ * @property string $created_at
  * @property string $date_start
  * @property string $date_end
  * @property string $description
@@ -36,9 +36,9 @@ class Tasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'owner_id', 'status', 'date'], 'required'],
+            [['title', 'owner_id', 'status', 'created_at'], 'required'],
             [['owner_id', 'responsible_id'], 'integer'],
-            [['date', 'date_start', 'date_end'], 'safe'],
+            [['created_at', 'date_start', 'date_end'], 'safe'],
             [['description'], 'string'],
             [['title'], 'string', 'max' => 64],
             [['status'], 'string', 'max' => 32],
@@ -56,7 +56,7 @@ class Tasks extends \yii\db\ActiveRecord
             'owner_id' => 'Owner',
             'responsible_id' => 'Responsible',
             'status' => 'Status',
-            'date' => 'Date',
+            'created_at' => 'Date Create',
             'date_start' => 'Date Start',
             'date_end' => 'Date End',
             'description' => 'Description',

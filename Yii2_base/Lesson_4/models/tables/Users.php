@@ -4,6 +4,7 @@
 namespace app\models\tables;
 
 
+//Используем класс.
 use yii\helpers\ArrayHelper;
 
 /**

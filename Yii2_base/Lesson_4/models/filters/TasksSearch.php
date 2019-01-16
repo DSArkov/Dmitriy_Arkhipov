@@ -18,7 +18,7 @@ class TasksSearch extends Tasks
     {
         return [
             [['id', 'owner_id', 'responsible_id'], 'integer'],
-            [['title', 'status', 'date', 'date_start', 'date_end', 'description'], 'safe'],
+            [['title', 'status', 'created_at', 'date_start', 'date_end', 'description'], 'safe'],
         ];
     }
 
@@ -61,7 +61,7 @@ class TasksSearch extends Tasks
             'id' => $this->id,
             'owner_id' => $this->owner_id,
             'responsible_id' => $this->responsible_id,
-            'date' => $this->date,
+            'created_at' => $this->created_at,
             'date_start' => $this->date_start,
             'date_end' => $this->date_end,
         ]);

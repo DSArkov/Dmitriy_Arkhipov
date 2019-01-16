@@ -7,6 +7,8 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\tables\Tasks */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $responsible */
+/* @var $owner */
+
 ?>
 
 <div class="tasks-form">
@@ -15,13 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'owner_id')->textInput() ?>
+    <?= $form->field($model, 'owner_id')->dropDownList($owner, ['prompt' => 'Назначил']) ?>
 
     <?= $form->field($model, 'responsible_id')->dropDownList($responsible, ['prompt' => 'Укажите ответственного']) ?>
 
     <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($model, 'created_at')->textInput() ?>
 
     <?= $form->field($model, 'date_start')->textInput() ?>
 

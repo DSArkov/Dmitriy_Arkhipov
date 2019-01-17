@@ -5,12 +5,14 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
+/* @var $owner */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+
 <div class="tasks-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -26,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -37,7 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'date_start',
             'date_end',
-            'description:ntext',
+            'description:text',
+            'updated_at'
         ],
     ]) ?>
 

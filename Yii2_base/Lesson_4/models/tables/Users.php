@@ -4,17 +4,20 @@
 namespace app\models\tables;
 
 
-//Используем класс.
+//Используем классы.
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "users".
  *
  * @property int $id
- * @property string $username
+ * @property string $login
  * @property string $password
- * @property string $authKey
- * @property string $accessToken
+ * @property string $email
+ * @property string $created_at
+ * @property string $updated_at
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -30,14 +33,30 @@ class Users extends \yii\db\ActiveRecord
     }
 
     /**
+     * Метод-поведение, который добавляет временную метку к полям "created_at" и "updated_at".
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['username', 'password', 'authKey', 'accessToken'], 'required'],
-            [['username'], 'string', 'max' => 16],
-            [['password', 'authKey', 'accessToken'], 'string', 'max' => 32],
+            [['login', 'password'], 'required'],
+            ['login', 'string', 'max' => 16],
+            ['email', 'email'],
+            ['password', 'string', 'max' => 32],
+            [['created_at', 'updated_at'], 'safe']
         ];
     }
 
@@ -52,6 +71,8 @@ class Users extends \yii\db\ActiveRecord
             'password' => 'Password',
             'email' => 'Email',
             'role_id' => 'Role',
+            'created_at' => 'Date create',
+            'updated_at' => 'Date update'
         ];
     }
 

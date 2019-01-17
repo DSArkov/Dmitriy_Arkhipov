@@ -1,7 +1,10 @@
 <?php
 
+//Регистрируем класс в пространстве имён.
 namespace app\controllers;
 
+
+//Использовать классы.
 use app\models\tables\Roles;
 use Yii;
 use app\models\tables\Users;

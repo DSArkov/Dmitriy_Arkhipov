@@ -33,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_at',
             //'date_start',
             //'date_end',
-            //'description:ntext',
+            //'description:text',
+            //'updated_at'
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

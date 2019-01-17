@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $responsible */
 /* @var $owner */
 
-$this->title = 'Create Tasks';
+$this->title = 'Create Task';
 $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

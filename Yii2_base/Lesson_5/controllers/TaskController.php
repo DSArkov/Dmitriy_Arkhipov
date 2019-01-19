@@ -5,9 +5,11 @@ namespace app\controllers;
 
 
 //Импортируем классы.
+use app\models\tables\Users;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use app\models\tables\Tasks;
+use Yii;
 
 //Контроллер задач.
 class TaskController extends Controller
@@ -18,9 +20,17 @@ class TaskController extends Controller
      */
     public function actionIndex()
     {
+        $month = \Yii::$app->request->post('month');
+
+        if ($month) {
+            $query = Tasks::find()->where("MONTH(created_at) = {$month}");
+        } else {
+            $query = Tasks::find();
+        }
+
         $dataProvider = new ActiveDataProvider(
         [
-            'query' => Tasks::find()
+            'query' => $query
         ]);
 
         return $this->render('index', ['dataProvider' => $dataProvider]);
@@ -36,28 +46,25 @@ class TaskController extends Controller
         $task = Tasks::findOne($id);
 
         return $this->render('task', ['task' => $task]);
+    }
 
-//        //Создаём новый экземпляр "Задачи".
-//        $task = new Task();
-//        //Массово инициализируем параметры.
-//        $task->load([
-//            'Task' =>
-//            [
-//                'title' => 'Важная задача',
-//                'owner' => 'Преподаватель',
-//                'user' => 'Студент',
-//                'status' => 'Новая',
-//                'dateCreate' => date('d.m.Y'),
-//                'dateStart' => '22.12.2018',
-//                'dateEnd' => '29.12.2018',
-//                'description' => 'Какой-то текст с описанием задачи...'
-//            ]
-//        ]);
-//        //Валидируем данные.
-//        //var_dump($task->validate());
-//        //Смотрим наличие ошибок.
-//        //var_dump($task->getErrors());
-//        //Возвращаем метод, который рендерит шаблон с необходимыми параметрами.
-//        return $this->render('index', ['task' => $task]);
+    /**
+     * Метод создаёт новую задачу.
+     * Если успех, то происходит редирект на страницу просмотра.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Tasks();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['task', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+            'responsible' => Users::getUsersList(),
+            'owner' => Users::getUsersList()
+        ]);
     }
 }

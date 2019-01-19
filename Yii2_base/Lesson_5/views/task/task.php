@@ -1,6 +1,14 @@
-<?php /* @var $task */ ?>
+<?php
 
-<h1><?= $task->title ?></h1>
+/* @var $task */
+
+$this->title = $task->id;
+$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url'=> 'index.php?r=task'];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+
+<h1>Задание #<?= $task->id ?></h1>
+<p>Название: <?= $task->title ?></p>
 <p>Назначил: <?= $task->owner->login ?></p>
 <p>Исполнитель: <?= $task->responsible->login ?></p>
 <p>Статус задачи: <?= $task->status ?></p>

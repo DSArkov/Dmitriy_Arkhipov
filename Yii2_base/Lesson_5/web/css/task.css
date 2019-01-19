@@ -1,3 +1,17 @@
+button {
+    outline: none!important;
+}
+
+a {
+    text-decoration: none!important;
+}
+
+/*Task list*/
+.task-buttons-row {
+    margin: 15px 100px 0 0;
+}
+
+/*Task preview*/
 .preview-container {
     display: flex;
     justify-content: flex-start;
@@ -5,7 +19,7 @@
 }
 
 .task-container {
-    margin: 10px;
+    margin: 15px;
 }
 
 .task-link {
@@ -14,19 +28,11 @@
     border-radius: 5px;
     width: 270px;
     height: 140px;
-    box-sizing: border-box;
     background-color: #ccffcc;
     padding: 0 10px 0 10px;
 }
 
 .task-link:hover {
-    text-decoration: none;
     background-color: #acdeac;
     border: 1px solid #acdeac;
-}
-
-.task-create {
-    margin: 10px 10px 15px 10px!important;
-    outline: none!important;
-    text-transform: uppercase;
 }

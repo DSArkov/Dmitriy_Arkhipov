@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\filters\PageCache;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -35,6 +36,14 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+            'cache' => [
+                'class' => PageCache::class,
+                'only' => ['contact'],
+                'duration' => 500,
+                'variations' => [
+                    \Yii::$app->language
+                ]
+            ]
         ];
     }
 
@@ -106,6 +115,7 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
 

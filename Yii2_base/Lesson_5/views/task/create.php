@@ -8,7 +8,13 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $responsible */
 /* @var $owner */
+
+$this->title = 'Create Task';
+$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<h1><?= Html::encode($this->title) ?></h1>
 
 <div class="tasks-form">
 

@@ -17,15 +17,37 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'owner_id')->dropDownList($owner, ['prompt' => 'Назначил']) ?>
+    <?php if ($owner): ?>
+        <?= $form->field($model, 'owner_id')->dropDownList($owner, ['prompt' => 'Owner']) ?>
+    <?php else: ?>
+        <?= $form->field($model->owner, 'login')->textInput(['readonly' => true])->label('Owner') ?>
+    <?php endif; ?>
 
-    <?= $form->field($model, 'responsible_id')->dropDownList($responsible, ['prompt' => 'Укажите ответственного']) ?>
+    <?= $form->field($model, 'responsible_id')->dropDownList($responsible, ['prompt' => 'Set responsible']) ?>
 
-    <?= $form->field($model, 'status_id')->dropDownList($status, ['prompt' => 'Выберите статус']) ?>
+    <?= $form->field($model, 'status_id')->dropDownList($status, ['value' => '1']) ?>
 
-    <?= $form->field($model, 'date_start')->textInput() ?>
+    <?= $form->field($model, 'date_start')->widget('kartik\date\DatePicker', [
+        'name' => 'date_start',
+        'options' => ['placeholder' => 'Select start date'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'format' => 'yyyy-MM-dd',
+            'todayHighlight' => true,
+            'autoclose' => true
+        ]
+    ]) ?>
 
-    <?= $form->field($model, 'date_end')->textInput() ?>
+    <?= $form->field($model, 'date_end')->widget('kartik\date\DatePicker', [
+        'name' => 'date_end',
+        'options' => ['placeholder' => 'Select finish date'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'format' => 'yyyy-MM-dd',
+            'todayHighlight' => true,
+            'autoclose' => true
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 

@@ -34,11 +34,11 @@ $params = [
 <h1><?= Html::encode($this->title) ?></h1>
 
 <div class="row task-buttons-row">
-    <div class="col-md-8">
+    <div class="col-md-9">
         <a href="<?= Url::to(['task/create']) ?>" class="btn btn-primary">Create task</a>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <?php $form = ActiveForm::begin(); ?>
         <div class="form-inline">
             <div class="form-group">

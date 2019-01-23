@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = 'Update';
     <?= $this->render('_form', [
         'model' => $model,
         'responsible' => $responsible,
-        'owner' => $owner,
         'status' => $status
     ]) ?>
 

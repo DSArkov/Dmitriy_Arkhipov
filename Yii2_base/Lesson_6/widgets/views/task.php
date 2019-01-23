@@ -13,9 +13,9 @@ $this->title = 'Tasks';
         <h4><?= $model->title ?></h4>
 
         <div class="task-preview">
-            <div>Статус: <?= $model->status->title ?></div>
-            <div>Дата создания: <?= $model->created_at ?></div>
-            <div>Исполнитель: <?= $model->responsible->login ?></div>
+            <div>Status: <?= $model->status->title ?></div>
+            <div>Date create: <?= $model->created_at ?></div>
+            <div>Responsible: <?= $model->responsible->login ?></div>
         </div>
     </a>
 </div>

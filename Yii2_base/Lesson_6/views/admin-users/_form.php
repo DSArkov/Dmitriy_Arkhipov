@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'role_id')->dropDownList($role, ['prompt' => 'Укажите роль']) ?>
+    <?= $form->field($model, 'role_id')->dropDownList($role, ['prompt' => 'Set role']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

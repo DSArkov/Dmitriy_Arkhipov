@@ -98,7 +98,6 @@ class AdminTasksController extends Controller
         return $this->render('update', [
             'model' => $model,
             'responsible' => Users::getUsersList(),
-            'owner' => Users::getUsersList(),
             'status' => TaskStatuses::getStatusesList()
         ]);
     }

@@ -30,23 +30,43 @@ class TaskController extends Controller
         }
 
         $dataProvider = new ActiveDataProvider(
-        [
-            'query' => $query
-        ]);
+            [
+                'query' => $query
+            ]);
 
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     /**
      * Метод отображает карточку задачи.
-     * @param integer $id - Идентификатор задачи.
+     * @param int $id - Идентификатор задачи.
      * @return string - Возвращает строку с данными для вывода на экран.
      */
     public function actionTask($id)
     {
-        $task = Tasks::findOne($id);
+        return $this->render('task', [
+            'model' => Tasks::findOne($id),
+            'owner' => Users::getUsersList(),
+            'responsible' => Users::getUsersList(),
+            'status' => TaskStatuses::getStatusesList(),
+            'userId' => \Yii::$app->user->id,
+        ]);
+    }
 
-        return $this->render('task', ['task' => $task]);
+    /**
+     * Метод сохраняет изменения после редактирования задачи и выводит информационное сообщение.
+     * @param int $id - Идентификатор задачи.
+     */
+    public function actionSave($id)
+    {
+        if ($model = Tasks::findOne($id)) {
+            $model->load(\Yii::$app->request->post());
+            $model->save();
+            \Yii::$app->session->setFlash('success', "The changes are saved.");
+        } else {
+            \Yii::$app->session->setFlash('error', "Somewhere an error, check please...");
+        }
+        $this->redirect(\Yii::$app->request->referrer);
     }
 
     /**
@@ -65,8 +85,7 @@ class TaskController extends Controller
         return $this->render('create', [
             'model' => $model,
             'responsible' => Users::getUsersList(),
-            'owner' => Users::getUsersList(),
-            'status' =>  TaskStatuses::getStatusesList()
+            'status' => TaskStatuses::getStatusesList()
         ]);
     }
 }

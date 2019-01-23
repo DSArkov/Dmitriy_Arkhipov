@@ -25,13 +25,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'owner_id')->hiddenInput(['value' => \Yii::$app->user->id])->label(false); ?>
 
-    <?= $form->field($model, 'responsible_id')->dropDownList($responsible, ['prompt' => 'Укажите ответственного']) ?>
+    <?= $form->field($model, 'responsible_id')->dropDownList($responsible, ['prompt' => 'Set responsible']) ?>
 
-    <?= $form->field($model, 'status_id')->dropDownList($status, ['prompt' => 'Выберите статус']) ?>
+    <?= $form->field($model, 'status_id')->dropDownList($status, ['value' => '1']) ?>
 
-    <?= $form->field($model, 'date_start')->textInput() ?>
+    <?= $form->field($model, 'date_start')->widget('kartik\date\DatePicker', [
+        'name' => 'date_start',
+        'options' => ['placeholder' => 'Select start date'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'format' => 'yyyy-MM-dd',
+            'todayHighlight' => true,
+            'autoclose' => true
+        ]
+    ]) ?>
 
-    <?= $form->field($model, 'date_end')->textInput() ?>
+    <?= $form->field($model, 'date_end')->widget('kartik\date\DatePicker', [
+        'name' => 'date_end',
+        'options' => ['placeholder' => 'Select finish date'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'format' => 'yyyy-MM-dd',
+            'todayHighlight' => true,
+            'autoclose' => true
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 

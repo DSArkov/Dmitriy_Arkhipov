@@ -5,16 +5,18 @@ use \yii\helpers\Url;
 use \yii\helpers\Html;
 
 /* @var $model \app\models\tables\Tasks */
-/* @var $owner */
 /* @var $responsible */
 /* @var $status */
+/* @var $taskCommentForm */
+/* @var $userId */
+/* @var $taskAttachmentForm */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => 'index.php?r=task'];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h1>Задание #<?= $model->id ?></h1>
+<h1>Task #<?= $model->id ?></h1>
 
 <div class="task-edit">
     <div class="task-edit-main">
@@ -72,16 +74,52 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <?php ActiveForm::end(); ?>
     </div>
-
-
 </div>
+<hr>
 
 
-<!--<p>Название: --><? //= $task->title ?><!--</p>-->
-<!--<p>Назначил: --><? //= $task->owner->login ?><!--</p>-->
-<!--<p>Исполнитель: --><? //= $task->responsible->login ?><!--</p>-->
-<!--<p>Статус задачи: --><? //= $task->status->title ?><!--</p>-->
-<!--<p>Дата создания: --><? //= $task->created_at ?><!--</p>-->
-<!--<p>Дата начала: --><? //= $task->date_start ?><!--</p>-->
-<!--<p>Дата завершения: --><? //= $task->date_end ?><!--</p>-->
-<!--<p>Описание: --><? //= $task->description ?><!--</p>-->
+<div class="task-attachments">
+    <h3>Attachments</h3>
+
+    <?php $form = ActiveForm::begin(['action' => Url::to(['task/add-attachment'])]); ?>
+    <?= $form->field($taskAttachmentForm, 'taskId')->hiddenInput(['value' => $model->id])->label(false); ?>
+    <?= $form->field($taskAttachmentForm, 'file')->fileInput()->label(false); ?>
+    <?= Html::submitButton("Upload", ['class' => 'btn btn-success']); ?>
+    <? ActiveForm::end() ?>
+    <br>
+
+    <div class="attachments-history">
+        <? foreach ($model->taskAttachments as $file): ?>
+            <a href="/img/tasks/<?= $file->path ?>">
+                <img src="/img/tasks/small/<?= $file->path ?>" alt="img_sm">
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <hr>
+
+
+    <div class="task-comments">
+        <h3>Comments</h3>
+
+        <?php $form = ActiveForm::begin([
+            'action' => Url::to(['task/add-comment']),
+        ]); ?>
+        <?= $form->field($taskCommentForm, 'user_id')->hiddenInput(['value' => $userId])->label(false); ?>
+        <?= $form->field($taskCommentForm, 'task_id')->hiddenInput(['value' => $model->id])->label(false); ?>
+        <div class="row">
+            <div class="col-md-11">
+                <?= $form->field($taskCommentForm, 'content')->textInput()->label(false); ?>
+            </div>
+            <div class="col-md-1">
+                <?= Html::submitButton("Add", ['class' => 'btn btn-success']); ?>
+            </div>
+        </div>
+        <? ActiveForm::end() ?>
+
+        <div class="task-comments-history">
+            <? foreach ($model->taskComments as $comment): ?>
+                <p><strong><?= $comment->user->login ?></strong>: <?= $comment->content ?></p>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>

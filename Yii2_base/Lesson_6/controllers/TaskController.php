@@ -5,12 +5,15 @@ namespace app\controllers;
 
 
 //Импортируем классы.
+use app\models\forms\TaskAttachmentsAddForm;
+use app\models\tables\TaskComments;
 use app\models\tables\TaskStatuses;
 use app\models\tables\Users;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use app\models\tables\Tasks;
 use Yii;
+use yii\web\UploadedFile;
 
 //Контроллер задач.
 class TaskController extends Controller
@@ -50,23 +53,9 @@ class TaskController extends Controller
             'responsible' => Users::getUsersList(),
             'status' => TaskStatuses::getStatusesList(),
             'userId' => \Yii::$app->user->id,
+            'taskCommentForm' => new TaskComments(),
+            'taskAttachmentForm' => new TaskAttachmentsAddForm()
         ]);
-    }
-
-    /**
-     * Метод сохраняет изменения после редактирования задачи и выводит информационное сообщение.
-     * @param int $id - Идентификатор задачи.
-     */
-    public function actionSave($id)
-    {
-        if ($model = Tasks::findOne($id)) {
-            $model->load(\Yii::$app->request->post());
-            $model->save();
-            \Yii::$app->session->setFlash('success', "The changes are saved.");
-        } else {
-            \Yii::$app->session->setFlash('error', "Somewhere an error, check please...");
-        }
-        $this->redirect(\Yii::$app->request->referrer);
     }
 
     /**
@@ -87,5 +76,52 @@ class TaskController extends Controller
             'responsible' => Users::getUsersList(),
             'status' => TaskStatuses::getStatusesList()
         ]);
+    }
+
+    /**
+     * Метод сохраняет изменения после редактирования задачи.
+     * @param int $id - Идентификатор задачи.
+     */
+    public function actionSave($id)
+    {
+        if ($model = Tasks::findOne($id)) {
+            $model->load(\Yii::$app->request->post());
+            $model->save();
+            \Yii::$app->session->setFlash('success', "The changes was save.");
+        } else {
+            \Yii::$app->session->setFlash('error', "Somewhere an error, check please...");
+        }
+        $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    /**
+     * Метод добавляет комментарий к задаче.
+     */
+    public function actionAddComment()
+    {
+        $model = new TaskComments();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            \Yii::$app->session->setFlash('success', "Comment added.");
+        } else {
+            \Yii::$app->session->setFlash('error', "Unable to add comment.");
+        }
+        $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    /**
+     * Метод добавляет вложение к задаче.
+     * @throws \yii\base\Exception
+     */
+    public function actionAddAttachment()
+    {
+        $model = new TaskAttachmentsAddForm();
+        $model->load(\Yii::$app->request->post());
+        $model->file = UploadedFile::getInstance($model, 'file');
+        if($model->save()){
+            \Yii::$app->session->setFlash('success', "File added.");
+        }else {
+            \Yii::$app->session->setFlash('error', "Unable to add file.");
+        }
+        $this->redirect(\Yii::$app->request->referrer);
     }
 }

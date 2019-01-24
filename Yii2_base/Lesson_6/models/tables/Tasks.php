@@ -110,6 +110,24 @@ class Tasks extends \yii\db\ActiveRecord
     }
 
     /**
+     * Метод устанавливает связь между двумя таблицами по определённым полям.
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTaskAttachments()
+    {
+        return $this->hasMany(TaskAttachments::class, ['task_id' => 'id']);
+    }
+
+    /**
+     * Метод устанавливает связь между двумя таблицами по определённым полям.
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTaskComments()
+    {
+        return $this->hasMany(TaskComments::class, ['task_id' => 'id']);
+    }
+
+    /**
      * Метод получает список всех задач по ответственному лицу.
      * @param $responsibleId
      * @return array|\yii\db\ActiveRecord[]

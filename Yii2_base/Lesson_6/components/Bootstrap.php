@@ -9,17 +9,32 @@ use app\models\tables\Tasks;
 use yii\base\BootstrapInterface;
 use yii\base\Component;
 use yii\base\Event;
+use yii\web\Application;
 
 //Компонент, отвечающий за проведение работ на старте приложения.
 class Bootstrap extends Component implements BootstrapInterface
 {
+    /** @var Application */
+    protected $app;
+
     /**
      * Метод запускает компоненты предзагрузки.
      * @param \yii\base\Application $app - Экземпляр класса.
      */
     public function bootstrap($app)
     {
+        $this->app = $app;
+        $this->setLang();
+
         $this->attachEventHandlers();
+    }
+
+    /**
+     * Метод устанавливает выбранный пользователем язык для приложения.
+     */
+    protected function setLang()
+    {
+        $this->app->language = $this->app->session->get('lang');
     }
 
     /**

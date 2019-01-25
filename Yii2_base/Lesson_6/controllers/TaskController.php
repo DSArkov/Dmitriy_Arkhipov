@@ -101,9 +101,9 @@ class TaskController extends Controller
     {
         $model = new TaskComments();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            \Yii::$app->session->setFlash('success', "Comment added.");
+            \Yii::$app->session->setFlash('success', Yii::t('task', 'task_comment_message_success'));
         } else {
-            \Yii::$app->session->setFlash('error', "Unable to add comment.");
+            \Yii::$app->session->setFlash('error', Yii::t('task', 'task_comment_message_error'));
         }
         $this->redirect(\Yii::$app->request->referrer);
     }
@@ -118,9 +118,9 @@ class TaskController extends Controller
         $model->load(\Yii::$app->request->post());
         $model->file = UploadedFile::getInstance($model, 'file');
         if($model->save()){
-            \Yii::$app->session->setFlash('success', "File added.");
+            \Yii::$app->session->setFlash('success', Yii::t('task', 'task_attachment_message_success'));
         }else {
-            \Yii::$app->session->setFlash('error', "Unable to add file.");
+            \Yii::$app->session->setFlash('error', Yii::t('task', 'task_attachment_message_error'));
         }
         $this->redirect(\Yii::$app->request->referrer);
     }

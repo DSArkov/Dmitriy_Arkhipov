@@ -10,6 +10,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\Session;
 
 class SiteController extends Controller
 {
@@ -61,6 +62,17 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    /**
+     * Метод сохраняет выбранный язык в сессию.
+     * @param string $lang - Выбранный язык.
+     */
+    public function actionLang($lang)
+    {
+        $session = Yii::$app->session;
+        $session->set('lang', $lang);
+        $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

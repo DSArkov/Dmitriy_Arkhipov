@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => 'index.php?r=task
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h1>Task #<?= $model->id ?></h1>
+<h1><?= Yii::t('task', 'task_card_title') ?> #<?= $model->id ?></h1>
 
 <div class="task-edit">
     <div class="task-edit-main">
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row">
             <div class="col-md-4">
-                <?= $form->field($model->owner, 'login')->textInput(['readonly' => true])->label('Owner') ?>
+                <?= $form->field($model->owner, 'login')->textInput(['readonly' => true])->label(Yii::t('task', 'task_owner')) ?>
             </div>
             <div class="col-md-4">
                 <?= $form->field($model, 'responsible_id')->dropDownList($responsible,
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div class="row">
-            <div class="col-md-12"><?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?></div>
+            <div class="col-md-12"><?= Html::submitButton(Yii::t('task', 'task_edit_button'), ['class' => 'btn btn-success']) ?></div>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
@@ -79,12 +79,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <div class="task-attachments">
-    <h3>Attachments</h3>
+    <h3><?= Yii::t('task', 'task_attachments_bloc_title') ?></h3>
 
     <?php $form = ActiveForm::begin(['action' => Url::to(['task/add-attachment'])]); ?>
-    <?= $form->field($taskAttachmentForm, 'taskId')->hiddenInput(['value' => $model->id])->label(false); ?>
-    <?= $form->field($taskAttachmentForm, 'file')->fileInput()->label(false); ?>
-    <?= Html::submitButton("Upload", ['class' => 'btn btn-success']); ?>
+    <?= $form->field($taskAttachmentForm, 'taskId')->hiddenInput(['value' => $model->id,])->label(false); ?>
+    <?= $form->field($taskAttachmentForm, 'file')->widget(\kartik\file\FileInput::class, [
+        'options' => ['accept' => 'image/*'],
+    ])->label(false); ?>
     <? ActiveForm::end() ?>
     <br>
 
@@ -99,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <div class="task-comments">
-        <h3>Comments</h3>
+        <h3><?= Yii::t('task', 'task_comments_bloc_title') ?></h3>
 
         <?php $form = ActiveForm::begin([
             'action' => Url::to(['task/add-comment']),
@@ -111,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($taskCommentForm, 'content')->textInput()->label(false); ?>
             </div>
             <div class="col-md-1">
-                <?= Html::submitButton("Add", ['class' => 'btn btn-success']); ?>
+                <?= Html::submitButton(Yii::t('task', 'task_comments_button'), ['class' => 'btn btn-success']); ?>
             </div>
         </div>
         <? ActiveForm::end() ?>

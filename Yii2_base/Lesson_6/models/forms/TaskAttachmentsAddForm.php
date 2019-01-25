@@ -28,7 +28,7 @@ class TaskAttachmentsAddForm extends Model
     public function rules()
     {
         return [
-            [['taskId', 'file'], 'required'],
+            [['taskId'], 'required'],
             [['taskId'], 'integer'],
             [['file'], 'file', 'extensions' => ['jpg', 'png']],
         ];

@@ -25,7 +25,6 @@ class Bootstrap extends Component implements BootstrapInterface
     {
         $this->app = $app;
         $this->setLang();
-
         $this->attachEventHandlers();
     }
 
@@ -34,7 +33,8 @@ class Bootstrap extends Component implements BootstrapInterface
      */
     protected function setLang()
     {
-        $this->app->language = $this->app->session->get('lang');
+        $lang = $this->app->session->get('lang') ?: 'en';
+        \Yii::$app->language = $lang;
     }
 
     /**

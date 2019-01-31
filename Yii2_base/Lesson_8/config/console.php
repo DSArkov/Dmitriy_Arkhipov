@@ -12,6 +12,9 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'rbac' => 'dektrium\rbac\RbacConsoleModule',
+    ],
     'components' => [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -31,9 +34,9 @@ $config = [
                 ],
             ],
         ],
-        'authManager' => [
-            'class' => \yii\rbac\DbManager::class,
-        ],
+//        'authManager' => [
+//            'class' => \yii\rbac\DbManager::class,
+//        ],
         'db' => $db,
     ],
     'params' => $params,

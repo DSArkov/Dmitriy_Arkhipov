@@ -10,13 +10,17 @@ $config = [
     'bootstrap' => ['log', 'bootstrap'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
-        '@img'   => '@app/web/img'
+        '@npm' => '@vendor/npm-asset',
+        '@img' => '@app/web/img'
     ],
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
-        ]
+        ],
+        'rbac' => [
+            'class' => 'dektrium\rbac\RbacWebModule',
+            'admins' => ['admin']
+        ],
     ],
     'components' => [
         'bootstrap' => [
@@ -57,7 +61,7 @@ $config = [
             'translations' => [
                 'task*' => [
                     'class' => \yii\i18n\PhpMessageSource::class,
-                    'basePath' => '@app/messages'
+                    'basePath' => '@app/messages',
                 ]
             ]
         ],
@@ -76,11 +80,18 @@ $config = [
                 'admin/users/view/<id:\d+>' => 'admin/users/view',
                 'admin/users/update/<id:\d+>' => 'admin/users/update',
                 'admin/users/delete/<id:\d+>' => 'admin/users/delete',
+
+                'admin/rbac/roles' => 'rbac/role/index',
+                'admin/rbac/permissions' => 'rbac/permission/index',
+                'admin/rbac/rules' => 'rbac/rule/index',
+                'admin/rbac/role/create' => 'rbac/role/create',
+                'admin/rbac/permission/create' => 'rbac/permission/create',
+                'admin/rbac/rule/create' => 'rbac/rule/create',
             ],
         ],
-        'authManager' => [
-            'class' => \yii\rbac\DbManager::class,
-        ]
+//        'authManager' => [
+//            'class' => \yii\rbac\DbManager::class,
+//        ]
     ],
     'params' => $params,
 ];

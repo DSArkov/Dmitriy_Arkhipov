@@ -44,11 +44,11 @@ AppAsset::register($this);
                 'items' => [
                     ['label' => 'Tasks', 'url' => ['/admin/tasks']],
                     ['label' => 'Users', 'url' => ['/admin/users']],
-                    ['label' => 'Roles', 'url' => ['#']]
+                    ['label' => 'Roles', 'url' => ['/admin/rbac/roles']]
                 ]
             ]) : '',
             [
-                'label' => 'Lang',
+                'label' => 'Language',
                 'items' => [
                     ['label' => 'en', 'url' => ['site/lang', 'lang' => 'en']],
                     ['label' => 'ru', 'url' => ['site/lang', 'lang' => 'ru']]

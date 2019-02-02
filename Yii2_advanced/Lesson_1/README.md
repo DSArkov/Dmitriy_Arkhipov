@@ -5,6 +5,7 @@ Tasks_1(main):
 3) *Применить к приложению тему Admin LTE.
 
 (course project):
+
 4) Перенести главную страницу task-tracker'a в новый проект.
 
 <p align="center">

@@ -1,2 +1,1 @@
-# GeekUniversity
 Study works.

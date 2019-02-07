@@ -1,0 +1,28 @@
+.task-buttons-row {
+    margin: 15px 0 0 0;
+}
+
+.preview-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.task-container {
+    margin: 15px;
+}
+
+.task-link {
+    display: block;
+    border: 1px solid #ccffcc;
+    border-radius: 5px;
+    width: 270px;
+    height: 140px;
+    background-color: #ccffcc;
+    padding: 0 10px 0 10px;
+}
+
+.task-link:hover {
+    background-color: #acdeac;
+    border: 1px solid #acdeac;
+}

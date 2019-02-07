@@ -1,3 +1,13 @@
+Tasks_1(main):
+
+1) Развернуть приложение на базе Advanced Template.
+2) Настроить общую авторизацию дляфронта и бэка.
+3) *Применить к приложению тему Admin LTE.
+
+(course project):
+
+4) Перенести главную страницу task-tracker'a в новый проект.
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">

@@ -10,6 +10,9 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
+
+$this->title = "Task-tracker";
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

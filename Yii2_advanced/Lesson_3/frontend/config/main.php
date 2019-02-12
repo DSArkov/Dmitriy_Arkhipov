@@ -7,7 +7,7 @@ $params = array_merge(
 );
 
 return [
-
+    'name' => 'Task-tracker',
     'language' => 'en',
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),

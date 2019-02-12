@@ -15,11 +15,12 @@ class TaskAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/task.css'
     ];
     public $js = [
         'js/chat.js'
     ];
     public $depends = [
-        'yii\web\JqueryAsset',
+        'yii\web\JqueryAsset'
     ];
 }

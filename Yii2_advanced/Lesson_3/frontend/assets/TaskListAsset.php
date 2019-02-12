@@ -15,7 +15,7 @@ class TaskListAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/task.css',
+        'css/tasks.css',
     ];
     public $depends = [
         'yii\bootstrap\BootstrapAsset',

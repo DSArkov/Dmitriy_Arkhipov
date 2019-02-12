@@ -7,12 +7,21 @@ $params = array_merge(
 );
 
 return [
+    'language' => 'en',
     'homeUrl' => '/admin',
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'components' => [
+        'i18n' => [
+            'translations' => [
+                'task*' => [
+                    'class' => \yii\i18n\PhpMessageSource::class,
+                    'basePath' => '@msg',
+                ]
+            ]
+        ],
         'view' => [
             'theme' => [
                 'pathMap' => [

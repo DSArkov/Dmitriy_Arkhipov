@@ -1,28 +1,16 @@
-.task-buttons-row {
-    margin: 15px 0 0 0;
+#task-chat-div {
+    height: 200px;
 }
 
-.preview-container {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+.task-chat-form-div {
+    height: 200px;
+    border-right: 1px solid rgba(138, 109, 108, 0.12);
 }
 
-.task-container {
-    margin: 15px;
+.task-chat > h3 {
+    text-align: center;
 }
 
-.task-link {
-    display: block;
-    border: 1px solid #ccffcc;
-    border-radius: 5px;
-    width: 270px;
-    height: 140px;
-    background-color: #ccffcc;
-    padding: 0 10px 0 10px;
-}
-
-.task-link:hover {
-    background-color: #acdeac;
-    border: 1px solid #acdeac;
+.add-comment-btn {
+    margin-left: -27px;
 }

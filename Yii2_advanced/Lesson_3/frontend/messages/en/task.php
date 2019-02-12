@@ -18,5 +18,6 @@ return [
     'task_attachment_message_success' => 'File added.',
     'task_attachment_message_error' => 'Unable to add file.',
     'task_chat_title' => 'Chat',
-    'task_chat_button' => 'Send'
+    'task_chat_input_value' => 'Input here your message...',
+    'task_comments_bloc_history' => 'No comments yet...'
 ];

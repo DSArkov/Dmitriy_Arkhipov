@@ -6,6 +6,7 @@ namespace console\components;
 //Импортируем классы.
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
+use common\models\tables\Chat as ChatTable;
 
 
 /**
@@ -64,7 +65,14 @@ class Chat implements MessageComponentInterface
      */
     function onMessage(ConnectionInterface $from, $msg)
     {
-        echo "{$from->resourseId}: {$msg}\n";
+        echo "{$from->resourseId}: $msg\n";
+        $data = json_decode($msg);
+        try {
+            (new ChatTable($data))->save();
+        } catch (\Exception $e) {
+            echo($e->getMessage());
+        }
+
         foreach ($this->clients as $client) {
             $client->send($msg);
         }

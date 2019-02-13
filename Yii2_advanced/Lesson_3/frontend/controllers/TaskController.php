@@ -74,17 +74,23 @@ class TaskController extends Controller
             'status' => TaskStatuses::getStatusesList(),
             'userId' => \Yii::$app->user->id,
             'taskCommentForm' => new TaskComments(),
-            'taskAttachmentForm' => new TaskAttachmentsAddForm()
+            'taskAttachmentForm' => new TaskAttachmentsAddForm(),
+            'channel' => 'Task_' . $id,
         ]);
     }
 
     /**
      * Метод создаёт новую задачу.
      * Если успех, то происходит редирект на страницу просмотра.
+     * @throws
      * @return mixed
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('TaskCreate')) {
+            throw new ForbiddenHttpException();
+        }
+
         $model = new Tasks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -102,11 +108,11 @@ class TaskController extends Controller
     /**
      * Метод сохраняет изменения после редактирования задачи.
      * @param int $id - Идентификатор задачи.
-     * @throws ForbiddenHttpException
+     * @throws
      */
     public function actionSave($id)
     {
-        if (!\Yii::$app->user->can('TaskAddComment') || !\Yii::$app->user->can('TaskAddFile')) {
+        if (!\Yii::$app->user->can('TaskEdit')) {
             throw new ForbiddenHttpException();
         }
 
@@ -126,7 +132,7 @@ class TaskController extends Controller
      */
     public function actionAddComment()
     {
-        if (!\Yii::$app->user->can('TaskAddComment') || !\Yii::$app->user->can('TaskAddFile')) {
+        if (!\Yii::$app->user->can('TaskAddComment')) {
             throw new ForbiddenHttpException();
         }
 
@@ -145,7 +151,7 @@ class TaskController extends Controller
      */
     public function actionAddAttachment()
     {
-        if (!\Yii::$app->user->can('TaskAddComment') || !\Yii::$app->user->can('TaskAddFile')) {
+        if (!\Yii::$app->user->can('TaskAddFile')) {
             throw new ForbiddenHttpException();
         }
 

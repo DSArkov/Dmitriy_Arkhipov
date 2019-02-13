@@ -2,7 +2,7 @@ if (!window.WebSocket) {
   alert('Ваш браузер не поддерживает веб-сокеты!');
 }
 
-let webSocket = new WebSocket('ws://task.local:8080');
+let webSocket = new WebSocket('ws://task.local:8080?channel=' + channel);
 
 $('#task-chat-form').submit(function(event) {
   if (this.message.value.trim() === '') {
@@ -22,6 +22,6 @@ $('#task-chat-form').submit(function(event) {
 });
 
 webSocket.onmessage = function(event) {
-  let data = event.data;
-  $('#task-chat-div').append('<div>' + data + '</div>\n');
+  let data = jQuery.parseJSON(event.data);
+  $('#task-chat-div').append('<div>[' + data.time + '] <b>' + data.user_name + '</b>: ' + data.msg + '</div>\n');
 };

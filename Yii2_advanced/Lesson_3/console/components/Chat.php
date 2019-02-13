@@ -4,6 +4,7 @@
 namespace console\components;
 
 //Импортируем классы.
+use common\models\tables\User;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use common\models\tables\Chat as ChatTable;
@@ -15,14 +16,13 @@ use common\models\tables\Chat as ChatTable;
  */
 class Chat implements MessageComponentInterface
 {
-    protected $clients;
+    protected $clients = [];
 
     /**
      * Chat constructor.
      */
     public function __construct()
     {
-        $this->clients = new \SplObjectStorage();
         echo "Server started...\n";
     }
 
@@ -32,7 +32,21 @@ class Chat implements MessageComponentInterface
      */
     function onOpen(ConnectionInterface $conn)
     {
-        $this->clients->attach($conn);
+        $queryString = $conn->httpRequest->getUri()->getQuery();
+        $channel = explode('=', $queryString)[1];
+
+        $this->clients[$channel][$conn->resourceId] = $conn;
+
+        $history = ChatTable::find()->where(['channel' => $channel])->all();
+        foreach ($history as $msg) {
+            $data = [
+                'time' => date('H:i', strtotime($msg->created_at)),
+                'user_name' => $msg->user->username,
+                'msg' => $msg->message,
+            ];
+            $this->clients[$channel][$conn->resourceId]->send(json_encode($data));
+        }
+
         echo "New connection: {$conn->resourceId}\n";
     }
 
@@ -42,7 +56,7 @@ class Chat implements MessageComponentInterface
      */
     function onClose(ConnectionInterface $conn)
     {
-        $this->clients->detach($conn);
+        //$this->clients->detach($conn);
         echo "User {$conn->resourceId} disconnects!\n";
     }
 
@@ -55,7 +69,7 @@ class Chat implements MessageComponentInterface
     {
         echo "Conn {$conn->resourseId} closed with error\n";
         $conn->close();
-        $this->clients->detach($conn);
+        //$this->clients->detach($conn);
     }
 
     /**
@@ -65,16 +79,25 @@ class Chat implements MessageComponentInterface
      */
     function onMessage(ConnectionInterface $from, $msg)
     {
-        echo "{$from->resourseId}: $msg\n";
-        $data = json_decode($msg);
+        echo "$msg\n";
+        $getData = json_decode($msg, true);
+        $channel = $getData['channel'];
         try {
-            (new ChatTable($data))->save();
+            (new ChatTable($getData))->save();
         } catch (\Exception $e) {
             echo($e->getMessage());
         }
 
-        foreach ($this->clients as $client) {
-            $client->send($msg);
+        $userId = $getData['user_id'];
+        $userName = User::findOne($userId)->username;
+        $time = date('H:i');
+        $setData = [
+            'time' => $time,
+            'user_name' => $userName,
+            'msg' => $getData['message'],
+        ];
+        foreach ($this->clients[$channel] as $client) {
+            $client->send(json_encode($setData));
         }
     }
 }

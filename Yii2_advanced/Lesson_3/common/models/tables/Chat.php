@@ -4,6 +4,7 @@ namespace common\models\tables;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
@@ -36,6 +37,9 @@ class Chat extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
                 'value' => new Expression('NOW()'),
             ],
         ];

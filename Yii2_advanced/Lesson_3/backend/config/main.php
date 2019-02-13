@@ -7,8 +7,9 @@ $params = array_merge(
 );
 
 return [
+    'name' => 'Task-tracker',
     'language' => 'en',
-    'homeUrl' => '/admin',
+    'homeUrl' => '/',
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',

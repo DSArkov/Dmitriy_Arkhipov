@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use yii\web\ForbiddenHttpException;
 
 /**
  * Site controller
@@ -28,7 +29,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -55,7 +56,7 @@ class SiteController extends Controller
 
     /**
      * Displays homepage.
-     *
+     * @throws
      * @return string
      */
     public function actionIndex()

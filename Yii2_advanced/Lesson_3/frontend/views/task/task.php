@@ -10,6 +10,7 @@ use \yii\helpers\Html;
 /* @var $taskCommentForm */
 /* @var $userId */
 /* @var $taskAttachmentForm */
+/* @var $channel */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => Url::to(['task/'])];
@@ -93,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'showPreview' => false,
                 'showCaption' => true,
                 'showRemove' => true,
-                'showUpload' => false
+                'showUpload' => true
             ]
         ])->label(false); ?>
         <? ActiveForm::end() ?>
@@ -148,7 +149,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-md-4 task-chat-form-div">
                 <form action="#" name="task-chat-form" id="task-chat-form">
                     <div class="form-inline">
-                        <input type="hidden" name="channel" value="<?= 'Task_' . $model->id ?>"/>
+                        <input type="hidden" name="channel" value="<?= $channel ?>"/>
                         <input type="hidden" name="user_id" value="<?= $userId ?>"/>
                         <input type="text" name="message" id="task-chat-form-input" class="form-control"
                                placeholder="<?= Yii::t('task', 'task_chat_input_value') ?>"/>
@@ -164,3 +165,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+<script>
+    let channel = '<?=$channel?>'
+</script>

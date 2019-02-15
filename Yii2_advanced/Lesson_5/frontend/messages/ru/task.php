@@ -9,7 +9,7 @@ return [
     'task_start' => 'Дата начала',
     'task_finish' => 'Дата окончания',
     'task_description' => 'Описание',
-    'task_edit_button' => 'Сохранить',
+    'task_form_button' => 'Сохранить',
     'task_attachments_bloc_title' => 'Вложения',
     'task_comments_bloc_title' => 'Комментарии',
     'task_comments_button' => 'Добавить',

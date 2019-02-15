@@ -9,7 +9,7 @@ return [
     'task_start' => 'Date start',
     'task_finish' => 'Date end',
     'task_description' => 'Description',
-    'task_edit_button' => 'Save',
+    'task_form_button' => 'Save',
     'task_attachments_bloc_title' => 'Attachments',
     'task_comments_bloc_title' => 'Comments',
     'task_comments_button' => 'Add',

@@ -1,0 +1,19 @@
+.preview-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.project-container {
+    margin: 15px;
+}
+
+.project-link {
+    display: block;
+    width: 270px;
+    height: 270px;
+}
+
+.project-link:hover {
+    background-color: #d4e8f2;
+}

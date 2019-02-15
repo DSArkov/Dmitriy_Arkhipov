@@ -121,7 +121,12 @@ class TaskController extends Controller
         $model->load(\Yii::$app->request->post());
         $model->save();
 
-        return $this->actionTask($model->id);
+        return $this->render('_form', [
+            'model' => Tasks::findOne($id),
+            'owner' => User::getUsersList(),
+            'responsible' => User::getUsersList(),
+            'status' => TaskStatuses::getStatusesList(),
+        ]);
     }
 
     /**
@@ -153,8 +158,13 @@ class TaskController extends Controller
         }
 
         $model = new TaskComments();
-        $model->load(Yii::$app->request->post()) && $model->save();
-
-        return $this->actionTask($model->task_id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $id = $model->task_id;
+            return $this->render('_comments', [
+                'model' => Tasks::findOne($id),
+                'userId' => \Yii::$app->user->id,
+                'taskCommentForm' => new TaskComments()
+            ]);
+        }
     }
 }

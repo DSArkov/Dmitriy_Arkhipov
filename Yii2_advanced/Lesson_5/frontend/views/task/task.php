@@ -13,8 +13,9 @@ use \yii\helpers\Url;
 /* @var $channel */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => Url::to(['task/'])];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('task', 'task_breadcrumb_project'), 'url' => Url::to(['project/'])];
+$this->params['breadcrumbs'][] = ['label' => $model->project_id, 'url' => Url::to(['project/project', 'id' => $model->project_id])];
+$this->params['breadcrumbs'][] = Yii::t('task', 'task_card_title') . ' ' . $model->id;
 
 \frontend\assets\TaskAsset::register($this);
 ?>

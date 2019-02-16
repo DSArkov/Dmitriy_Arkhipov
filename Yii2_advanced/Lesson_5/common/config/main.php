@@ -15,6 +15,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],
+        'bot' => [
+            'class' => 'SonkoDmitry\Yii\TelegramBot\Component',
+            'apiToken' => '726132481:AAG4sfcP_DBATqfPikhQ8vSJcwTi_jBzBqE',
+        ],
     ],
     'modules' => [
         'user' => [

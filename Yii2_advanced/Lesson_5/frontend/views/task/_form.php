@@ -26,16 +26,20 @@ use yii\helpers\Url;
     </div>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <?= $form->field($model->owner, 'username')->textInput(['readonly' => true])->label(Yii::t('task',
                 'task_owner')) ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <?= $form->field($model, 'responsible_id')->dropDownList($responsible,
                 ['prompt' => 'Set responsible']) ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <?= $form->field($model, 'status_id')->dropDownList($status) ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model->project, 'title')->textInput(['readonly' => true])->label(Yii::t('task',
+                'task_project')) ?>
         </div>
     </div>
 

@@ -6,9 +6,12 @@ use yii\helpers\Url;
 use frontend\widgets\Task;
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $projectTitle */
+/* @var $projectId */
 
-$this->title = 'Tasks';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = $projectTitle;
+$this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => Url::to(['project/'])];
+$this->params['breadcrumbs'][] = $projectId;
 
 $items = [
     '1' => 'January',
@@ -33,12 +36,14 @@ $params = [
 \frontend\assets\TaskListAsset::register($this);
 ?>
 
-
 <h1><?= Html::encode($this->title) ?></h1>
 
 <div class="row task-buttons-row">
     <div class="col-md-9">
-        <a href="<?= Url::to(['task/create']) ?>" class="btn btn-primary">Create task</a>
+        <form action="<?= Url::to(['task/create']) ?>" >
+            <input type="hidden" name="id_project" value="<?= $projectId ?>">
+            <input type="submit" class="btn btn-primary" value="Create task">
+        </form>
     </div>
 
     <div class="col-md-3">

@@ -74,4 +74,34 @@ class ProjectController extends Controller
             'model' => $model,
         ]);
     }
+
+    /**
+     * Метод отображает карточку проекта.
+     * @param int $id - Идентификатор проекта.
+     * @return string - Возвращает строку с данными для вывода на экран.
+     */
+    public function actionProject($id)
+    {
+        $month = \Yii::$app->request->post('month');
+
+        if ($month) {
+            $query = Tasks::find()->where(['project_id' => $id, 'MONTH(created_at)' => $month]);
+        } else {
+            $query = Tasks::find()->where(['project_id' => $id]);
+        }
+
+        $project = Projects::findOne(['id' => $id]);
+        $projectTitle = $project->title;
+
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query
+            ]);
+
+        return $this->render('project', [
+            'dataProvider' => $dataProvider,
+            'projectTitle' => $projectTitle,
+            'projectId' => $id
+        ]);
+    }
 }

@@ -6,6 +6,7 @@ return [
     'task_owner' => 'Назначил',
     'task_responsible' => 'Ответственный',
     'task_status' => 'Статус',
+    'task_project' => 'Проект',
     'task_start' => 'Дата начала',
     'task_finish' => 'Дата окончания',
     'task_description' => 'Описание',
@@ -19,5 +20,6 @@ return [
     'task_attachment_message_error' => 'Не удалось добавить файл.',
     'task_chat_title' => 'Чат',
     'task_chat_input_value' => 'Введите сообщение...',
-    'task_comments_bloc_history' => 'Комментариев пока нет...'
+    'task_comments_bloc_history' => 'Комментариев пока нет...',
+    'task_breadcrumb_project' => 'Проекты'
 ];

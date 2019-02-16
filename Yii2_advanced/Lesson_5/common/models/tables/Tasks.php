@@ -22,6 +22,7 @@ use yii\db\Expression;
  * @property string $description
  * @property string $updated_at
  * @property int $status_id
+ * @property int $project_id
  *
  * @property User $responsible
  * @property User $owner
@@ -58,7 +59,7 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'responsible_id'], 'required'],
-            [['created_at', 'updated_at', 'date_start', 'date_end', 'responsible_id', 'owner_id', 'status_id'], 'safe'],
+            [['created_at', 'updated_at', 'date_start', 'date_end', 'responsible_id', 'owner_id', 'status_id', 'project_id'], 'safe'],
             [['description'], 'string'],
             [['title'], 'string', 'max' => 64],
         ];
@@ -99,6 +100,15 @@ class Tasks extends \yii\db\ActiveRecord
     public function getOwner()
     {
         return $this->hasOne(User::class, ['id' => 'owner_id']);
+    }
+
+    /**
+     * Метод устанавливает связь между двумя таблицами по определённым полям.
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProject()
+    {
+        return $this->hasOne(Projects::class, ['id' => 'project_id']);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\tables\Tasks */
@@ -9,9 +10,11 @@ use yii\widgets\ActiveForm;
 /* @var $responsible */
 /* @var $status */
 /* @var $userId */
+/* @var $projectId */
 
 $this->title = 'Create task';
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['task/']];
+$this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['project/']];
+$this->params['breadcrumbs'][] = ['label' => $projectId, 'url' => Url::to(['project/project', 'id' => $projectId])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -54,6 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'project_id')->hiddenInput(['value' => $projectId])->label(false); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>

@@ -8,7 +8,6 @@ use frontend\models\forms\TaskAttachmentsAddForm;
 use common\models\tables\TaskComments;
 use common\models\tables\TaskStatuses;
 use common\models\tables\User;
-use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\tables\Tasks;
@@ -39,28 +38,6 @@ class TaskController extends Controller
     }
 
     /**
-     * Основной метод(по умолчанию), отображает список задач.
-     * @return string - Возвращает строку с данными для вывода на экран.
-     */
-    public function actionIndex()
-    {
-        $month = \Yii::$app->request->post('month');
-
-        if ($month) {
-            $query = Tasks::find()->where("MONTH(created_at) = {$month}");
-        } else {
-            $query = Tasks::find();
-        }
-
-        $dataProvider = new ActiveDataProvider(
-            [
-                'query' => $query
-            ]);
-
-        return $this->render('index', ['dataProvider' => $dataProvider]);
-    }
-
-    /**
      * Метод отображает карточку задачи.
      * @param int $id - Идентификатор задачи.
      * @return string - Возвращает строку с данными для вывода на экран.
@@ -82,11 +59,13 @@ class TaskController extends Controller
     /**
      * Метод создаёт новую задачу.
      * Если успех, то происходит редирект на страницу просмотра.
-     * @throws
+     * @throws ForbiddenHttpException
      * @return mixed
      */
     public function actionCreate()
     {
+        $projectId = Yii::$app->request->get('id_project');
+
         if (!\Yii::$app->user->can('TaskCreate')) {
             throw new ForbiddenHttpException();
         }
@@ -102,6 +81,7 @@ class TaskController extends Controller
             'responsible' => User::getUsersList(),
             'status' => TaskStatuses::getStatusesList(),
             'userId' => \Yii::$app->user->id,
+            'projectId' => $projectId
         ]);
     }
 
@@ -142,6 +122,11 @@ class TaskController extends Controller
         $model = new TaskAttachmentsAddForm();
         $model->load(\Yii::$app->request->post());
         $model->file = UploadedFile::getInstance($model, 'file');
+        if($model->save()){
+            \Yii::$app->session->setFlash('success', Yii::t('task', 'task_attachment_message_success'));
+        }else {
+            \Yii::$app->session->setFlash('error', Yii::t('task', 'task_attachment_message_error'));
+        }
 
         $this->redirect(\Yii::$app->request->referrer);
     }

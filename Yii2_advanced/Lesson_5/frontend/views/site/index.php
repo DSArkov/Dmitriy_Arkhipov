@@ -13,7 +13,7 @@ $this->title = 'My Yii Application';
 
         <p class="lead">This is new generation task tracker.</p>
 
-        <p><a class="btn btn-lg btn-success" href="<?= Url::to(['task/']) ?>">Get started</a></p>
+        <p><a class="btn btn-lg btn-success" href="<?= Url::to(['project/']) ?>">Get started</a></p>
     </div>
 
     <div class="body-content">

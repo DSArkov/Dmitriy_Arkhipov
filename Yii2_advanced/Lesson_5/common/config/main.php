@@ -1,5 +1,6 @@
 <?php
 return [
+    'bootstrap' => ['bootstrap'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -8,12 +9,19 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'bootstrap' => [
+            'class' => \common\components\Bootstrap::class
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+        ],
+        'bot' => [
+            'class' => 'SonkoDmitry\Yii\TelegramBot\Component',
+            'apiToken' => '726132481:AAG4sfcP_DBATqfPikhQ8vSJcwTi_jBzBqE',
         ],
     ],
     'modules' => [

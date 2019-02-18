@@ -6,10 +6,11 @@ return [
     'task_owner' => 'Назначил',
     'task_responsible' => 'Ответственный',
     'task_status' => 'Статус',
+    'task_project' => 'Проект',
     'task_start' => 'Дата начала',
     'task_finish' => 'Дата окончания',
     'task_description' => 'Описание',
-    'task_edit_button' => 'Сохранить',
+    'task_form_button' => 'Сохранить',
     'task_attachments_bloc_title' => 'Вложения',
     'task_comments_bloc_title' => 'Комментарии',
     'task_comments_button' => 'Добавить',
@@ -19,5 +20,6 @@ return [
     'task_attachment_message_error' => 'Не удалось добавить файл.',
     'task_chat_title' => 'Чат',
     'task_chat_input_value' => 'Введите сообщение...',
-    'task_comments_bloc_history' => 'Комментариев пока нет...'
+    'task_comments_bloc_history' => 'Комментариев пока нет...',
+    'task_breadcrumb_project' => 'Проекты'
 ];

@@ -2,10 +2,9 @@
 
 use \yii\widgets\ActiveForm;
 use \yii\helpers\Url;
-use \yii\helpers\Html;
-use \yii\widgets\Pjax;
 
 /* @var $model \common\models\tables\Tasks */
+/* @var $owner */
 /* @var $responsible */
 /* @var $status */
 /* @var $taskCommentForm */
@@ -14,80 +13,24 @@ use \yii\widgets\Pjax;
 /* @var $channel */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => Url::to(['task/'])];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('task', 'task_breadcrumb_project'), 'url' => Url::to(['project/'])];
+$this->params['breadcrumbs'][] = ['label' => $model->project_id, 'url' => Url::to(['project/project', 'id' => $model->project_id])];
+$this->params['breadcrumbs'][] = Yii::t('task', 'task_card_title') . ' ' . $model->id;
 
 \frontend\assets\TaskAsset::register($this);
 ?>
 
 <h1><?= Yii::t('task', 'task_card_title') ?> #<?= $model->id ?></h1>
 <div class="task-wrapper alert alert-success">
-    <div class="task-edit">
-        <div class="task-edit-main">
-            <?php Pjax::begin(['enablePushState' => false]) ?>
-            <?php $form = ActiveForm::begin([
-                'action' => Url::to(['task/save', 'id' => $model->id]),
-                'options' => ['data' => ['pjax' => true]],
-            ]); ?>
-            <div class="row">
-                <div class="col-md-12"><?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?></div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <?= $form->field($model->owner, 'username')->textInput(['readonly' => true])->label(Yii::t('task',
-                        'task_owner')) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($model, 'responsible_id')->dropDownList($responsible,
-                        ['prompt' => 'Set responsible']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($model, 'status_id')->dropDownList($status) ?>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <?= $form->field($model, 'date_start')->widget('kartik\date\DatePicker', [
-                        'name' => 'date_start',
-                        'options' => ['placeholder' => 'Select start date'],
-                        'convertFormat' => true,
-                        'pluginOptions' => [
-                            'format' => 'yyyy-MM-dd',
-                            'todayHighlight' => true,
-                            'autoclose' => true
-                        ]
-                    ]) ?>
-                </div>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'date_end')->widget('kartik\date\DatePicker', [
-                        'name' => 'date_end',
-                        'options' => ['placeholder' => 'Select finish date'],
-                        'convertFormat' => true,
-                        'pluginOptions' => [
-                            'format' => 'yyyy-MM-dd',
-                            'todayHighlight' => true,
-                            'autoclose' => true
-                        ]
-                    ]) ?>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12"><?= $form->field($model, 'description')->textarea(['rows' => 6]) ?></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12"><?= Html::submitButton(Yii::t('task', 'task_edit_button'),
-                        ['class' => 'btn btn-success']) ?></div>
-            </div>
-
-            <?php ActiveForm::end(); ?>
-            <?php Pjax::end() ?>
-        </div>
-    </div>
-    <hr>
+    <?=
+    $this->render('_form', [
+        'model' => $model,
+        'owner' => $owner,
+        'responsible' => $responsible,
+        'status' => $status,
+    ]);
+    ?>
 
 
     <div class="task-attachments">
@@ -121,39 +64,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr>
 
 
-    <div class="task-comments">
-        <h3><?= Yii::t('task', 'task_comments_bloc_title') ?></h3>
-
-        <?php Pjax::begin(['enablePushState' => false]) ?>
-        <?php $form = ActiveForm::begin([
-            'action' => Url::to(['task/add-comment']),
-            'options' => ['data' => ['pjax' => true]],
-        ]); ?>
-        <?= $form->field($taskCommentForm, 'user_id')->hiddenInput(['value' => $userId])->label(false); ?>
-        <?= $form->field($taskCommentForm, 'task_id')->hiddenInput(['value' => $model->id])->label(false); ?>
-        <div class="row">
-            <div class="col-md-10">
-                <?= $form->field($taskCommentForm, 'content')->textInput()->label(false); ?>
-            </div>
-            <div class="col-md-1">
-                <?= Html::submitButton(Yii::t('task', 'task_comments_button'),
-                    ['class' => 'btn btn-success add-comment-btn']); ?>
-            </div>
-        </div>
-        <? ActiveForm::end() ?>
-
-        <div class="task-comments-history">
-            <? if ($model->taskComments): ?>
-                <? foreach ($model->taskComments as $comment): ?>
-                    <p><strong><?= $comment->user->username ?></strong>: <?= $comment->content ?></p>
-                <?php endforeach; ?>
-            <? else: ?>
-                <p><?= Yii::t('task', 'task_comments_bloc_history') ?></p>
-            <? endif; ?>
-            <?php Pjax::end() ?>
-        </div>
-    </div>
-    <hr>
+    <?=
+    $this->render('_comments', [
+        'model' => $model,
+        'userId' => $userId,
+        'taskCommentForm' => $taskCommentForm
+    ]);
+    ?>
 
 
     <div class="alert alert-warning task-chat" role="alert">
@@ -181,5 +98,5 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <script>
-    let channel = '<?=$channel?>'
+    let channel = '<?= $channel ?>'
 </script>

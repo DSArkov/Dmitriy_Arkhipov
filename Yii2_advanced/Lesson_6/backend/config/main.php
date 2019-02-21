@@ -40,14 +40,14 @@ return [
 //            'enableAutoLogin' => true,
 //            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['cookieDomain']],
 //        ],
-        'session' => [
-            // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced',
-            'cookieParams' => [
-                'httpOnly' => true,
-                'domain' => $params['cookieDomain'],
-            ]
-        ],
+//        'session' => [
+//            // this is the name of the session cookie used for login on the backend
+//            'name' => 'advanced',
+//            'cookieParams' => [
+//                'httpOnly' => true,
+//                'domain' => $params['cookieDomain'],
+//            ]
+//        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -60,13 +60,6 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//            'enableStrictParsing' => false,
-//            'rules' => [
-//            ],
-//        ],
     ],
     'params' => $params,
 ];

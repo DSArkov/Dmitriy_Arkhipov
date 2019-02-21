@@ -27,20 +27,23 @@ return [
             'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
             'cookieValidationKey' => $params['cookieValidationKey'],
+            'parsers' => [
+                'application/json' => \yii\web\JsonParser::class
+            ]
         ],
 //        'user' => [
 //            'identityClass' => 'common\models\User',
 //            'enableAutoLogin' => true,
 //            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['cookieDomain']],
 //        ],
-        'session' => [
-            // this is the name of the session cookie used for login on the frontend
-            'name' => 'advanced',
-            'cookieParams' => [
-                'httpOnly' => true,
-                'domain' => $params['cookieDomain'],
-            ]
-        ],
+//        'session' => [
+//            // this is the name of the session cookie used for login on the frontend
+//            'name' => 'advanced',
+//            'cookieParams' => [
+//                'httpOnly' => true,
+//                'domain' => $params['cookieDomain'],
+//            ]
+//        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

@@ -21,7 +21,11 @@ class Task extends Widget
     public function run()
     {
         if (is_a($this->model, Tasks::class)) {
-            return $this->render('task', ['model' => $this->model]);
+            $taskClass = 'task-in-process';
+            if (($this->model->date_end < date('Y-m-d')) && ($this->model->status_id != 7)) {
+                $taskClass = 'task-overdue';
+            }
+            return $this->render('task', ['model' => $this->model, 'taskClass' => $taskClass]);
         }
         throw new \Exception('Невозможно отобразить модель задачи.');
     }

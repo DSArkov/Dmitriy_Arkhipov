@@ -44,8 +44,14 @@ class TaskController extends Controller
      */
     public function actionTask($id)
     {
+        $model = Tasks::findOne($id);
+        $taskClass = 'alert alert-success';
+        if (($model->date_end < date('Y-m-d')) && ($model->status_id != 7)) {
+            $taskClass = 'alert alert-danger';
+        }
+
         return $this->render('task', [
-            'model' => Tasks::findOne($id),
+            'model' => $model,
             'owner' => User::getUsersList(),
             'responsible' => User::getUsersList(),
             'status' => TaskStatuses::getStatusesList(),
@@ -53,6 +59,7 @@ class TaskController extends Controller
             'taskCommentForm' => new TaskComments(),
             'taskAttachmentForm' => new TaskAttachmentsAddForm(),
             'channel' => 'Task_' . $id,
+            'taskClass' => $taskClass
         ]);
     }
 
@@ -93,20 +100,18 @@ class TaskController extends Controller
      */
     public function actionSave($id)
     {
-        if (!\Yii::$app->user->can('TaskEdit')) {
-            throw new ForbiddenHttpException();
-        }
-
         $model = Tasks::findOne($id);
-        $model->load(\Yii::$app->request->post());
-        $model->save();
+        if (\Yii::$app->user->can('admin') || \Yii::$app->user->id == $model->responsible_id) {
+            $model->load(\Yii::$app->request->post());
+            $model->save();
 
-        return $this->render('_form', [
-            'model' => Tasks::findOne($id),
-            'owner' => User::getUsersList(),
-            'responsible' => User::getUsersList(),
-            'status' => TaskStatuses::getStatusesList(),
-        ]);
+            return $this->render('_form', [
+                'model' => $model,
+                'responsible' => User::getUsersList(),
+                'status' => TaskStatuses::getStatusesList(),
+            ]);
+        }
+        throw new ForbiddenHttpException();
     }
 
     /**
@@ -115,20 +120,25 @@ class TaskController extends Controller
      */
     public function actionAddAttachment()
     {
-        if (!\Yii::$app->user->can('TaskAddFile')) {
+        $post = \Yii::$app->request->post();
+        $taskId = $post['TaskAttachmentsAddForm']['taskId'];
+        $task = Tasks::findOne($taskId);
+
+        if (\Yii::$app->user->can('admin') || \Yii::$app->user->id == $task->responsible_id) {
+            $model = new TaskAttachmentsAddForm();
+            $model->load($post);
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->save()) {
+                \Yii::$app->session->setFlash('success', Yii::t('task', 'task_attachment_message_success'));
+            } else {
+                \Yii::$app->session->setFlash('error', Yii::t('task', 'task_attachment_message_error'));
+            }
+
+            $this->redirect(\Yii::$app->request->referrer);
+        } else {
             throw new ForbiddenHttpException();
         }
-
-        $model = new TaskAttachmentsAddForm();
-        $model->load(\Yii::$app->request->post());
-        $model->file = UploadedFile::getInstance($model, 'file');
-        if($model->save()){
-            \Yii::$app->session->setFlash('success', Yii::t('task', 'task_attachment_message_success'));
-        }else {
-            \Yii::$app->session->setFlash('error', Yii::t('task', 'task_attachment_message_error'));
-        }
-
-        $this->redirect(\Yii::$app->request->referrer);
     }
 
     /**
@@ -138,18 +148,22 @@ class TaskController extends Controller
      */
     public function actionAddComment()
     {
-        if (!\Yii::$app->user->can('TaskAddComment')) {
-            throw new ForbiddenHttpException();
-        }
+        $post = \Yii::$app->request->post();
+        $taskId = $post['TaskComments']['task_id'];
+        $userId = \Yii::$app->user->id;
+        $task = Tasks::findOne($taskId);
 
-        $model = new TaskComments();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $id = $model->task_id;
-            return $this->render('_comments', [
-                'model' => Tasks::findOne($id),
-                'userId' => \Yii::$app->user->id,
-                'taskCommentForm' => new TaskComments()
-            ]);
+        if (\Yii::$app->user->can('admin') || $userId == $task->responsible_id) {
+            $model = new TaskComments();
+
+            if ($model->load($post) && $model->save()) {
+                return $this->render('_comments', [
+                    'model' => $task,
+                    'userId' => $userId,
+                    'taskCommentForm' => new TaskComments()
+                ]);
+            }
         }
+        throw new ForbiddenHttpException();
     }
 }

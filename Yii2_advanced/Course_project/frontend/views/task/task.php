@@ -11,6 +11,7 @@ use \yii\helpers\Url;
 /* @var $userId */
 /* @var $taskAttachmentForm */
 /* @var $channel */
+/* @var $taskClass */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('task', 'task_breadcrumb_project'), 'url' => Url::to(['project/'])];
@@ -21,8 +22,8 @@ $this->params['breadcrumbs'][] = Yii::t('task', 'task_card_title') . ' ' . $mode
 ?>
 
 <h1><?= Yii::t('task', 'task_card_title') ?> #<?= $model->id ?></h1>
-<div class="task-wrapper alert alert-success">
 
+<div class="task-wrapper <?= $taskClass ?>">
     <?=
     $this->render('_form', [
         'model' => $model,

@@ -14,15 +14,28 @@
 
 .task-link {
     display: block;
-    border: 1px solid #dff0d8;
     border-radius: 5px;
     width: 270px;
     height: 140px;
-    background-color: #dff0d8;
     padding: 0 10px 0 10px;
 }
 
-.task-link:hover {
-    background-color: #dcedd5;
-    border: 1px solid #dcedd5;
+.task-in-process {
+    background-color: #dff0d8;
+    border: 1px solid #dff0d8;
+}
+
+.task-in-process:hover {
+    background-color: #cadbc3;
+    border: 1px solid #cadbc3;
+}
+
+.task-overdue {
+    background-color: #f2dede;
+    border: 1px solid #f2dede;
+}
+
+.task-overdue:hover {
+    background-color: #d7c3c3;
+    border: 1px solid #d7c3c3;
 }

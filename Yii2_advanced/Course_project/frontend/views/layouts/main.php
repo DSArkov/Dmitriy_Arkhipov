@@ -1,14 +1,14 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+
+/* @var $this \yii\web\View */
+/* @var $content string */
 
 
 $this->title = "Task-tracker";
@@ -45,6 +45,7 @@ AppAsset::register($this);
             'items' => [
                 ['label' => 'Tasks', 'url' => ['/admin/tasks']],
                 ['label' => 'Rbac', 'url' => ['/admin/rbac']],
+                ['label' => 'Statistics', 'url' => ['/statistics']],
             ]
         ]) : '',
         [

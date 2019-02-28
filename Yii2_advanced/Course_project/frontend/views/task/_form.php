@@ -6,7 +6,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
 /* @var $model \common\models\tables\Tasks */
-/* @var $owner */
 /* @var $responsible */
 /* @var $status */
 ?>

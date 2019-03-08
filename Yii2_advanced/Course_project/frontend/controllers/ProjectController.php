@@ -30,7 +30,13 @@ class ProjectController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => ['index', 'project'],
                         'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['ProjectCreate'],
                     ],
                 ],
             ],
@@ -55,15 +61,10 @@ class ProjectController extends Controller
     /**
      * Метод создаёт новый проект.
      * Если успех, то происходит редирект на страницу просмотра задач в текущем проекте.
-     * @throws ForbiddenHttpException
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        if (!\Yii::$app->user->can('ProjectCreate')) {
-            throw new ForbiddenHttpException();
-        }
-
         $model = new Projects();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,12 +83,11 @@ class ProjectController extends Controller
      */
     public function actionProject($id)
     {
-        $month = \Yii::$app->request->post('month');
+        $query = Tasks::find()->where(['project_id' => $id]);
 
+        $month = \Yii::$app->request->post('month');
         if ($month) {
-            $query = Tasks::find()->where(['project_id' => $id, 'MONTH(created_at)' => $month]);
-        } else {
-            $query = Tasks::find()->where(['project_id' => $id]);
+            $query->andWhere(['MONTH(created_at)' => $month]);
         }
 
         $project = Projects::findOne(['id' => $id]);

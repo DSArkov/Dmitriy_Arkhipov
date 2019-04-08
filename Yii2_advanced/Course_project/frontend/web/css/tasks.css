@@ -1,0 +1,41 @@
+.task-buttons-row {
+    margin: 15px 0 0 0;
+}
+
+.preview-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.task-container {
+    margin: 15px;
+}
+
+.task-link {
+    display: block;
+    border-radius: 5px;
+    width: 270px;
+    height: 140px;
+    padding: 0 10px 0 10px;
+}
+
+.task-in-process {
+    background-color: #dff0d8;
+    border: 1px solid #dff0d8;
+}
+
+.task-in-process:hover {
+    background-color: #cadbc3;
+    border: 1px solid #cadbc3;
+}
+
+.task-overdue {
+    background-color: #f2dede;
+    border: 1px solid #f2dede;
+}
+
+.task-overdue:hover {
+    background-color: #d7c3c3;
+    border: 1px solid #d7c3c3;
+}

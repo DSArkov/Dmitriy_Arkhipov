@@ -1,0 +1,17 @@
+#task-chat-div {
+    height: 200px;
+    overflow: auto;
+}
+
+.task-chat-form-div {
+    height: 200px;
+    border-right: 1px solid rgba(138, 109, 108, 0.12);
+}
+
+.task-chat > h3 {
+    text-align: center;
+}
+
+.add-comment-btn {
+    margin-left: -27px;
+}
